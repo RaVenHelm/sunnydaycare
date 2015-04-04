@@ -1,0 +1,221 @@
+﻿First Slide 
+Assumptions of how we believed the DayCare would run.
+DayCare Policy
+
+
+Hours of OP
+* 6am - 6pm
+Payrate
+* $20 per hour
+* Over time = 10% per hour (Till midnight)
+* Charge by the hour
+   * 15 mins late addition hour added.
+* Child services called after midnight
+* Late Payment
+   * 20% Late payment fee
+Equipment
+* Computers
+   * Front Desk 2
+   * Office manager 1
+   * Owner 1
+   * Food prep 1
+   * Nurses Station 1
+   * Accounting 1
+   * General Play Area 1
+
+
+People that work there
+* Owner
+* OOM
+* HR 
+* Accounting
+   * Part-time
+
+
+* Secretary/Receptionist
+* Childcare provider (15)
+   * 5 children per provider
+* 1 security guard
+* Nurse
+   * Two
+* Janitor
+   * Full-Time
+
+
+Children
+* Max number 75.
+* Age Range
+   * 6 weeks to 5 years
+
+
+Data Collection
+
+
+Clients
+* State Assistance
+* First Name *
+   * 100 Characters
+* Middle Name
+   * 100 Characters
+* Last Name *
+   * 100 Characters
+* Client ID
+   * Auto Generated
+* Picture of Client ?
+* Primary Contact (Check Box)
+* Primary Bill Payer (Check Box)
+* Primary Number *
+* Secondary Number 
+* Billing Address*
+   * Street
+   * Apt/Suite/Floor
+   * City
+      * Drop down field (cities not in the field are clients we don’t take)
+      * Future proof (Cities can be added)
+   * State
+   * 5 digit Zip
+      * “Zip codes can change”
+* Mailing Address*
+   * All fields will be the same as billing address with exception of 
+      * Apt/Suite/Floor/PO Box
+* Work Address
+   * Street
+   * Apt/Suite/Floor
+   * City
+   * State
+   * 5 digit zip
+   * Where they work
+* Relationship to child*
+   * Mother/Father/Brother
+   * Neighbor
+* Sex
+   * F
+   * M
+   * Other
+* List of Children
+   * Many to many relationship
+* Religion *
+   * (No preference option)
+   * Restrictions that a parent might have because of children.
+* Active/Inactive Client
+* Alert (Check Box)
+   * Alert Comments *
+* Comments Field
+Children
+* State Assistance
+* First Name *
+   * 100 Characters
+* Middle Name
+   * 100 Characters
+* Last Name *
+   * 100 Characters
+* Child’s ID
+   * Auto Generated
+* Children
+   * M
+   * F
+   * Other
+* List of names that can pick up children (Separate Database)
+* Picture of Child
+* Check In (Separate Object)
+   * Date/Time (UTC)
+      * Store in milliseconds
+   * Check Out 
+      * Date/Time (UTC)
+         * Store in milliseconds
+* Allergies
+   * Food
+   * Medical
+   * Other?
+* Medical (Separate Object)
+   * Shots
+   * Medical Conditions
+* Food *
+   * Provided/Made
+   * Restrictions
+* Incidents
+   * Number of Incidents
+   * Severity
+   * Comment Field
+* Religion *
+   * Restrictions
+* Other Restrictions 
+* Attendance List
+* Comments
+
+
+Employee
+* Employee ID #
+* Password
+* Confirmation Password
+   * Employee Search
+      * Attendance
+      * Separate Search for Client
+      * Client’s ID
+         * Client’s Name
+         * Picture of Client
+         * Sex
+         * Religious Affiliation
+         * Billing Information
+            * Billing Statement
+            * Rates
+            * Payments
+            * Payment History
+         * Pay Rates
+         * Mailing Address
+         * Work Address
+            * Where they work
+         * State Assistance
+         * Phone Number
+            * Primary and Secondary
+         * Relationship to child
+         * Comments
+         * Alerts
+      * Separate Search for Child
+      * Child’s ID
+         * Child’s Name
+         * Picture of Child
+         * Check In/ Check out time
+         * Sex
+         * Religious Affiliation
+         * Medical Information
+            * Allergies
+            * Shots
+            * Medical Conditions
+         * Food
+            * Provided or made
+            * Restrictions
+         * Incidents
+         * Are they checked in? (Boolean)
+         * Who can pick up the child?
+         * Comments
+         * Alerts
+
+
+Events Calendar
+* Google Calendar API
+
+
+Reporting
+* Billing Module
+   * Billing Address*
+         * Street
+         * Apt/Suite/Floor
+         * City
+         * Drop down field (cities not in the field are clients we don’t take)
+         * Future proof (Cities can be added)
+         * State
+      * 5 digit Zip
+         * “Zip codes can change”
+   * Billing Statements(Separate Table)
+   * Payment History(Separate Table)
+         * Up to a full year
+* Alerts
+* Incidents
+
+
+Search Module
+* Only Employees should be able to use this module
+   * Search for all (or specific) Client Info
+      * Search by name, 
+   * Search for all (or specific) Child Info

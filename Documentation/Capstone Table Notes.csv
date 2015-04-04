@@ -1,0 +1,5 @@
+,Complaint_ID,Type,Date/Time,Description,Complainer,Against,Severity
+Keys,PK,FK,,,FK,FK,
+Type,ID/Auto,String,Date/Time,Text,String,String,INT
+Values,Alpha Num. 9 Characters,Alpha,UTC,Alpha Num. 4000 Characters,Alpha Num. 4000 Characters,Alpha Num.,One - Ten 2 Int.
+Samples,"""COM_00001""","""Biting""",UTC,"""John bit Sally at the playground.""","""-CUS_00001 -EMP_00001 -CHILD_00001""","""-CUS_00001 -EMP_00001 -CHILD_00001""",5
