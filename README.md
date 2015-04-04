@@ -1,4 +1,4 @@
 # sunnydaycare
-Capstone Dev Project\n 
-Team Name: InsertWittyNameHere\n
-Project Name: Sunny Day Care\n
+Capstone Dev Project<br>
+Team Name: InsertWittyNameHere<br>
+Project Name: Sunny Day Care<br>
