@@ -7,9 +7,12 @@ $(document).ready(function (){
 		.done(function(data) {
 			alert("Success!");
 			console.log(data);
+			$("#photoResult").html(data.photos.photo[1]);
 		})
 		.fail(function(data){
 			alert("Failure!");
 			console.log(data);
 		});
+		
+	
 });
