@@ -7,7 +7,7 @@ $(document).ready(function (){
 		.done(function(data) {
 			alert("Success!");
 			console.log(data);
-			$("#photoResult").html(data.photos.photo[1]);
+			$("#photoResult").html(data.photos.photo[1].title);
 		})
 		.fail(function(data){
 			alert("Failure!");
