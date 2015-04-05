@@ -1,5 +1,5 @@
-/* WARNING!!!
- * Ty: Haven't tested this code yet
+/* 
+ * Simple use of an AJAX JQuery Call
  * Flickr API Key: a6df65ab22ae2539575ab0427c4393d8
  */
 $(document).ready(function (){
