@@ -1,5 +1,6 @@
 <?php include('Temp.php'); ?>
 <?php 
+	//TODO: Set up server 
 
 	//Get and sanitize input from a HTTP POST request
 	//This request will most likely come from a $.ajax() JQuery call
