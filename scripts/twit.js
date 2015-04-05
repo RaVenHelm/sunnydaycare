@@ -1,4 +1,4 @@
-/* UNSTABLE: Hasn't properly tested yet
+/* UNSTABLE: Hasn't been properly tested yet
  * Simple use of an AJAX JQuery Call
  * Flickr API Key: a6df65ab22ae2539575ab0427c4393d8
  */
