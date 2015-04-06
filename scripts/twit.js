@@ -15,7 +15,6 @@ $(document).ready(function (){
 		.fail(function(data){
 			console.log("Failure!");
 			console.log(data);
+			$("#photoResult").html("Could not connect to Flickr");
 		});
-		
-	
 });

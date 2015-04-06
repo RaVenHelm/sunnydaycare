@@ -1,7 +1,7 @@
 <?php include('Temp.php'); ?>
 <?php 
 	//TODO: Set up server 
-
+	echo 'Hello?';
 	//Get and sanitize input from a HTTP POST request
 	//This request will most likely come from a $.ajax() JQuery call
 	//TODO: Create it as a web service?
