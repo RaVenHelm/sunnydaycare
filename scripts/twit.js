@@ -19,13 +19,3 @@ $(document).ready(function (){
 		
 	
 });
-
-
-/* function getTitles(photos){
-	var result = [];
-	for (var i = 0; i < photos.length; i++){
-		result[i] = photos[i];
-	}
-	
-	return result;
-} */
