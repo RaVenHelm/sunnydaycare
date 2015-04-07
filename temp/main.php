@@ -15,7 +15,7 @@
 	$client->set_name($input_sanitize);
 	
 	//Double check if the name is not set
-	if(is_set($client->get_name())){
+	if($client->get_name()){
 		$name = $client->get_name();
 		echo $name;
 	}
