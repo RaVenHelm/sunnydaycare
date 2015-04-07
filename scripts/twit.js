@@ -7,6 +7,10 @@ $(document).ready(function (){
 		var urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a6df65ab22ae2539575ab0427c4393d8&";
 		urlString += "&tags=" + $("#searchText").val();
 		urlString += "&format=json&nojsoncallback=1";
+		
+		//Clear the photoresult div
+		$("#titles").html("");
+		
 		$.ajax(urlString)
 			.done(function(data) {
 				console.log("Success!");
