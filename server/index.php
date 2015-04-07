@@ -2,6 +2,8 @@
     try{
         require_once('dbconnect.php'); 
         $query = "SELECT * FROM users;";
+		$result = $connection->query($query);
+		
     } catch (Exception $ex){
         $error = $ex->getMessage();
     }
@@ -30,7 +32,7 @@
                 <th>User ID</th>
                 <th>User Name</th>
 		    </tr>
-		    <?php foreach($connection->query($query) as $row){ ?>
+		    <?php while($row = $result->fetch()){ ?>
 		    <tr>
 		        <td><?php echo $row['id']; ?></td>
 		        <td><?php echo $row['username']; ?></td>
