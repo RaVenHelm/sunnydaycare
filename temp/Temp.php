@@ -5,16 +5,16 @@
 	//Uncomment line below to get phpinfo page
 	/* phpinfo();*/
 	
-	class Client()
+	class Client
 	{
 		//Initialize to empty string 
 		private $name = '';
 		
-		public get_name(){
+		public function get_name(){
 			return $this->name;
 		}
 		
-		public set_name($in){
+		public function set_name($in){
 			if(!is_string($in)){
 				echo 'Input is not a string';
 				return false;
