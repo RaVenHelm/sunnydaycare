@@ -27,7 +27,7 @@
 		//Make sure the last 4 digits are numeric
 		//Only 4 digits allowed for num
 		//Cannot be zero
-		if(!is_numeric(substr($_GET["client_id"], -4)) || strlen($idSplit[1]) != 4 || $clientInt == 0){
+		if(!is_numeric(substr($_GET["client_id"], -4)) || strlen($idSplit[1]) != 4 || $idSplit[0] ==  "" ||$clientInt == 0){
 		    echo 'Not a valid client ID';
 		    return;
 		}
