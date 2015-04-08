@@ -9,8 +9,6 @@
      * port: 3306
      */
      
-     echo "<h1>Hello World</h1>";
-     
      $username = "ravenhelm";
      $pass = "";
      

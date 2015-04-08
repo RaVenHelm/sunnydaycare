@@ -5,7 +5,6 @@
     if(!isset($_GET["client_id"])){
         echo "Client id is not set";
     } else {
-		$result = "{ClientId:" . $_GET["client_id"];
 		$clientName = '';
 		$clientInt = 0;
 		
@@ -43,8 +42,7 @@
 		    $clientName = 'Sure';
 		}
 
-		echo $clientInt . "<br>";
-		$result .= ", Name:" . $clientName . "}";
+		$result = array("ClientID"=>$_GET["client_id"], "Name"=>$clientName);
         echo json_encode($result, JSON_PRETTY_PRINT);    
     }
 ?>

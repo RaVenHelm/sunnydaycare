@@ -39,7 +39,28 @@
 		    </tr>
 		    <?php } ?>
 		</table>
-		
+		<input type="text" id="userAdd" placeholder="Add user name"/>
+		<input type="submit" name="submit" id="submit" value="Submit"/>
+		<div id="result"></div>
 	</body>
+	<script>
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				$.ajax({
+					type: "POST",
+					url: "add_user.php",
+					data: "username=" + $("#userAdd").val(),
+					success: function(data){
+						$("#result").html(data);
+						console.log(data);
+					},
+					error: function(error, textStatus){
+						$("#result").html(textStatus + ": " + error);
+						console.log("Error");
+					}
+				});
+			});
+		});
+	</script>
 
 </html>
