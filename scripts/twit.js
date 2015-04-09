@@ -17,8 +17,11 @@ $(document).ready(function (){
 				console.log(data);
 				//$("#photoResult").html(data.photos.photo[1].title);
 				
+				
 				for(var i = 0; i < data.photos.photo.length; i++){
-					$("#titles").append("<li>" + data.photos.photo[i].title + "</li>");
+					var photo = data.photos.photo[i];
+					//getFlickrJpg(photo.farm, photo.server, photo.id, photo.secret)
+					$("#titles").append("<li>" + photo.title + "<br /><img src='" + getFlickrJpg(photo.farm, photo.server, photo.id, photo.secret) + "' alt='" + photo.title + "'/></li>");
 				} 
 			})
 			.fail(function(data){
@@ -28,3 +31,16 @@ $(document).ready(function (){
 			});
 	});
 });
+
+function getFlickrJpg(farmID, server, photoID, secret){
+	//Template https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+	var url = "https://farm" + farmID + ".staticflickr.com/" + server + "/" + photoID + "_" + secret + ".jpg";
+	// console.log(url);
+	// var ajax = $.ajax(url);
+	// //console.log(ajax);
+	// var response = ajax.resoponseText;
+	// if(response !== null){
+	// 	console.log(atob(response));
+	// }
+	return url;
+}
