@@ -45,4 +45,5 @@
 		$result = array("ClientID"=>$_GET["client_id"], "Name"=>$clientName);
         echo json_encode($result, JSON_PRETTY_PRINT);    
     }
+    
 ?>

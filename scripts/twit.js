@@ -20,8 +20,9 @@ $(document).ready(function (){
 				
 				for(var i = 0; i < data.photos.photo.length; i++){
 					var photo = data.photos.photo[i];
+					var title = (photo.title != null) ? photo.title : "No title";
 					//getFlickrJpg(photo.farm, photo.server, photo.id, photo.secret)
-					$("#titles").append("<li>" + photo.title + "<br /><img src='" + getFlickrJpg(photo.farm, photo.server, photo.id, photo.secret) + "' alt='" + photo.title + "'/></li>");
+					$("#titles").append("<li>" + title + "<br /><img src='" + getFlickrJpg(photo.farm, photo.server, photo.id, photo.secret) + "' alt='" + photo.title + "'/></li>");
 				} 
 			})
 			.fail(function(data){
