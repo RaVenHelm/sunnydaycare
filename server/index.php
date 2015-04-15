@@ -1,7 +1,9 @@
 <?php 
+	//Place in API?
+	//Convert into HTML, and use AJAX calls
     try{
-        require_once('dbconnect.php'); 
-        $query = "SELECT * FROM users;";
+        require_once('db/dbconnect.php'); 
+        $query = "SELECT * FROM users ORDER BY id;";
 		$result = $connection->query($query);
 		
     } catch (Exception $ex){

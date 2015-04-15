@@ -1,4 +1,5 @@
 <?php include("Temp.php"); ?>
+<?php include("server/Request.php"); ?>
 <?php 
 	//TODO: Set up server and test code
 	echo 'Hello?';
@@ -23,4 +24,7 @@
 		$name = NULL;
 		echo 'Client\'s name not set';
 	}
+	
+	$params = ["object" => "orange", "id"=>"104c5d88"];
+	$req = new Request('get', $params);
 ?>

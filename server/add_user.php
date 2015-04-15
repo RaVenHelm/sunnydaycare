@@ -1,6 +1,7 @@
-<?php 
+<?php
+	//Should go into API folder
 	try{
-		include('dbconnect.php');
+		include('db/dbconnect.php');
 		$result = $connection->query("SELECT COUNT(id) FROM users");
 		$idnum = $result->fetch();
 	} catch (Exception $ex){
@@ -14,12 +15,19 @@
 		echo "Username not defined";
 	} else{
 		try{
-			$stmt = "INSERT (id,username)INTO users VALUES (" . ++$idnum[0] . "," . $_POST["username"] . ")";
+			$stmt = 'INSERT INTO users (id, username) VALUES (NULL,"'  . $_POST["username"] . '")';
 			$result = $connection->exec($stmt);
+			
+			if($result !== 0){
+				$json = array("id"=>($connection->lastInsertId()), "username"=>$_POST["username"]);
+				echo json_encode($json, JSON_PRETTY_PRINT);
+			} else {
+				echo "MySQL Error: " . $connection->error_get_last();
+			}
+		
 		} catch (Exception $ex){
 			echo $ex->getMessage();
 		}
-		$json = array("id"=>$idnum[0], "username"=>$_POST["username"]);
-		echo json_encode($json, JSON_PRETTY_PRINT);
 	}
+
 ?>
