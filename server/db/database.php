@@ -1,5 +1,5 @@
 <?php
-    include('objects/Error.php');
+    //include('objects/Error.php');
     
     class database
     {
@@ -23,7 +23,7 @@
         public function select($sql){
             try{
                 //TODO: Validate if it is SELECT
-                return $connection->query($sql);
+                return $this->connection->query($sql);
             } catch (Exception $ex){
                 $this->error = new Error($ex);
             }
@@ -45,5 +45,5 @@
         
     }
     
-    $database = new database();
+    //$database = new database();
 ?>

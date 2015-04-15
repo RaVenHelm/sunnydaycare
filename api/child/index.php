@@ -5,6 +5,5 @@
     }
     
     $rates = get_all('RATE');
-    
-    print_r($rates);
-?>
+    ?>
+    <pre><?php print_r($rates[0]["rate"]); ?></pre>

@@ -1,8 +1,8 @@
 <?php 
-        include('../db/database.php');
-        include('../objects/Error.php');
+        require('../../server/db/database.php');
+        include('../../server/objects/Error.php');
         
-        $sql = 'SELECT * FROM';
+        
         /*
          * Method for getting all a type of object in the database
          * Takes in a string of the type of object to retrieve
@@ -13,6 +13,9 @@
         function get_all($type){
             $type = strtolower($type);
             $all = [];
+			
+			$sql = 'SELECT * FROM ';
+			$database = new database();
             
             switch($type){
                 case 'child':
@@ -37,7 +40,7 @@
                     $sql .= 'rate;';
                     break;
                 default:
-                    throw new Error("Invalid Table Name");
+                    //throw new Error("Invalid Table Name");
                     break;
             }
             
