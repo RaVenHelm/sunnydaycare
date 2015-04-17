@@ -6,4 +6,4 @@
     
     $rates = get_all('RATE');
     ?>
-    <pre><?php print_r($rates[0]["rate"]); ?></pre>
+    <pre><?php print_r($rates[0]["type"]); ?></pre>

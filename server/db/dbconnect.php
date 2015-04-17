@@ -9,18 +9,18 @@
      * port: 3306
      */
      
-     require_once('config/config.php');
-     include('./server/objects/Error.php');     
+     //require_once('config/config.php');
+     //include('../server/objects/Error.php');     
      
      //MySQL DSN
-     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+     $dsn = 'mysql:host=' . 'localhost' . ';dbname=' . 'sunnydaycare';
      
      //Using PDO here for more portability
      //Make sure DB is set-up before calling this method
      //If running from C9
      //$connection = new pdo('mysql:host=hostname;dbname=dbname',$username, $pass);
      try{
-		$connection = new pdo($dsn,DB_USER);
+		$connection = new pdo($dsn,'ravenhelm', '');
 		echo 'Success!';
 	 } catch (Exception $ex) {
          $error = new Error($ex);
