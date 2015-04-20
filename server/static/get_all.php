@@ -40,7 +40,7 @@
                     $sql .= 'rate;';
                     break;
                 default:
-                    //throw new Error("Invalid Table Name");
+                    throw new Error("Invalid Table Name");
                     break;
             }
             
