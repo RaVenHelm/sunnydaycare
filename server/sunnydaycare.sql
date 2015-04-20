@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2015 at 01:26 PM
+-- Generation Time: Apr 20, 2015 at 10:40 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -38,32 +38,15 @@ CREATE TABLE IF NOT EXISTS `address` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alert`
---
-
-CREATE TABLE IF NOT EXISTS `alert` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(45) NOT NULL,
-  `descrip` text,
-  `Client_id` int(10) unsigned DEFAULT NULL,
-  `Child_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Alert_Client1_idx` (`Client_id`),
-  KEY `fk_Alert_Child1_idx` (`Child_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `allergy`
 --
 
 CREATE TABLE IF NOT EXISTS `allergy` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
-  `Child_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`,`Child_id`),
-  KEY `fk_Allergies_Child1_idx` (`Child_id`)
+  `Medical_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`,`Medical_id`),
+  KEY `fk_Allergy_Medical1_idx` (`Medical_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -95,9 +78,11 @@ CREATE TABLE IF NOT EXISTS `charge` (
   `amount` float unsigned NOT NULL,
   `Billing_id` int(10) unsigned NOT NULL,
   `Rate_type` varchar(45) NOT NULL DEFAULT '',
-  PRIMARY KEY (`type`,`Billing_id`,`Rate_type`),
+  `Log_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`type`,`Billing_id`,`Rate_type`,`Log_id`),
   KEY `fk_Charge_Billing1_idx` (`Billing_id`),
-  KEY `fk_Charge_Rate1_idx` (`Rate_type`)
+  KEY `fk_Charge_Rate1_idx` (`Rate_type`),
+  KEY `fk_Charge_Log1_idx` (`Log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -114,22 +99,42 @@ CREATE TABLE IF NOT EXISTS `child` (
   `comments` text,
   `stateassistance` tinyint(1) NOT NULL,
   `isactive` tinyint(1) NOT NULL,
-  `Client_id` int(10) unsigned NOT NULL,
-  `Demographics_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`,`Client_id`,`Demographics_id`),
-  KEY `fk_Child_Client_idx` (`Client_id`),
-  KEY `fk_Child_Demographics1_idx` (`Demographics_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
+  `lastname` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `child`
+-- Table structure for table `child alert`
 --
 
-INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `Client_id`, `Demographics_id`) VALUES
-(1, 'M', NULL, 0, NULL, 0, 1, 1, 5),
-(2, 'F', NULL, 0, NULL, 0, 1, 1, 6),
-(3, 'F', NULL, 0, NULL, 0, 1, 4, 7),
-(4, 'M', NULL, 1, NULL, 1, 1, 4, 8);
+CREATE TABLE IF NOT EXISTS `child alert` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) NOT NULL,
+  `descrip` text,
+  `Child_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Child_id`),
+  KEY `fk_Child Alert_Child1_idx` (`Child_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `child incident`
+--
+
+CREATE TABLE IF NOT EXISTS `child incident` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  `descrip` text,
+  `date` date NOT NULL,
+  `Child_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Child_id`),
+  KEY `fk_Child Incident_Child1_idx` (`Child_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -148,48 +153,65 @@ CREATE TABLE IF NOT EXISTS `client` (
   `isactive` tinyint(1) NOT NULL,
   `relationship` varchar(15) NOT NULL,
   `stateassistance` tinyint(1) NOT NULL,
-  `Demographics_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`,`Demographics_id`),
-  KEY `fk_Client_Demographics1_idx` (`Demographics_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
+  `lastname` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, `primaryphone`, `secondaryphone`, `isactive`, `relationship`, `stateassistance`, `Demographics_id`) VALUES
-(1, 'F', NULL, 1, 1, '5550001010', '3335551111', 1, 'Mother', 0, 1),
-(2, 'M', NULL, 0, 0, '5550001010', '3335551111', 1, 'Father', 0, 3),
-(3, 'M', NULL, 0, 0, '5550001010', '3335551111', 1, 'Grandfather', 0, 2),
-(4, 'F', NULL, 0, 0, '5550001010', '3335551111', 1, 'Grandmother', 0, 4);
+INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, `primaryphone`, `secondaryphone`, `isactive`, `relationship`, `stateassistance`, `firstname`, `middlename`, `lastname`) VALUES
+(1, 'M', NULL, 0, 0, '5550001010', '3335551111', 1, 'Father', 0, 'Jason', NULL, 'Smith'),
+(2, 'M', NULL, 0, 0, '1110000000', '', 1, 'Grandpa', 0, 'Bob', NULL, 'Smith'),
+(3, 'F', NULL, 1, 1, '5550001010', '3335551111', 1, 'Mother', 0, 'Mary', 'Lou', 'Smith');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `demographics`
+-- Table structure for table `client alert`
 --
 
-CREATE TABLE IF NOT EXISTS `demographics` (
+CREATE TABLE IF NOT EXISTS `client alert` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) DEFAULT NULL,
-  `lastname` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `type` varchar(45) NOT NULL,
+  `descrip` text,
+  `Client_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Client_id`),
+  KEY `fk_Alert_Client1_idx` (`Client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `demographics`
+-- Table structure for table `client incident`
 --
 
-INSERT INTO `demographics` (`id`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'Mary', 'Lou', 'Smith'),
-(2, 'Bob', NULL, 'Smith'),
-(3, 'Jason', 'Reed', 'Smith'),
-(4, 'Gwendolyn', NULL, 'Windsor-Smith'),
-(5, 'Jimmy', 'Mack', 'Smith'),
-(6, 'Sally', 'Field', 'Smith'),
-(7, 'Anne', NULL, 'Hathaway'),
-(8, 'Billy', 'Bob', 'Thorton');
+CREATE TABLE IF NOT EXISTS `client incident` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  `descrip` text,
+  `date` date NOT NULL,
+  `Client_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Client_id`),
+  KEY `fk_Client Incident_Client1_idx` (`Client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_has_child`
+--
+
+CREATE TABLE IF NOT EXISTS `client_has_child` (
+  `Client_id` int(10) unsigned NOT NULL,
+  `Child_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`Client_id`,`Child_id`),
+  KEY `fk_Client_has_Child_Child1_idx` (`Child_id`),
+  KEY `fk_Client_has_Child_Client1_idx` (`Client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -201,31 +223,46 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password_hash` varchar(200) NOT NULL,
-  `password_salt` varchar(200) NOT NULL,
-  `Demographics_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`,`Demographics_id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `fk_Employee_Demographics1_idx` (`Demographics_id`)
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `permissions` int(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `incident`
+-- Table structure for table `employee incident`
 --
 
-CREATE TABLE IF NOT EXISTS `incident` (
+CREATE TABLE IF NOT EXISTS `employee incident` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
   `descrip` text,
   `date` date NOT NULL,
-  `Child_id` int(10) unsigned DEFAULT NULL,
-  `Client_id` int(10) unsigned DEFAULT NULL,
-  `Employee_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Incident_Child1_idx` (`Child_id`),
-  KEY `fk_Incident_Client1_idx` (`Client_id`),
+  `Employee_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Employee_id`),
   KEY `fk_Incident_Employee1_idx` (`Employee_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Day` date NOT NULL,
+  `CheckIn` time DEFAULT NULL,
+  `CheckOut` time DEFAULT NULL,
+  `Child_id` int(10) unsigned NOT NULL,
+  `Client_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Child_id`,`Client_id`),
+  KEY `fk_Log_Child1_idx` (`Child_id`),
+  KEY `fk_Log_Client1_idx` (`Client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -279,17 +316,10 @@ ALTER TABLE `address`
   ADD CONSTRAINT `fk_Address_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `alert`
---
-ALTER TABLE `alert`
-  ADD CONSTRAINT `fk_Alert_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Alert_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Constraints for table `allergy`
 --
 ALTER TABLE `allergy`
-  ADD CONSTRAINT `fk_Allergies_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Allergy_Medical1` FOREIGN KEY (`Medical_id`) REFERENCES `medical` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `billing`
@@ -302,34 +332,52 @@ ALTER TABLE `billing`
 --
 ALTER TABLE `charge`
   ADD CONSTRAINT `fk_Charge_Billing1` FOREIGN KEY (`Billing_id`) REFERENCES `billing` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Charge_Rate1` FOREIGN KEY (`Rate_type`) REFERENCES `rate` (`type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Charge_Rate1` FOREIGN KEY (`Rate_type`) REFERENCES `rate` (`type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Charge_Log1` FOREIGN KEY (`Log_id`) REFERENCES `log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `child`
+-- Constraints for table `child alert`
 --
-ALTER TABLE `child`
-  ADD CONSTRAINT `fk_Child_Client` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Child_Demographics1` FOREIGN KEY (`Demographics_id`) REFERENCES `demographics` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `child alert`
+  ADD CONSTRAINT `fk_Child Alert_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `client`
+-- Constraints for table `child incident`
 --
-ALTER TABLE `client`
-  ADD CONSTRAINT `fk_Client_Demographics1` FOREIGN KEY (`Demographics_id`) REFERENCES `demographics` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `child incident`
+  ADD CONSTRAINT `fk_Child Incident_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `employee`
+-- Constraints for table `client alert`
 --
-ALTER TABLE `employee`
-  ADD CONSTRAINT `fk_Employee_Demographics1` FOREIGN KEY (`Demographics_id`) REFERENCES `demographics` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `client alert`
+  ADD CONSTRAINT `fk_Alert_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `incident`
+-- Constraints for table `client incident`
 --
-ALTER TABLE `incident`
-  ADD CONSTRAINT `fk_Incident_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Incident_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ALTER TABLE `client incident`
+  ADD CONSTRAINT `fk_Client Incident_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `client_has_child`
+--
+ALTER TABLE `client_has_child`
+  ADD CONSTRAINT `fk_Client_has_Child_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Client_has_Child_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `employee incident`
+--
+ALTER TABLE `employee incident`
   ADD CONSTRAINT `fk_Incident_Employee1` FOREIGN KEY (`Employee_id`) REFERENCES `employee` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `log`
+--
+ALTER TABLE `log`
+  ADD CONSTRAINT `fk_Log_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Log_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `medical`
