@@ -10,7 +10,7 @@
      */
      
      //require_once('config/config.php');
-     //include('../server/objects/Error.php');     
+     //include('../../server/objects/Error.php');     
      
      //MySQL DSN
      $dsn = 'mysql:host=' . 'localhost' . ';dbname=' . 'sunnydaycare';
@@ -23,7 +23,8 @@
 		$connection = new pdo($dsn,'ravenhelm', '');
 		echo 'Success!';
 	 } catch (Exception $ex) {
-         $error = new Error($ex);
+         //$error = new Error($ex);
+		 echo $ex->getMessage();
      }
      //Else
      //$connection = new pdo('mysql:host=localhost;dbname=sample_db',$username, $pass);
