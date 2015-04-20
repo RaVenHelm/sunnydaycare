@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2015 at 10:40 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: Apr 20, 2015 at 09:21 PM
+-- Server version: 5.5.40-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,14 @@ CREATE TABLE IF NOT EXISTS `address` (
   `Client_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Client_id`),
   KEY `fk_Address_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`id`, `type`, `address`, `Client_id`) VALUES
+(1, 'Billing', '123 Main Street Disneyland, CA 10001', 3);
 
 -- --------------------------------------------------------
 
@@ -103,7 +110,17 @@ CREATE TABLE IF NOT EXISTS `child` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `child`
+--
+
+INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
+(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(2, 'F', '/pics/child/sally_smith042015.jpg', 1, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
+(3, 'F', NULL, 1, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
+(4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson');
 
 -- --------------------------------------------------------
 
@@ -157,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `client`
@@ -166,7 +183,8 @@ CREATE TABLE IF NOT EXISTS `client` (
 INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, `primaryphone`, `secondaryphone`, `isactive`, `relationship`, `stateassistance`, `firstname`, `middlename`, `lastname`) VALUES
 (1, 'M', NULL, 0, 0, '5550001010', '3335551111', 1, 'Father', 0, 'Jason', NULL, 'Smith'),
 (2, 'M', NULL, 0, 0, '1110000000', '', 1, 'Grandpa', 0, 'Bob', NULL, 'Smith'),
-(3, 'F', NULL, 1, 1, '5550001010', '3335551111', 1, 'Mother', 0, 'Mary', 'Lou', 'Smith');
+(3, 'F', NULL, 1, 1, '5550001010', '3335551111', 1, 'Mother', 0, 'Mary', 'Lou', 'Smith'),
+(4, 'M', NULL, 1, 1, '2225554444', NULL, 1, 'Uncle', 1, 'Bob', 'Gene', 'Wilder');
 
 -- --------------------------------------------------------
 
@@ -212,6 +230,15 @@ CREATE TABLE IF NOT EXISTS `client_has_child` (
   KEY `fk_Client_has_Child_Child1_idx` (`Child_id`),
   KEY `fk_Client_has_Child_Client1_idx` (`Client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `client_has_child`
+--
+
+INSERT INTO `client_has_child` (`Client_id`, `Child_id`) VALUES
+(3, 1),
+(3, 2),
+(4, 3);
 
 -- --------------------------------------------------------
 
