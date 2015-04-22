@@ -22,7 +22,6 @@
          */
         public function select($sql){
             try{
-                //TODO: Validate if it is SELECT
                 return $this->connection->query($sql);
             } catch (Exception $ex){
                 $this->error = new Error($ex);
@@ -40,6 +39,14 @@
                 return $connection->exec($sql);
             } catch (Exception $ex){
                 $this->error = new Error($ex);
+            }
+        }
+        
+        public function prepare($sql){
+            try{
+                return $this->connection->prepare($sql);
+            } catch (Exception $ex){
+                echo $ex->getMessage();
             }
         }
         

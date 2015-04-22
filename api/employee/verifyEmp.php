@@ -1,10 +1,10 @@
 <?php 
 	include('../../server/db/database.php');
 
-	$db = new Database();
+	//$db = new Database();
 	
 	$sql = 'SELECT password_hash FROM employee WHERE id=1';
-	$result = $db->select($sql);
+	$result = $database->select($sql);
 
 	$true_hash = $result->fetch();
 	//print_r($true_hash);
