@@ -12,20 +12,12 @@
 	<body>
 		<div>
 			<h1>Welcome!</h1>
-			<a href="service.html">Client Service</a>
 		</div>
 		<div id="hello">
-			
-		</div>
-		<div id="phpinfo">
-			<a href="temp/info.php">phpinfo</a>
 		</div>
 		
-		<input type="text" id="searchText" name="search" placeholder="Flickr Photo Tag" />
-		<button type="submit" id="photoSubmit">Submit</button>
-		
-		<div id="photoResult">
-			<ul id="titles">
+		<div id="serviceResult">
+			<ul id="children">
 			</ul>
 		</div>
 	</body>
@@ -36,6 +28,5 @@
 		var elem = document.getElementById("hello");
 		elem.innerHTML = hello + " Webpage!";
 	</script>
-	<script src="scripts/twit.js"></script>
-
+	<script src="public/scripts/getchildren.js"></script>
 </html>

@@ -11,7 +11,7 @@
                 include('dbconnect.php');
                 $this->connection = $connection;
             } catch (Exception $ex){
-                $this->$error = new Error($ex);
+                //$this->$error = new Error($ex);
             }
         }
         
@@ -45,5 +45,5 @@
         
     }
     
-    //$database = new database();
+    $database = new database();
 ?>

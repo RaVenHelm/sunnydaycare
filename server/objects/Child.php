@@ -29,5 +29,5 @@
         }
     }
     
-    $child = new Child();
+    //$child = new Child();
 ?>
