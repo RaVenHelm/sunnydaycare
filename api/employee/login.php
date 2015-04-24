@@ -4,7 +4,7 @@
     
     session_start();
 
-    if(isset($_COOKIE["msg"])) echo $_COOKIE["msg"];
+    echo $_SESSION["name"];
     
     if(isset($_POST["username"]) && isset($_POST["password"])){
     	
@@ -22,7 +22,7 @@
     	    
     	    redirect_to("employee.php");
     	} else {
-    	    $_COOKIE["msg"] = "Invalid username or password!";
+    	    echo "Invalid username or password!";
     	    redirect_to("../../login.html");
     	}
     } else {

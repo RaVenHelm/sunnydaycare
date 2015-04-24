@@ -8,6 +8,6 @@
     define("DB_USER", "ravenhelm");
     
     //On C9, you don't need this, otherwise you do
-    define(DB_PASS, "");
+    define("DB_PASS", "");
     
 ?>

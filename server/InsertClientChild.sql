@@ -1,0 +1,1 @@
+INSERT INTO `client_has_child` VALUES ((SELECT id FROM `client` WHERE firstname = 'Bob' AND lastname = 'Smith'),(SELECT id FROM `child` WHERE firstname = 'Sally' AND lastname = 'Smith'));

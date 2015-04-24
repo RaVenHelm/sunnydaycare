@@ -35,7 +35,7 @@
 		
 		<ul>
 			<li><a href="client/register.php">Register a new client</a></li>
-			<li><a href="child/register.php">REgister a new child</a></li>
+			<li><a href="child/register.php">Register a new child</a></li>
 		    <li><a href="child/checkinpage.php">CheckIn/CheckOut A Child</a></li>
 		    <li><a href="child/lookup.php">Child Lookup</a></li>
 		    <li><a href="client/lookup.php">Client Lookup</a></li>

@@ -1,5 +1,5 @@
 <?php 
-    include("../../../server/functions.php");
+	include("../../../server/functions.php");
     
     session_start();
     
@@ -7,8 +7,7 @@
         redirect_to('../../../login.html'); 
     } else {
 ?>
-
-<!DOCTYPE html>
+	<!DOCTYPE html>
 
 <html>
 
@@ -22,7 +21,7 @@
 
 	<body>
 		<div>
-			<h1>Check In/Check Out Page</h1>
+			<h1>Register a new Child</h1>
 		</div>
 		
 		<div id="username">
@@ -30,17 +29,21 @@
 		    <form method="get" action="../logout.php">
 		        <input type="submit" value="Logout"/>
 		    </form>
+			<a href="/sunnydaycare/api/employee/employee.php">Employee Page</a>
 		</div>
 		
 		<div class="search">
 		    <input type="text" name="firstname" id="child_firstname" placeholder="First Name" />
 		    <input type="text" name="lastname" id="child_lastname" placeholder="Last Name" />
+		    <label for="isDetailed">Detailed?</label>
+		    <input type="checkbox" id="isDetailed" />
 		    <input type="submit" id="submit" value="Search" />
 		</div>
 		<div class="result"></div>
+		<div id="serviceResult"></div>
 	    
 	</body>
-	<script src="/sunnydaycare/public/scripts/getchildcheckout.js"></script>
+	<script src="/sunnydaycare/public/scripts/registerchild.js"></script>
+	<script src="/sunnydaycare/public/scripts/getactiveclients.js"></script>
 </html>
-
 <?php } ?>

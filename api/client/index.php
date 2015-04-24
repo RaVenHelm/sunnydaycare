@@ -3,13 +3,13 @@
         include('../../server/db/database.php');
         //echo "Success!";
         $result = $database->select("SELECT firstname, middlename, lastname FROM client WHERE isactive = TRUE;");
-        $children = '<ul class="clients">';
+        $clients = '<select class="clients"><option value="">Select a client name</option>';
         while($row  = $result->fetch(PDO::FETCH_ASSOC)){
-            $name = "<li>" . $row["firstname"] . " " . $row["middlename"]  . " " . $row["lastname"] . "</li>";
-            $children .= $name;
+            $name = "<option value =\"" . $row["firstname"] . " " . $row["lastname"] ."\">" . $row["firstname"] . " " . $row["middlename"]  . " " . $row["lastname"] . "</option>";
+            $clients .= $name;
         }
-        $children .= "</ul>";
-        echo $children;
+        $clients .= "</select>";
+        echo $clients;
     } catch (Exception $ex){
         echo $ex->getMessage();
     }

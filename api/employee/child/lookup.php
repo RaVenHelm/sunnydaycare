@@ -1,5 +1,5 @@
 <?php 
-    include("../../server/functions.php");
+    include("../../../server/functions.php");
     
     session_start();
     
@@ -42,7 +42,7 @@
 		<div class="result"></div>
 	    
 	</body>
-	<script src="/public/scripts/getchild.js"></script>
+	<script src="/sunnydaycare/public/scripts/getchild.js"></script>
 </html>
 
 <?php } ?>

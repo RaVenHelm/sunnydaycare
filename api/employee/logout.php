@@ -4,6 +4,9 @@
         redirect_to("../../login.html");
     } else {
         unset($_SESSION);
+		foreach ($_SESSION as $sessVar){
+			unset($sessVar);
+		}
         redirect_to("../../login.html");
     }
 ?>
