@@ -4,7 +4,7 @@
     session_start();
     
     if(!isset($_SESSION["user_id"])) {
-        redirect_to('../../../login.html'); 
+        redirect_to('../../login.html'); 
     } else {
         //echo "You're in!";
 ?>
@@ -33,12 +33,12 @@
 		    </form>
 		</div>
 		
-		<?php //print_r($_SESSION); ?>
-		
 		<ul>
+			<li><a href="client/register.php">Register a new client</a></li>
+			<li><a href="child/register.php">REgister a new child</a></li>
 		    <li><a href="child/checkinpage.php">CheckIn/CheckOut A Child</a></li>
 		    <li><a href="child/lookup.php">Child Lookup</a></li>
-		    <li><a href="#">Client Lookup</a></li>
+		    <li><a href="client/lookup.php">Client Lookup</a></li>
 		    <li><a href="#">Events Calendar</a></li>
 		    <li><a href="#">Incidents</a></li>
 		    <li><a href="#">Billing</a></li>

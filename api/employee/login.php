@@ -23,7 +23,7 @@
     	    redirect_to("employee.php");
     	} else {
     	    $_COOKIE["msg"] = "Invalid username or password!";
-    	    redirect_to("../../../login.html");
+    	    redirect_to("../../login.html");
     	}
     } else {
         echo "Username or password was not given.";
