@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2015 at 09:21 PM
+-- Generation Time: Apr 24, 2015 at 07:01 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -237,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `client_has_child` (
 
 INSERT INTO `client_has_child` (`Client_id`, `Child_id`) VALUES
 (3, 1),
+(1, 2),
 (3, 2),
 (4, 3);
 
@@ -256,7 +257,16 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `permissions` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`id`, `username`, `password_hash`, `firstname`, `middlename`, `lastname`, `permissions`) VALUES
+(1, 'joegordon', '$2y$10$P1fQB9uAviIYp/RWHWUYwe4ZQYmG16q.yj07hVYtMeZa1ho2HW70O', 'Joesph', NULL, 'Gordon-Levitt', 1),
+(2, 'scarjo101', '$2y$10$OFtOOIknt.tEYrOOQt7VGuXH2A/NnUlf2OGVr41HBe8ILADMqTvKa', 'Scarlett', NULL, 'Johansson', 1),
+(3, 'tenders0302', '$2y$10$A4qc5GncCYCTfFpWuRarT.NbHWjDoXYuwNBzv8kPUfZAeC0ZvTr5S', 'Tyberius', 'Caine', 'Enders', 4);
 
 -- --------------------------------------------------------
 
@@ -301,6 +311,8 @@ CREATE TABLE IF NOT EXISTS `log` (
 CREATE TABLE IF NOT EXISTS `medical` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `Child_id` int(10) unsigned NOT NULL,
+  `section` varchar(50) NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`,`Child_id`),
   KEY `fk_Medical_Child1_idx` (`Child_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -316,6 +328,13 @@ CREATE TABLE IF NOT EXISTS `rate` (
   `val` float unsigned NOT NULL,
   PRIMARY KEY (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `rate`
+--
+
+INSERT INTO `rate` (`type`, `val`) VALUES
+('Hourly', 20);
 
 -- --------------------------------------------------------
 
