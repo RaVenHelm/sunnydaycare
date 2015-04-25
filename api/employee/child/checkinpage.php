@@ -25,12 +25,7 @@
 			<h1>Check In/Check Out Page</h1>
 		</div>
 		
-		<div id="username">
-		    Hello <?php echo $_SESSION["name"]; ?>!
-		    <form method="get" action="../logout.php">
-		        <input type="submit" value="Logout"/>
-		    </form>
-		</div>
+		<?php include('../../../public/templates/userbar.php'); ?>
 		
 		<div class="search">
 		    <input type="text" name="firstname" id="child_firstname" placeholder="First Name" />

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	'use strict';
-	$("#childSubmit").click(function () {
+	$("#clientSubmit").click(function () {
 		alert("Bang!");
 	});
 });

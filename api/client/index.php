@@ -2,7 +2,7 @@
     try{
         include('../../server/db/database.php');
         //echo "Success!";
-        $result = $database->select("SELECT firstname, middlename, lastname FROM client WHERE isactive = TRUE;");
+        $result = $database->select("SELECT id, firstname, middlename, lastname FROM client WHERE isactive = TRUE ORDER BY lastname ASC;");
         $clients = '<select class="clients"><option value="">Select a client name</option>';
         while($row  = $result->fetch(PDO::FETCH_ASSOC)){
             $name = "<option value =\"" . $row["firstname"] . " " . $row["lastname"] ."\">" . $row["firstname"] . " " . $row["middlename"]  . " " . $row["lastname"] . "</option>";

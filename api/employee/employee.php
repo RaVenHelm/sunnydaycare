@@ -26,12 +26,7 @@
 			<h1>Sunny Day Care Employee Home Page</h1>
 		</div>
 		
-		<div id="username">
-		    Hello <?php echo $_SESSION["name"]; ?>!
-		    <form method="get" action="logout.php">
-		        <input type="submit" value="Logout"/>
-		    </form>
-		</div>
+		<?php include('../../public/templates/userbar.php'); ?>
 		
 		<ul>
 			<li><a href="client/register.php">Register a new client</a></li>

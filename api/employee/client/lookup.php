@@ -1,5 +1,5 @@
 <?php 
-	include("../../../server/functions.php");
+    include("../../../server/functions.php");
     
     session_start();
     
@@ -14,7 +14,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>Sunny Day Care Employee: Register</title>
+		<title>Sunny Day Care Employee: Client Lookup</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
@@ -22,21 +22,20 @@
 
 	<body>
 		<div>
-			<h1>Register a new Child</h1>
+			<h1>Client Lookup Page</h1>
 		</div>
 		
-		<?php include("../../../public/templates/userbar.php"); ?>
+		<?php include('../../../public/templates/userbar.php'); ?>
 		
-		<label>Search for the client</label>
 		<div class="search">
 		    <input type="text" name="firstname" id="client_firstname" placeholder="First Name" />
 		    <input type="text" name="lastname" id="client_lastname" placeholder="Last Name" />
-		    <input type="submit" id="childSubmit" value="Search" />
+		    <input type="submit" id="submit" value="Search" />
 		</div>
 		<div class="result"></div>
 	    
 	</body>
-	<script src="/sunnydaycare/public/scripts/registerchild.js"></script>
-	<script src="/sunnydaycare/public/scripts/getactiveclients.js"></script>
+	<script src="/sunnydaycare/public/scripts/getclient.js"></script>
 </html>
+
 <?php } ?>
