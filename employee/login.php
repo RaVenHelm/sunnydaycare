@@ -3,26 +3,7 @@
 	require_once('../server/functions.php');
 	require_once('../server/objects/Employee.php');
 	
-	//if ($session->is_logged_in()) { redirect_to('index.php'); }
-	
-	if(isset($_POST["username"])){ //Form has been submitted
-		$username = $_POST["username"];
-		$password = $_POST["password"];
-		
-		$found = Employee::authenticate($username, $password);
-		
-		if($found){
-			$session->login($found);
-			redirect_to('index.php');
-		} else {
-			$msg = "Invalid credentials";
-		}
-		
-	} else { //Form has not been submitted
-		$username="";
-		$password="";
-		echo "Bang";
-	}
+	if ($session->is_logged_in()) { redirect_to('index.php'); }
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +22,7 @@
 			<h1>Welcome!</h1>
 		</div>
 		<div id="login">
-		    <form method="post" action="login.php">
+		    <form method="post" action="validate.php">
 		        <input type="text" name="username" id="username" placeholder="Username" />
 		        <input type="password" name="password" id="password" placeholder="Password" />
 		        <input type="submit" name="submit" id="loginSubmit" value="Login" />
@@ -51,6 +32,5 @@
 	    
 	</body>
 
-	<script src="/sunnydaycare/public/scripts/login.js"></script>
+	<script src="../public/scripts/login.js"></script>
 </html>
-<?php //} ?>

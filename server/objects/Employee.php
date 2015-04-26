@@ -50,7 +50,8 @@
             $employee = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if(password_verify($password, $employee["password_hash"])){
-                return new Employee($employee["id"], $employee["firstname"], $employee["middlename"], $employee["lastname"], $employee["username"], $employee["permissions"]);
+                $result = new Employee($employee["id"], $employee["firstname"], $employee["middlename"], $employee["lastname"], $employee["username"], $employee["permissions"]);
+                return $result;            
             } else {
                 return false;
             }

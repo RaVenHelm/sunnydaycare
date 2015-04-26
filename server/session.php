@@ -20,6 +20,8 @@
 				$_SESSION["permissions"] = $employee->getPermissions();
 				$_SESSION["name"] = $employee->getFullName();
 				$this->logged_in = true;
+			} else {
+			    echo "Bang!";
 			}
         }
 		

@@ -1,15 +1,28 @@
 <?php
+    require_once('config/config.php');
+     
+    //MySQL DSN
+    $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+     
+    //Using PDO here for more portability
+    //Make sure DB is set-up before calling this method
+    //If running from C9
+    //$connection = new pdo('mysql:host=hostname;dbname=dbname',$username, $pass);
+    
     class Database
     {
         private $connection;
-        private $error;
         
         public function __construct(){
+            $this->openConnection();
+        }
+        
+        public function openConnection(){
             try{
-                include('dbconnect.php');
-                $this->connection = $connection;
+                $this->connection = new pdo('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
+                //echo "Success!";
             } catch (Exception $ex){
-                //$this->$error = new Error($ex);
+                die($ex->getMessage());
             }
         }
         
