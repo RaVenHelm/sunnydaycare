@@ -1,12 +1,23 @@
-/*
- * This folder is where all the publically accessible assets would be stored
- * Here is a simple stylesheet
- */
-
-body{
-    background-color:#2200ff;
+html {
+	margin: 0;
+	padding: 0;
+}
+.wrapper {
+	width: 60%;
+	margin: 0 auto;
 }
 
-h1{
-    color: #ffcccc;
+.header {
+	width: 100%;
+	background-color: red;
+}
+
+.body{
+	width: 100%;
+	background-color: green;
+}
+
+.footer{
+	width: 100%;
+	background-color: blue;
 }
