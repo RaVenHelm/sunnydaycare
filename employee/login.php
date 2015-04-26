@@ -1,15 +1,15 @@
 <?php 
 	require_once('../server/session.php');
 	require_once('../server/functions.php');
-	require_once('../server/db/objects/Employee.php');
+	require_once('../server/objects/Employee.php');
 	
-	if ($session->is_logged_in()) { redirect_to('index.php'); }
+	//if ($session->is_logged_in()) { redirect_to('index.php'); }
 	
-	if(isset($_POST["submit"])){ //Form has been submitted
-		$username = trim($_POST["username"]);
-		$password = trim($_POST["password"]);
+	if(isset($_POST["username"])){ //Form has been submitted
+		$username = $_POST["username"];
+		$password = $_POST["password"];
 		
-		$found = Employee::find_one($username, $password);
+		$found = Employee::authenticate($username, $password);
 		
 		if($found){
 			$session->login($found);
@@ -21,7 +21,8 @@
 	} else { //Form has not been submitted
 		$username="";
 		$password="";
-	
+		echo "Bang";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +41,10 @@
 			<h1>Welcome!</h1>
 		</div>
 		<div id="login">
-		    <form name="submit" method="post" action="<?php echo $_SERVER["self"]; ?>">
-		        <input type="text" name="username" id="username" value=<?php htmlentities($username); ?> placeholder="Username" />
+		    <form method="post" action="login.php">
+		        <input type="text" name="username" id="username" placeholder="Username" />
 		        <input type="password" name="password" id="password" placeholder="Password" />
-		        <input type="submit" id="loginSubmit" value="Login" />
+		        <input type="submit" name="submit" id="loginSubmit" value="Login" />
 		    </form>
 		</div>
 		<div id="error"><?php if(isset($msg)) echo $msg; ?></div>
@@ -52,4 +53,4 @@
 
 	<script src="/sunnydaycare/public/scripts/login.js"></script>
 </html>
-<?php } ?>
+<?php //} ?>

@@ -1,7 +1,5 @@
 <?php
-    //include('objects/Error.php');
-    
-    class database
+    class Database
     {
         private $connection;
         private $error;
@@ -24,7 +22,7 @@
             try{
                 return $this->connection->query($sql);
             } catch (Exception $ex){
-                $this->error = new Error($ex);
+                //$this->error = new Error($ex);
             }
         }
         
@@ -58,5 +56,5 @@
         
     }
     
-    $database = new database();
+    $database = new Database();
 ?>

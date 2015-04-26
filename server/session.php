@@ -15,8 +15,20 @@
         }
         
         public function login($employee){
-            
+            if($employee){
+				$this->user_id = $_SESSION["user_id"] = $employee->getId();
+				$_SESSION["permissions"] = $employee->getPermissions();
+				$_SESSION["name"] = $employee->getFullName();
+				$this->logged_in = true;
+			}
         }
+		
+		public function logout(){
+			unset($_SESSION["name"]);
+			unset($_SESSION["permissions"]);
+			unset($this->user_id);
+			$this->logged_in = false;
+		}
         
         private function check_login(){
             if(isset($_SESSION["user_id"])){
