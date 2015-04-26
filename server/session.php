@@ -14,6 +14,10 @@
             return $this->logged_in;
         }
         
+        public function login($employee){
+            
+        }
+        
         private function check_login(){
             if(isset($_SESSION["user_id"])){
                 $this->user_id = $_SESSION["user_id"];

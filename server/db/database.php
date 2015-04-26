@@ -38,10 +38,16 @@
                 //TODO: Validate if it is non-SELECT
                 return $connection->exec($sql);
             } catch (Exception $ex){
-                $this->error = new Error($ex);
+                $this->error = "Query could not be executed.";
             }
         }
         
+        /*
+         * Preparing a SQL prepared statement
+         *
+         *
+         *
+         */
         public function prepare($sql){
             try{
                 return $this->connection->prepare($sql);
