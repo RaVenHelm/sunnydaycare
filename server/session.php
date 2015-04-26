@@ -14,6 +14,12 @@
             return $this->logged_in;
         }
         
+		/*
+		 *
+		 *
+		 *
+		 * @param = an Employee object
+		 */
         public function login($employee){
             if($employee){
 				$this->user_id = $_SESSION["user_id"] = $employee->getId();
@@ -26,6 +32,7 @@
         }
 		
 		public function logout(){
+			unset($_SESSION["user_id"]);
 			unset($_SESSION["name"]);
 			unset($_SESSION["permissions"]);
 			unset($this->user_id);

@@ -3,8 +3,6 @@
 	
     class Employee{
         
-        protected $data = array();
-        
         private $id;
         private $permissions;
         
@@ -14,7 +12,7 @@
         private $userName;
         
         
-        function __constructor($id, $firstName, $middleName=null, $lastName, $userName, $permissions){
+        function __construct($id, $firstName, $middleName=null, $lastName, $userName, $permissions){
             $this->id = $id;
 			$this->firstName = $firstName;
 			$this->middleName = $middleName;
@@ -34,9 +32,12 @@
 		public function getPermissions(){
 			return $this->permissions;
 		}
+		public function setPermissions($val){
+			$this->permissions = $val;
+		}
 		
 		public function getFullName(){
-			return $this->firstName . (isset($this->middleName) ? " {$this->middleName}" : "") . " {$this->lastName}";
+			return $this->firstName . " {$this->lastName}";
 		}
         
         public static function authenticate($username="", $password=""){
@@ -50,8 +51,7 @@
             $employee = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if(password_verify($password, $employee["password_hash"])){
-                $result = new Employee($employee["id"], $employee["firstname"], $employee["middlename"], $employee["lastname"], $employee["username"], $employee["permissions"]);
-                return $result;            
+                return new Employee($employee["id"], $employee["firstname"], $employee["middlename"], $employee["lastname"], $employee["username"], $employee["permissions"]);            
             } else {
                 return false;
             }

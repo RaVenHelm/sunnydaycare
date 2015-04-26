@@ -1,21 +1,24 @@
 <?php 
-require_once('/sunnydaycare/server/objects/Employee.php');
-$submit =  isset($_POST["submit"]);
+require_once('../server/objects/Employee.php');
+require_once('../server/session.php');
+require_once('../server/functions.php');
 
-if (true) { //Form has been submitted
+if (isset($_POST["submit"])) { //Form has been submitted
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
 
+	//Authenticate the user and set the response to a new Employee object
     $found = Employee::authenticate($username, $password);
     
-    echo "If";
     if ($found) {
         $session->login($found);
+		//If making a copy of an object, use a dereference operator
+		//$employee =& $found;
         redirect_to('index.php');
     }
     else {
         $msg = "Invalid credentials";
-        print_r($_POST);
+		redirect_to('index.php');
     }
 
 }
