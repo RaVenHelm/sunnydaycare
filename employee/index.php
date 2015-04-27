@@ -23,8 +23,11 @@
 			<li><a href="#">Check In / Check Out</a></li>
 			<li><a href="#">Register a new Client</a></li>
 			<li><a href="#">Register a new Child</a></li>
-			<li><a href="#">Client Lookup</a></li>
+			<li><a href="child/lookup.php">Client Lookup</a></li>
 			<li><a href="#">Child Lookup</a></li>
+			<li><a href="#">Events</a></li>
+			<li><a href="#">Incidents</a></li>
+			<li><a href="#">Reports</a></li>
 			<?php 
 				if($_SESSION["permissions"] == 4){
 			?>

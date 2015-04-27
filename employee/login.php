@@ -47,7 +47,7 @@ else { //Form has not been submitted
 			<input type="password" name="password" id="password" placeholder="Password" required>
 			<input type="submit" name="submit" id="loginSubmit" value="Login" >
 		</form>
-		<div id="error"><?php if(isset($msg)) echo $msg; ?></div>
+		<div id="error" style="color:red;"><?php if(isset($msg)) echo $msg; ?></div>
 	    
 	</body>
 

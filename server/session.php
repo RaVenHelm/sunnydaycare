@@ -2,6 +2,7 @@
     class Session{
         
         private $logged_in = false;
+		private $log_in_time;
         public $user_id;
         
         function __construct(){
@@ -25,6 +26,7 @@
 				$this->user_id = $_SESSION["user_id"] = $employee->getId();
 				$_SESSION["permissions"] = $employee->getPermissions();
 				$_SESSION["name"] = $employee->getFullName();
+				$_SESSION["logInTime"] = time();
 				$this->logged_in = true;
 			} else {
 			    echo "Bang!";
@@ -32,9 +34,19 @@
         }
 		
 		public function logout(){
-			unset($_SESSION["user_id"]);
-			unset($_SESSION["name"]);
-			unset($_SESSION["permissions"]);
+			session_unset();
+			session_destroy();
+			unset($this->user_id);
+			$this->logged_in = false;
+		}
+		
+		public function regen(){
+			session_regenerate_id();
+		}
+		
+		public function end(){
+			session_unset();
+			session_destroy();
 			unset($this->user_id);
 			$this->logged_in = false;
 		}
