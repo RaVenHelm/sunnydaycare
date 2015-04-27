@@ -1,5 +1,9 @@
-// var cookie = document.cookie;
-// $(document).ready(function(){
-//     $("#errorMsg").html(cookie);
-//     console.log(cookie);
-// });
+$(document).ready(function () {
+	'use strict';
+	$("#login").click(function (event) {
+		if ($("#username").val() === "" || $("#password").val() === "") {
+			$("#error").html("Username nor password can be blank");
+			event.preventDefault();
+		}
+	});
+});

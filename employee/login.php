@@ -4,6 +4,27 @@
 	require_once('../server/objects/Employee.php');
 	
 	if ($session->is_logged_in()) { redirect_to('index.php'); }
+	if (isset($_POST["submit"])) { //Form has been submitted
+		$username = trim($_POST["username"]);
+		$password = trim($_POST["password"]);
+
+		//Authenticate the user and set the response to a new Employee object
+		$found = Employee::authenticate($username, $password);
+    
+		if ($found) {
+			$session->login($found);
+			//If making a copy of an object, use a dereference operator
+			//$employee =& $found;
+			redirect_to('index.php');
+		}
+		else {
+			$msg = "Invalid credentials";
+		}
+}
+else { //Form has not been submitted
+    $username = "";
+    $password = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,13 +42,11 @@
 		<div>
 			<h1>Welcome!</h1>
 		</div>
-		<div id="login">
-		    <form method="post" action="validate.php">
-		        <input type="text" name="username" id="username" placeholder="Username" />
-		        <input type="password" name="password" id="password" placeholder="Password" />
-		        <input type="submit" name="submit" id="loginSubmit" value="Login" />
-		    </form>
-		</div>
+		<form id="login" method="post" action="login.php">
+			<input type="text" name="username" id="username" placeholder="Username" required>
+			<input type="password" name="password" id="password" placeholder="Password" required>
+			<input type="submit" name="submit" id="loginSubmit" value="Login" >
+		</form>
 		<div id="error"><?php if(isset($msg)) echo $msg; ?></div>
 	    
 	</body>

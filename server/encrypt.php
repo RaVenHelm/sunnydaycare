@@ -1,22 +1,7 @@
 <?php 
-
-    function redirect_to( $location = null ){
-        if( $location != null ){
-            header("Location: {$location}");
-            exit;
-        }
-    }
-    
-    function __autoload($class_name){
-        $class_name = strtolower($class_name);
-        $path = "objects/{$class_name}.php";
-        if(file_exists($path)){
-            require_once($path);
-        } else {
-            die("The file {$path} could not be found.");
-        }
-    }
-	//Usage: $var =& encrypt($var);
+	require_once('db/database.php');
+	
+	//Attempt at encrypting some data with Blowfish
 	//@param should be a string
 	function &encrypt($data){
 		$key = pack('H*', "A2B50B9613BF979D304A1FF2CAACD528EC61C8FE57E90B7AF7F6AE654FBA0FBF");
@@ -34,8 +19,6 @@
 		//Store encrypted values after encryption
 	}
 	
-	//Usage: $var =& decrypt($var);
-	//@param a base-64 encoded string stored in the DB
 	function &decrypt($encString){
 		$ciphered_d64 = base64_decode($encString);
 		$key = pack('H*', "A2B50B9613BF979D304A1FF2CAACD528EC61C8FE57E90B7AF7F6AE654FBA0FBF");
@@ -49,4 +32,22 @@
 		
 		return $encString =& $text_d;
 	}
+	
+	//$data = "Here would be the child's medical records, for example.";
+	$data = "He's deathly afraid of chickens";
+	echo $data;
+	echo "<br>";
+	$data =& encrypt($data);
+	echo $data; 
+	
+	/* $stmt = $database->prepare("INSERT INTO restriction VALUES (2, :type, :detail, 1)");
+	$stmt->execute(array(':type' => 'personal', ':detail' => $data)); */
+	echo "<br>";
+	
+	$result = $database->select("SELECT detail FROM restriction WHERE Child_id = 1;");
+	$result = $result->fetch(PDO::FETCH_ASSOC);
+	$data = $result["detail"];
+	echo $data . "<br>";
+	$data =& decrypt($data);
+	echo $data;
 ?>

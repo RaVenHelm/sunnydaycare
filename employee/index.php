@@ -25,6 +25,14 @@
 			<li><a href="#">Register a new Child</a></li>
 			<li><a href="#">Client Lookup</a></li>
 			<li><a href="#">Child Lookup</a></li>
+			<?php 
+				if($_SESSION["permissions"] == 4){
+			?>
+			<br />
+			<li><a href="#">Create a new Employee</a></li>
+			<li><a href="#">View Employee Incidents</a></li>
+			<li><a href="#">Edit Employee Permissions</a></li>
+			<?php } ?>
 		</ul>
 		<div id="error"><?php if(isset($msg)) echo $msg; ?></div>
 	    
