@@ -19,12 +19,13 @@ body, html{
 }
 #col_3 {
 
+}
+#search {
 
 }
-#col_4 {
+#result {
 
 }
-#
 footer{
 background-color:#736aff;
 margin: auto;
