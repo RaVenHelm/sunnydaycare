@@ -1,20 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+
 body, html{
   height: 100%;
 }
-
 .header {
  background-color:#736aff;
  margin: 0 auto;
  height: 100px;
  width: 80%;
+ font-family: Indie Flower;
+ font-weight: bold;
+ color: #ffff45;
  text-align: center;
- font-size: 3em;
+ font-size: 4em;
 }
-
 div.holder{
  overflow: hidden;
 }
-
 #col_1 {
  margin-top: 2%;
  margin-left: 10%;
@@ -43,10 +45,37 @@ div.holder{
  background-color: #ff3030;
 }
 #search {
-
+ margin-top: 2%;
+ margin-left: 10%;
+ margin-bottom: 2.5%;
+ float: left;
+ width: 45%;
+ height: 400px;
+ background-color: #ffff45;
 }
 #results{
+ margin-top: 2%;
+ margin-right: 10%;
+ margin-bottom: 2.5%;
+ float: right; 
+ width: 45%;
+ height: 400px;
+ background-color: #ff3030;
+}
+#login{
+ 
+}
+#username{
 
+}
+#password{
+
+}
+#loginSubmit{
+
+}
+#error{
+ color: red;
 }
 footer{
 background-color:#736aff;
