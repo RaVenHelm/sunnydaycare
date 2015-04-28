@@ -11,19 +11,41 @@ body, html{
  font-size: 3em;
 }
 
-#col_1 {
+div.holder{
+ overflow: hidden;
+}
 
+#col_1 {
+ margin-top: 2%;
+ margin-left: 10%;
+ margin-bottom: 2.5%;
+ float: left; 
+ width: 25%;
+ height: 400px;
+ background-color: #ffff45;
 }
 #col_2 {
-
+ margin-top: 2%;
+ margin-left: 2.5%;
+ margin-bottom: 2.5%;
+ display: inline-block; 
+ width: 25%;
+ height: 400px;
+ background-color: #47d147;
 }
 #col_3 {
-
+ margin-top: 2%;
+ margin-right: 10%;
+ margin-bottom: 2.5%;
+ float: right; 
+ width: 25%;
+ height: 400px;
+ background-color: #ff3030;
 }
 #search {
 
 }
-#result {
+#results{
 
 }
 footer{
