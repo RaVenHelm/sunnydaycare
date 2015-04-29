@@ -4,6 +4,8 @@
 	require_once('../server/objects/Employee.php');
 	
 	if (!$session->is_logged_in()) { redirect_to('login.php'); }
+	
+	Session::regen();
 ?>
 
 <!DOCTYPE html>
@@ -20,21 +22,25 @@
 	<body>
 		<?php include('templates/userbar.php'); ?>
 		<ul class="employeeNav">
-			<li><a href="#">Check In / Check Out</a></li>
+			<li><a href="child/checkin.php">Check In / Check Out</a></li>
 			<li><a href="#">Register a new Client</a></li>
 			<li><a href="#">Register a new Child</a></li>
-			<li><a href="child/lookup.php">Client Lookup</a></li>
-			<li><a href="#">Child Lookup</a></li>
+			<li><a href="#">Client Lookup</a></li>
+			<li><a href="child/lookup.php">Child Lookup</a></li>
 			<li><a href="#">Events</a></li>
 			<li><a href="#">Incidents</a></li>
 			<li><a href="#">Reports</a></li>
-			<?php 
-				if($_SESSION["permissions"] == 4){
-			?>
+			<?php if($_SESSION["permissions"] >= 2){ ?>
+			<br>
+			<li><a href="#">Update Client Information</a></li>
+			<li><a href="#">Update Child Information</a></li>
+			<li><a href="#">Billing</a></li>
+			<?php } ?> 
+			<?php if($_SESSION["permissions"] == 4){ ?>
 			<br />
 			<li><a href="#">Create a new Employee</a></li>
 			<li><a href="#">View Employee Incidents</a></li>
-			<li><a href="#">Edit Employee Permissions</a></li>
+			<li><a href="#">Edit Employee</a></li>
 			<?php } ?>
 		</ul>
 		<div id="error"><?php if(isset($msg)) echo $msg; ?></div>

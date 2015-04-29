@@ -40,7 +40,7 @@
 			$this->logged_in = false;
 		}
 		
-		public function regen(){
+		public static function regen(){
 			session_regenerate_id();
 		}
 		

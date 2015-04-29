@@ -1,9 +1,5 @@
 $(document).ready(function () {
 	'use strict';
-	$("#all").change(function () {
-		$("#lookup").toggle();
-		$("#lookupAllSubmit").toggle();
-	});
 	$("#lookup").submit(function (event) {
 		var errors = [], errorElement = $("#error"), index = 0;
 		errorElement.html("");
