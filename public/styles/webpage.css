@@ -3,8 +3,14 @@
 body, html{
   height: 100%;
 }
+div.holder{
+ overflow: hidden;
+}
+body{
+ background-color: #ffffc9;
+}
 .header {
- background-color:#736aff;
+ background-color: #736aff;
  margin: 0 auto;
  height: 100px;
  width: 80%;
@@ -14,14 +20,12 @@ body, html{
  text-align: center;
  font-size: 4em;
 }
-div.holder{
- overflow: hidden;
-}
 #col_1 {
+
  margin-top: 2%;
  margin-left: 10%;
  margin-bottom: 2.5%;
- float: left; 
+ float: left;
  width: 25%;
  height: 400px;
  background-color: #ffff45;
@@ -30,7 +34,7 @@ div.holder{
  margin-top: 2%;
  margin-left: 2.5%;
  margin-bottom: 2.5%;
- display: inline-block; 
+ display: inline-block;
  width: 25%;
  height: 400px;
  background-color: #47d147;
@@ -39,31 +43,44 @@ div.holder{
  margin-top: 2%;
  margin-right: 10%;
  margin-bottom: 2.5%;
- float: right; 
+ float: right;
  width: 25%;
  height: 400px;
  background-color: #ff3030;
 }
 #search {
  margin-top: 2%;
- margin-left: 10%;
+ margin-left: 13%;
  margin-bottom: 2.5%;
  float: left;
- width: 45%;
+ width: 35.5%;
  height: 400px;
- background-color: #ffff45;
+ background-color: #47d147;
 }
 #results{
  margin-top: 2%;
- margin-right: 10%;
+ margin-right: 13%;
  margin-bottom: 2.5%;
- float: right; 
- width: 45%;
+ float: right;
+ width: 35.5%;
  height: 400px;
  background-color: #ff3030;
 }
 #login{
- 
+ margin-left: 25.5%;
+ margin-right: 25.5%;
+ margin-top: 2%;
+ margin-bottom: 2.5%;
+ width: 40%;
+ height: 250px;
+ background-color: #ffff45;
+ font-family: Indie Flower;
+ font-size: 1.5em;
+ text-align: center;
+ color: #736aff;
+}
+.logintable{
+ text-align: center;
 }
 #username{
 
