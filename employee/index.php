@@ -31,7 +31,7 @@
 				<?php include('templates/userbar.php'); ?>
 					<li><a href="child/checkin.php">Check In / Check Out</a></li>
 					<li><a href="#">Register a new Client</a></li>
-					<li><a href="#">Register a new Child</a></li>
+					<li><a href="child/register.php">Register a new Child</a></li>
 					<li><a href="#">Client Lookup</a></li>
 					<li><a href="child/lookup.php">Child Lookup</a></li>
 					<li><a href="#">Events</a></li>

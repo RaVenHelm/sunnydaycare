@@ -92,6 +92,8 @@
 		 */
 		public static function checkInOut($childId, $clientId, $isCheckIn){
 			global $database;
+			$date = date('Y-m-d');
+			$time = date('H:i:s');
 			if(!$childId || !$clientId){
 				return "Could not checkin/checkout: A client or child was not specified.";
 			} else {
@@ -100,8 +102,6 @@
 					//Create new log table
 					$sql = "INSERT INTO log (Day, CheckIn, Child_id, In_Client_id) VALUES (DATE(:date), :time, :childId, :clientId);";
 					$sth = $database->prepare($sql);
-					
-					echo date('Y-M-D');
 					
 					//Bind params
 					$params = array(':date' => date('Y-m-d'), ':time' => date('H:i:s'), ':childId' => $childId, ':clientId' => $clientId);
@@ -114,7 +114,7 @@
 						
 						//Success on checking in
 						if($sth->execute(array(':id' => $childId))){
-							return "Checked In";
+							return "Checked In on {$date} at {$time}";
 						} else {
 							return "Error updating child record, please contact webmaster";
 						}
@@ -135,8 +135,6 @@
 						$sql = "UPDATE log SET CheckOut = :time, Out_Client_Id = :clientId WHERE id = :id";
 						$sth = $database->prepare($sql);
 						
-						echo date('H:i:s');
-						
 						//Bind Params
 						$params = array(':time' => date('H:i:s'), ':clientId' => $clientId, ':id' => $logId);
 
@@ -146,7 +144,7 @@
 							$sth = $database->prepare($sql);
 						
 							if($sth->execute(array(':id' => $childId))){
-								return "Checked Out";
+								return "Checked Out on {$date} at {$time}";
 							} else {
 								return "Error updating child record, please contact webmaster";
 							}

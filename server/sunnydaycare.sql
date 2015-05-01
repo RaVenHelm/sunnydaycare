@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2015 at 02:03 PM
+-- Generation Time: May 01, 2015 at 04:48 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -117,9 +117,9 @@ CREATE TABLE IF NOT EXISTS `child` (
 --
 
 INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'M', NULL, 1, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
 (2, 'F', '/pics/child/sally_smith042015.jpg', 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
-(3, 'F', NULL, 1, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
+(3, 'F', NULL, 0, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
 (4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson');
 
 -- --------------------------------------------------------
@@ -311,8 +311,8 @@ INSERT INTO `log` (`id`, `Day`, `CheckIn`, `CheckOut`, `Child_id`, `In_Client_id
 (1, '2015-04-30', '06:40:00', '22:55:40', 1, 3, 3),
 (2, '2015-04-30', '03:14:20', '19:50:00', 3, 4, 4),
 (3, '2015-04-30', '03:46:15', '20:02:04', 2, 1, 3),
-(4, '2015-05-01', '00:15:22', NULL, 3, 4, NULL),
-(5, '2015-05-01', '00:32:28', NULL, 1, 3, NULL);
+(4, '2015-05-01', '00:15:22', '14:13:45', 3, 4, 4),
+(5, '2015-05-01', '00:32:28', '15:26:52', 1, 3, 3);
 
 -- --------------------------------------------------------
 
