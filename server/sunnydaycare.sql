@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2015 at 07:01 PM
--- Server version: 5.5.40-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.5
+-- Generation Time: May 01, 2015 at 02:03 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -117,8 +117,8 @@ CREATE TABLE IF NOT EXISTS `child` (
 --
 
 INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
-(2, 'F', '/pics/child/sally_smith042015.jpg', 1, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
+(1, 'M', NULL, 1, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(2, 'F', '/pics/child/sally_smith042015.jpg', 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
 (3, 'F', NULL, 1, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
 (4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson');
 
@@ -296,11 +296,23 @@ CREATE TABLE IF NOT EXISTS `log` (
   `CheckIn` time DEFAULT NULL,
   `CheckOut` time DEFAULT NULL,
   `Child_id` int(10) unsigned NOT NULL,
-  `Client_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`,`Child_id`,`Client_id`),
+  `In_Client_id` int(10) unsigned NOT NULL,
+  `Out_Client_Id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`,`Child_id`,`In_Client_id`),
   KEY `fk_Log_Child1_idx` (`Child_id`),
-  KEY `fk_Log_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk_Log_Client1_idx` (`In_Client_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id`, `Day`, `CheckIn`, `CheckOut`, `Child_id`, `In_Client_id`, `Out_Client_Id`) VALUES
+(1, '2015-04-30', '06:40:00', '22:55:40', 1, 3, 3),
+(2, '2015-04-30', '03:14:20', '19:50:00', 3, 4, 4),
+(3, '2015-04-30', '03:46:15', '20:02:04', 2, 1, 3),
+(4, '2015-05-01', '00:15:22', NULL, 3, 4, NULL),
+(5, '2015-05-01', '00:32:28', NULL, 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,11 +357,19 @@ INSERT INTO `rate` (`type`, `val`) VALUES
 CREATE TABLE IF NOT EXISTS `restriction` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
-  `detail` varchar(45) DEFAULT NULL,
+  `detail` varchar(128) DEFAULT NULL,
   `Child_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Child_id`),
   KEY `fk_Restriction_Child1_idx` (`Child_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `restriction`
+--
+
+INSERT INTO `restriction` (`id`, `type`, `detail`, `Child_id`) VALUES
+(1, 'religious', 'Rga+nhNJFHucG6y6hazVlLdodstcFNEpgJ66ubUjlXeOdy9sZt5U1+iA2kkkYxw8z4FbNOg6ZIGzAY1P7EZiwaywQ9Sp5x0p', 2),
+(2, 'personal', 'j4ayuRKQbJ2btZb4+c4ISkRV5/J5KeCDdxDPcZi+L9Xum1TZHlF64Q==', 1);
 
 --
 -- Constraints for dumped tables
@@ -378,8 +398,8 @@ ALTER TABLE `billing`
 --
 ALTER TABLE `charge`
   ADD CONSTRAINT `fk_Charge_Billing1` FOREIGN KEY (`Billing_id`) REFERENCES `billing` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Charge_Rate1` FOREIGN KEY (`Rate_type`) REFERENCES `rate` (`type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Charge_Log1` FOREIGN KEY (`Log_id`) REFERENCES `log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Charge_Log1` FOREIGN KEY (`Log_id`) REFERENCES `log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Charge_Rate1` FOREIGN KEY (`Rate_type`) REFERENCES `rate` (`type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `child alert`
@@ -409,8 +429,8 @@ ALTER TABLE `client incident`
 -- Constraints for table `client_has_child`
 --
 ALTER TABLE `client_has_child`
-  ADD CONSTRAINT `fk_Client_has_Child_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Client_has_Child_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Client_has_Child_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Client_has_Child_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `employee incident`
@@ -422,8 +442,7 @@ ALTER TABLE `employee incident`
 -- Constraints for table `log`
 --
 ALTER TABLE `log`
-  ADD CONSTRAINT `fk_Log_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Log_Client1` FOREIGN KEY (`Client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Log_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `medical`
