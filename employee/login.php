@@ -33,22 +33,33 @@ else { //Form has not been submitted
 
 	<head>
 		<meta charset="utf-8">
+		<!-- JQuery Core/UI -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+		<!-- Custom Styles-->
+		<link rel="Stylesheet" href="../public/styles/normalize.css" />
+		<link rel="Stylesheet" href="../public/styles/webpage.css" />
 	</head>
 
 	<body>
-		<div>
-			<h1>Welcome!</h1>
+		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
+		<div id="login">
+			<label for="login">Employee Login</label>
+			<form id="loginForm" name="login" method="post" action="login.php">
+				<input type="text" name="username" id="username" placeholder="Username" required>
+				<input type="password" name="password" id="password" placeholder="Password" required><br>
+				<input type="submit" name="submit" id="loginSubmit" value="Login" >
+			</form>
 		</div>
-		<form id="login" method="post" action="login.php">
-			<input type="text" name="username" id="username" placeholder="Username" required>
-			<input type="password" name="password" id="password" placeholder="Password" required>
-			<input type="submit" name="submit" id="loginSubmit" value="Login" >
-		</form>
-		<div id="error" style="color:red;"><?php if(isset($msg)) echo $msg; ?></div>
-	    
+		<div id="error" title="Error"><?php if(isset($msg)) echo $msg; ?></div>
+		<footer>
+			<ul>
+				<li><a href="../">Home</a></li>
+				<li><a href="/sunnydaycare/employee/login.php">Employee Login</a></li>
+			</ul>
+		</footer>
 	</body>
 
 	<script src="../public/scripts/login.js"></script>

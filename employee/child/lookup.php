@@ -20,52 +20,68 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+		
+		<!-- Custom styles -->
+		<link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
+		<link rel="Stylesheet" href="../../public/styles/webpage.css" type="text/css" />
 	</head>
 
 	<body>
-		<div>
-			<h1>Child Lookup</h1>
-		</div>
-		<?php include('../templates/userbar.php'); ?>
-		<form id="lookup" method="get" action="lookup.php" >
-			<input type="text" name="firstname" id="firstname" placeholder="First Name" required>
-			<input type="text" name="middlename" id="middlename" placeholder="Middle Name" >
-			<input type="text" name="lastname" id="lastname" placeholder="Last Name" required>
-			<input type="submit" name="submit" id="lookupSubmit" value="Search" >
-		</form>
-		<div id="error" style="color:red;"><?php if(isset($msg)) echo $msg; ?></div>
-		<div class="result">
-		<?php if(isset($result) && $result){ ?>
-				<ul>
-					<li><?php echo $result["firstname"] . " " . $result["middlename"] . " " . $result["lastname"]; ?></li>
-					<ul>
-						<li><b><?php echo $result["checkedIn"] ? "Checked In" : "Checked Out"; ?></b></li>
-						<li>
-							<?php
-								if($result["gender"] == "M"){
-									echo "Male";
-								} else if ($result["gender"] == "F"){
-									echo "Female";
-								} else {
-									echo "Other";
-								}
-							?>
-						</li>
-						<li><?php echo $result["comments"] ? "Comments: " . $result["comments"] : "No comments"; ?></li>
-						<li>
-							People who can pick up <?php echo $result["firstname"]; ?><br>
-							<ul>
-								<?php for($i = 0; isset($result[0][$i]); $i++){ ?>
-										<li>
-										<?php echo $result[0][$i]["firstname"] . " " . $result[0][$i]["middlename"] . " " . $result[0][$i]["lastname"] ; ?>
-										<b><?php if($result[0][$i]["billpayer"]) echo "Bill Payer"; ?></b>
-										</li>
-								<?php } ?>
-							</ul>
-						</li>
-					</ul>
-				</ul>
-		<?php } ?>
+		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
+		<div class="wrapper">
+			<?php include('../templates/userbar.php'); ?>
+			<div id="search">
+				<h2>Child Search</h2>
+				<form id="lookup" method="get" action="lookup.php" >
+					<label for"firstname">First Name</label><br>
+					<input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+					<label for"firstname">Middle Name</label><br>
+					<input type="text" name="middlename" id="middlename" placeholder="Middle Name" ><br>
+					<label for"firstname">Last Name</label><br>
+					<input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
+					<input type="submit" name="submit" id="lookupSubmit" value="Search" >
+				</form>
+			</div>
+			
+			<div id="error"></div>
+			<div id="result">
+				<?php if(isset($result) && $result){ ?>
+						<div id="accordion">
+							<h3>Name</h3>
+							<div><p><?php echo $result["firstname"] . " " . $result["middlename"] . " " . $result["lastname"]; ?></p></div>
+							<h3>Check In Status</h3>
+							<div><p><b><?php echo $result["checkedIn"] ? "Checked In" : "Checked Out"; ?></b></p></div>
+							<h3>Gender</h3>
+							<div>
+								<p>
+								<?php
+									if($result["gender"] == "M"){
+										echo "Male";
+									} else if ($result["gender"] == "F"){
+										echo "Female";
+									} else {
+										echo "Other";
+									}
+								?>
+								</p>
+							</div>
+							<h3>Comments</h3>
+							<div><p><i><?php echo $result["comments"] ? $result["comments"] : "No comments"; ?></i></p></div>
+							<h3>People who can pick up <?php echo $result["firstname"]; ?></h3>
+							<div>
+								<ul>
+									<?php for($i = 0; isset($result[0][$i]); $i++){ ?>
+											<li>
+											<?php echo $result[0][$i]["firstname"] . " " . $result[0][$i]["middlename"] . " " . $result[0][$i]["lastname"] ; ?>
+											<b><?php if($result[0][$i]["billpayer"]) echo "(Bill Payer)"; ?></b>
+											</li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
+				<?php } ?>
+				<div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
+			</div>
 		</div>
 	</body>
 

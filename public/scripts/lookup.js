@@ -1,11 +1,18 @@
 $(document).ready(function () {
 	'use strict';
+	var errorElement = $("#error");
 	$("#lookup").submit(function (event) {
-		var errors = [], errorElement = $("#error"), index = 0;
+		var errors = [],
+			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/]/),
+			index = 0;
 		errorElement.html("");
 		$(".result").html("");
 		if ($("#firstname").val().trim() === "" || $("#lastname").val().trim() === "") {
 			errors.push("First/Last name cannot be blank");
+		}
+		//Check for forbidden chars
+		if (forbidden.exec($("#firstname").val().trim()) || forbidden.exec($("#middlename").val().trim()) || forbidden.exec($("#middlename").val().trim())) {
+			errors.push("Forbidden characters: " + ["[]", ",", "\\", ".", "|", "(", ")"].join(" "));
 		}
 		//Check for if any errors exist
 		if (errors.length > 0) {
@@ -17,4 +24,9 @@ $(document).ready(function () {
 			errorElement.append("</ul>");
 		}
 	});
+	$("#accordion").accordion({
+		collapsible: true,
+		active: false
+	});
+	$("input[type=submit], button").button();
 });

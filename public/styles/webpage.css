@@ -1,9 +1,30 @@
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 
-body, html{
-  height: 100%;
+/*
+ *
+ *JQuery UI CSS Overrides
+ */
+
+.ui-accordion .ui-accordion-header{
+	margin: 2px 10px 0 0;
 }
-div.holder{
+
+.ui-accordion  .ui-accordion-content{
+	margin-right: 10px;
+}
+
+.userbar ul {
+	list-style-type: none;
+}
+.wrapper{
+	width: 80%;
+	margin: 0 auto;
+}
+
+body, html{
+ height: 100%;
+}
+div.container{
  overflow: hidden;
 }
 body{
@@ -20,8 +41,14 @@ body{
  text-align: center;
  font-size: 4em;
 }
+.header a{
+	text-decoration: none;
+	color: #ffff45;
+}
+.header a:hover{
+	color:white;
+}
 #col_1 {
-
  margin-top: 2%;
  margin-left: 10%;
  margin-bottom: 2.5%;
@@ -50,19 +77,21 @@ body{
 }
 #search {
  margin-top: 2%;
- margin-left: 13%;
+ margin-left: 5%;
  margin-bottom: 2.5%;
+ padding: 15px 0 0 15px;
  float: left;
- width: 35.5%;
+ width: 40%;
  height: 400px;
  background-color: #47d147;
 }
-#results{
+#result{
  margin-top: 2%;
- margin-right: 13%;
+ margin-right: 5%;
  margin-bottom: 2.5%;
+ padding: 15px 0 0 15px;
  float: right;
- width: 35.5%;
+ width: 40%;
  height: 400px;
  background-color: #ff3030;
 }
@@ -71,6 +100,7 @@ body{
  margin-right: 25.5%;
  margin-top: 7%;
  margin-bottom: 2.5%;
+ padding-top: 40px;
  width: 40%;
  height: 250px;
  background-color: #ffff45;
@@ -78,17 +108,23 @@ body{
  text-align: center;
  color: #736aff;
 }
-.logintable{
- text-align: center;
+#loginForm{
+	margin-top: 40px;
 }
 #username{
-
+	margin-bottom: 10px;
 }
 #password{
-
+	margin-bottom: 10px;
 }
 #loginSubmit{
 
+}
+
+#lookup input{
+	margin: 10px 0;
+}
+.employeeNav{
 }
 #error{
  color: red;
@@ -98,8 +134,4 @@ background-color:#736aff;
 margin: auto;
 height: 100px;
 width: 80%;
-position: absolute;
-bottom: 0;
-right: 0;
-left: 0;
 }

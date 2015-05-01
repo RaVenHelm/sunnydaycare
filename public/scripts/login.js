@@ -1,11 +1,17 @@
 $(document).ready(function () {
 	'use strict';
-	$("#login").submit(function (event) {
+	var errorElement = $("#error");
+	$("button, input[type=submit]").button();
+	errorElement.dialog({
+		modal: true,
+		autoOpen: false,
+		minWidth: 400
+	});
+	$("#loginForm").submit(function (event) {
 		//TODO: Add password RegExp
 		var errors = [],
 			max_length = 25,
 			min_length = 8,
-			errorElement = $("#error"),
 			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/]/),
 			index = 0;
 		//Clear out error div before reuse
@@ -16,7 +22,7 @@ $(document).ready(function () {
 		}
 		//Check for forbidden chars
 		if (forbidden.exec($("#username").val().trim()) || forbidden.exec($("#password").val().trim())) {
-			errors.push("Forbidden characters: " + ["[]", ",", "\\", ".", "|", "(", ")"].join(" "));
+			errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
 		}
 		//Username validations
 		if ($("#username").val().length > max_length) {
@@ -40,6 +46,7 @@ $(document).ready(function () {
 				errorElement.append("<li>" +  errors[index] + "</li>");
 			}
 			errorElement.append("</ul>");
+			errorElement.dialog("open");
 		}
 	});
 });
