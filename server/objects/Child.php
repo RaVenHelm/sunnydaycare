@@ -167,6 +167,47 @@
 		public function getPickUpList(){
 			return $this->pickupList;
 		}
+		
+		/*
+		 *
+		 * @params: search query params, with an optional 
+		 * @returns: an array with with all possible names in a wildcard search
+		 */
+		public static function search($firstname, $middlename, $lastname){
+			global $database;
+			//echo "({$firstname}) ({$middlename}) ({$lastname})";
+			$wcFirst = "%{$firstname}%";
+			$wcMiddle = "%{$middlename}%";
+			$wcLast = "%{$lastname}%";
+			
+			//echo "({$wcFirst}) ({$wcMiddle}) ({$wcLast})";
+			
+			$sql = "SELECT id, firstname, middlename, lastname FROM child ";
+			if(!isset($firstname) && !isset($middlename)){
+				$sql .= "WHERE lastname LIKE :lname ORDER BY lastname;";
+				$stmt = $database->prepare($sql);
+				$stmt->execute(array(':lname' => $wcLast));
+			} elseif(!isset($middlename)) {
+				$sql .= "WHERE firstname LIKE :fname AND lastname LIKE :lname ORDER BY lastname;";
+				$stmt = $database->prepare($sql);
+				$stmt->execute(array(':fname' => $wcFirst, ':lname' => $wcLast));
+			} elseif(!isset($lastname)) {
+				$sql .= "WHERE firstname LIKE :fname AND middlename LIKE :mname ORDER BY lastname;";
+				$stmt = $database->prepare($sql);
+				$stmt->execute(array(':fname' => $wcFirst, ':mname' => $wcMiddle));
+			} elseif(!isset($firstname)) {
+				$sql .= "WHERE middlename LIKE :mname AND lastname LIKE :lname ORDER BY lastname;";
+				$stmt = $database->prepare($sql);
+				$stmt->execute(array(':mname' => $wcMiddle, ':lname' => $wcLast));
+			} else {
+				$sql .= "WHERE firstname LIKE :fname AND middlename LIKE :mname AND lastname LIKE :lname ORDER BY lastname;";
+				$stmt = $database->prepare($sql);
+				$stmt->execute(array(':fname' => $wcFirst, ':mname' => $wcMiddle, ':lname' => $wcLast));
+			}
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $result;
+		}
+		
 		//Private methods
 		
 		/*
@@ -217,5 +258,7 @@
 			
 			return $result;
 		 }
+	
+		
 	}
 ?>

@@ -1,9 +1,14 @@
 $(document).ready(function () {
 	'use strict';
 	var errorElement = $("#error");
+	errorElement.dialog({
+		modal: true,
+		autoOpen: false,
+		minWidth: 400
+	});
 	$("#lookup").submit(function (event) {
 		var errors = [],
-			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/]/),
+			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/]/),
 			index = 0;
 		errorElement.html("");
 		$(".result").html("");
@@ -12,7 +17,7 @@ $(document).ready(function () {
 		}
 		//Check for forbidden chars
 		if (forbidden.exec($("#firstname").val().trim()) || forbidden.exec($("#middlename").val().trim()) || forbidden.exec($("#middlename").val().trim())) {
-			errors.push("Forbidden characters: " + ["[]", ",", "\\", ".", "|", "(", ")"].join(" "));
+			errors.push("Forbidden characters: " + ["[]", ",", "\\", ";", ":", ".", "|", "(", ")"].join(" "));
 		}
 		//Check for if any errors exist
 		if (errors.length > 0) {
@@ -22,6 +27,7 @@ $(document).ready(function () {
 				errorElement.append("<li>" +  errors[index] + "</li>");
 			}
 			errorElement.append("</ul>");
+			errorElement.dialog("open");
 		}
 	});
 	$("#accordion").accordion({
