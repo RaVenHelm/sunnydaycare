@@ -35,6 +35,11 @@ $(document).ready(function () {
 		collapsible: false,
 		active: 0
 	});
+    $("#msg").dialog({
+        modal: true,
+        autoOpen: false,
+        minWidth: 400
+    });
 	$("#checkIn").click(function () {
 		$("#listHead").toggle(true);
 		$("#accordion").accordion({
@@ -64,6 +69,8 @@ $(document).ready(function () {
 			}
 			errorElement.append("</ul>");
 			errorElement.dialog("open");
-		}
+		} else {
+            $("#msg").dialog("open");
+        }
 	});
 });

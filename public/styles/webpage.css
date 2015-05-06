@@ -11,6 +11,7 @@
 
 .ui-accordion  .ui-accordion-content{
 	margin-right: 10px;
+    min-height: 30px;
 }
 
 .userbar ul {
@@ -117,8 +118,14 @@ body{
 #password{
 	margin-bottom: 10px;
 }
-#loginSubmit{
-
+#firstname{
+    margin-bottom: 10px;
+}
+#middlename{
+    margin-bottom: 10px;
+}
+#lastname{
+    margin-bottom: 10px;
 }
 
 #lookup input{

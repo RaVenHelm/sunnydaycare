@@ -18,7 +18,7 @@
 			redirect_to('index.php');
 		}
 		else {
-			$msg = "Invalid credentials";
+			$msg = "<b style='color:red;'>Invalid credentials</b>";
 		}
 }
 else { //Form has not been submitted
@@ -44,7 +44,7 @@ else { //Form has not been submitted
 	</head>
 
 	<body>
-		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
+		<div class="header"><a href="/">Sunny Daycare</a></div>
 		<div id="login">
 			<label for="login">Employee Login</label>
 			<form id="loginForm" name="login" method="post" action="login.php">
@@ -53,12 +53,10 @@ else { //Form has not been submitted
 				<input type="submit" name="submit" id="loginSubmit" value="Login" >
 			</form>
 		</div>
-		<div id="error" title="Error"><?php if(isset($msg)) echo $msg; ?></div>
+		<div id="error" title="Error"></div>
+		<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 		<footer>
-			<ul>
-				<li><a href="../">Home</a></li>
-				<li><a href="/sunnydaycare/employee/login.php">Employee Login</a></li>
-			</ul>
+			<p>Footer</p>
 		</footer>
 	</body>
 

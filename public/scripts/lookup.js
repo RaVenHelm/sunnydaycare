@@ -1,11 +1,17 @@
 $(document).ready(function () {
 	'use strict';
-	var errorElement = $("#error");
+	var errorElement = $("#error"), childElement = $("#accordion");
 	errorElement.dialog({
 		modal: true,
 		autoOpen: false,
 		minWidth: 400
 	});
+    childElement.dialog({
+        modal: true,
+        autoOpen: false,
+        heightStyle: 'auto',
+        minWidth: 600
+    });
 	$("#lookup").submit(function (event) {
 		var errors = [],
 			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/]/),
@@ -30,9 +36,48 @@ $(document).ready(function () {
 			errorElement.dialog("open");
 		}
 	});
-	$("#accordion").accordion({
-		collapsible: true,
-		active: false
-	});
+    $("#accordion").accordion({
+        collapsible: true,
+        active: false
+    });
+    $("#single").click(function () {
+        var id = $("#single").attr("value"),
+            child = {},
+            gender = "";
+        if (id) {
+            $.ajax({
+                url: 'get.php',
+                method: 'get',
+                data: 'id=' + id,
+                success: function (data) {
+                    child = JSON.parse(data);
+                    console.log(child);
+
+                    var childName = child.firstname + (child.middlename ? " " + child.middlename : "") +  " " + child.lastname,
+                        listName = child[0][0].firstname + (child[0][0].middlename ? " " + child[0][0].middlename : "") + " " + child[0][0].lastname;
+
+                    $(".name").html(childName);
+                    $(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>" ));
+                    if(child.gender === "M"){
+                        gender = "Male";
+                    } else if (child.gender === "F") {
+                        gender = "Female";
+                    } else {
+                        gender = "Other/Not given";
+                    }
+                    $(".gender").html(gender);
+                    $(".comments").html((child.comments ? child.comments : "No comments"));
+                    $(".pickupList").html(listName);
+
+                    $("#accordion").dialog("open");
+                }
+            })
+                .error(function (err) {
+                    errorElement.html("<ul><li>err</li></ul>");
+                    errorElement.dialog("open");
+                });
+        }
+    });
+
 	$("input[type=submit], button").button();
 });

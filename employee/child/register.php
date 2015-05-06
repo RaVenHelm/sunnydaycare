@@ -45,6 +45,7 @@
 	<body>
 		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
 			<div class="wrapper">
+                <?php include('../templates/userbar.php'); ?>
 				<div id="search">
 					<label for="registerForm">Register Child</label>
 					<form id="registerForm" name="register" method="post" action="register.php">

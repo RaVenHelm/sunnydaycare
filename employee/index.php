@@ -14,6 +14,7 @@
 
 	<head>
 		<meta charset="utf-8">
+        <title>Sunny Day Care Employee</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
@@ -24,7 +25,7 @@
 	</head>
 
 	<body>
-		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
+		<div class="header"><a href="/sunnydaycare">Sunny Daycare</a></div>
 		<div class="container">
 			<div class="wrapper">
 			<ul class="employeeNav">

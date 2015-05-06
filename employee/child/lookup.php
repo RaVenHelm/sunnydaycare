@@ -27,12 +27,12 @@
 	</head>
 
 	<body>
-		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
+		<div class="header"><a href="../">Sunny Daycare</a></div>
 		<div class="wrapper">
 			<?php include('../templates/userbar.php'); ?>
 			<div id="search">
 				<h2>Child Search</h2>
-				<form id="lookup" method="get" action="lookup.php" novalidate>
+				<form id="lookup" method="get" action="lookup.php">
 					<label for"firstname">First Name</label><br>
 					<input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
 					<label for"firstname">Middle Name</label><br>
@@ -47,43 +47,22 @@
 			<div id="result">
 				<?php if(isset($result) && $result){ ?>
 						<?php for($i = 0; $i < count($result); $i++) {?>
-							<button><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
+							<button id="single" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
 						<?php } ?>
 				<?php } ?>
+                <div id="accordion" title="Child Data">
+                    <h3>Name</h3>
+                    <div class="name"><p></p></div>
+                        <h3>Check In Status</h3>
+                        <div class="checkIn"></div>
+                        <h3>Gender</h3>
+                        <div class="gender"></div>
+                        <h3>Comments</h3>
+                        <div class="comments"></div>
+                        <h3>Pick Up List</h3>
+                        <div class="pickupList"></div>
+                </div>
 				<div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
-			</div>
-			<div id="accordion" style="display:none;">
-				<h3>Name</h3>
-				<div><p><?php echo $result["firstname"] . " " . $result["middlename"] . " " . $result["lastname"]; ?></p></div>
-				<h3>Check In Status</h3>
-				<div><p><b><?php echo $result["checkedIn"] ? "Checked In" : "Checked Out"; ?></b></p></div>
-				<h3>Gender</h3>
-				<div>
-					<p>
-					<?php
-						if($result["gender"] == "M"){
-							echo "Male";
-						} else if ($result["gender"] == "F"){
-							echo "Female";
-						} else {
-							echo "Other";
-						}
-					?>
-					</p>
-				</div>
-				<h3>Comments</h3>
-				<div><p><i><?php echo $result["comments"] ? $result["comments"] : "No comments"; ?></i></p></div>
-				<h3>People who can pick up <?php echo $result["firstname"]; ?></h3>
-				<div>
-					<ul>
-						<?php for($i = 0; isset($result[0][$i]); $i++){ ?>
-								<li>
-								<?php echo $result[0][$i]["firstname"] . " " . $result[0][$i]["middlename"] . " " . $result[0][$i]["lastname"] ; ?>
-								<b><?php if($result[0][$i]["billpayer"]) echo "(Bill Payer)"; ?></b>
-								</li>
-						<?php } ?>
-					</ul>
-				</div>
 			</div>
 		</div>
 	</body>

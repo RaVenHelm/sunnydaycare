@@ -31,63 +31,70 @@
 				display: none;
 			}
 		</style>
+
+        <!-- Custom styles -->
+        <link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
+        <link rel="Stylesheet" href="../../public/styles/webpage.css" type="text/css" />
 	</head>
 
 	<body>
-		<div>
-			<h1>Check-In/Check-Out</h1>
-		</div>
-		<?php include('../templates/userbar.php'); ?>
-		<form id="search" method="get">
-			<input type="text" name="firstname" id="firstname" placeholder="First Name" required>
-			<input type="text" name="middlename" id="middlename" placeholder="Middle Name">
-			<input type="text" name="lastname" id="lastname" placeholder="Last Name" required>
-			<input type="submit" name="submit" id="searchSubmit" value="Search" >
-		</form>
-		<div id="error" style="color:red;" title="Error"></div>
-		<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
-		<?php if(isset($result) && $result){?>
-		<div id="accordion">
-			<h3>Child</h3>
-			<div id="childName">
-				<p>
-				<?php echo $name . "<br>"; ?>
-				<?php if(!$result[1][0]["CheckIn"] && !$result["checkedIn"]){?>
-					<button id="checkIn">Check In</button>
-				<?php } else {
-					echo "Checked In: " . $result[1][0]["CheckIn"] . " by " . $result[1][0]["firstname"] . " " . $result[1][0]["lastname"] . "<br>";
-				}?>
-				<?php if(!$result[1][1]["CheckOut"] && $result["checkedIn"]){?>
-					<button id="checkOut">Check Out</button>
-				<?php
-				} else if($result[1][1]["CheckOut"]) {
-						echo "Checked Out: " . $result[1][1]["CheckOut"] . " by " . $result[1][1]["firstname"] . " " . $result[1][1]["lastname"] . "<br>";
-				} else {
-					echo "";
-				}
-				?>
-				</p>
-			</div>
-			<h3 id="listHead">Who is checking in/out the child?</h3>
-			<div id="pickupList">
-				<form id="checkInForm" method="post" action="checkin.php">
-					<input hidden name="childId" id="childId" value="<?php echo $result["id"]; ?>" >
-					<input hidden name="isCheckIn" value="<?php echo !$result["checkedIn"] ? 1 : 0; ?>" >
-					<select name="clientId" class="pickupSelect">
-						<option value="">Select from this list:</option>
-						<?php for($i = 0; isset($result[0][$i]); $i++){ ?>
-							<?php $pickupName = $result[0][$i]["firstname"] . " " . $result[0][$i]["middlename"] . " " . $result[0][$i]["lastname"] ;?>
-								<option value="<?php echo $result[0][$i]["id"]; ?>">
-								<?php echo $pickupName; ?>
-								</option>
-						<?php } ?>
-					</select>
-					<input type="submit" name="submit" value="Submit">
-				</form>
-				<aside><i>Note: if the person is not on this list, <b>DO NOT RELEASE THE CHILD</b></i></aside>
-			</div>
-		</div>
-		<?php } ?>
+        <div class="header"><a href="/sunnydaycare">Sunny Daycare</a></div>
+        <div class="wrapper">
+            <?php include('../templates/userbar.php'); ?>
+            <form id="search" method="get">
+                <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+                <input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
+                <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
+                <input type="submit" name="submit" id="searchSubmit" value="Search" >
+            </form>
+            <div id="error" style="color:red;" title="Error"></div>
+            <div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
+            <div id="result">
+
+                <?php if(isset($result) && $result){?>
+                <div id="accordion">
+                    <h3>Child</h3>
+                    <div id="childName">
+                        <p>
+                        <?php echo $name . "<br>"; ?>
+                        <?php if(!$result[1][0]["CheckIn"] && !$result["checkedIn"]){?>
+                            <button id="checkIn">Check In</button>
+                        <?php } else {
+                            echo "Checked In: " . $result[1][0]["CheckIn"] . " by " . $result[1][0]["firstname"] . " " . $result[1][0]["lastname"] . "<br>";
+                        }?>
+                        <?php if(!$result[1][1]["CheckOut"] && $result["checkedIn"]){?>
+                            <button id="checkOut">Check Out</button>
+                        <?php
+                        } else if($result[1][1]["CheckOut"]) {
+                                echo "Checked Out: " . $result[1][1]["CheckOut"] . " by " . $result[1][1]["firstname"] . " " . $result[1][1]["lastname"] . "<br>";
+                        } else {
+                            echo "";
+                        }
+                        ?>
+                        </p>
+                    </div>
+                    <h3 id="listHead">Who is checking in/out the child?</h3>
+                    <div id="pickupList">
+                        <form id="checkInForm" method="post" action="checkin.php">
+                            <input hidden name="childId" id="childId" value="<?php echo $result["id"]; ?>" >
+                            <input hidden name="isCheckIn" value="<?php echo !$result["checkedIn"] ? 1 : 0; ?>" >
+                            <select name="clientId" class="pickupSelect">
+                                <option value="">Select from this list:</option>
+                                <?php for($i = 0; isset($result[0][$i]); $i++){ ?>
+                                    <?php $pickupName = $result[0][$i]["firstname"] . " " . $result[0][$i]["middlename"] . " " . $result[0][$i]["lastname"] ;?>
+                                        <option value="<?php echo $result[0][$i]["id"]; ?>">
+                                        <?php echo $pickupName; ?>
+                                        </option>
+                                <?php } ?>
+                            </select>
+                            <input type="submit" name="submit" value="Submit">
+                        </form>
+                        <aside><i>Note: if the person is not on this list, <b>DO NOT RELEASE THE CHILD</b></i></aside>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
 	</body>
 
 	<script src="../../public/scripts/checkin.js"></script>

@@ -1,5 +1,6 @@
 <?php 
 	require_once('../../server/db/database.php');
+    date_default_timezone_set('America/Denver');
 	
 	class Child{
 		private $id;
@@ -83,7 +84,31 @@
 					array_push($result, $pickup, $log);
 				}
 				return $result;
-			}
+		}
+
+        /**
+         * Find a child in the records by ID
+         * @param $id : child id
+         * @return array with child details
+         */
+        public static function find_one_id($id){
+			global $database;
+
+                $sql = "SELECT * FROM child WHERE id LIKE :id AND isActive = TRUE ;";
+                $stmt = $database->prepare($sql);
+                $stmt->execute(array(':id' => $id));
+
+				//TODO: Should return a child
+				$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				//Find who can pick the child up and append it to the result
+				if($result["id"] && $result["id"] == $id){
+					$pickup = Child::retrievePickupList($id);
+					$log = Child::retrieveTodaysLog($id);
+					array_push($result, $pickup, $log);
+				}
+				return $result;
+		}
 		/*
 		 * TODO: Change from static method to instance method?
 		 *
@@ -175,12 +200,11 @@
 		 */
 		public static function search($firstname, $middlename, $lastname){
 			global $database;
-			//echo "({$firstname}) ({$middlename}) ({$lastname})";
+
 			$wcFirst = "%{$firstname}%";
 			$wcMiddle = "%{$middlename}%";
 			$wcLast = "%{$lastname}%";
-			
-			//echo "({$wcFirst}) ({$wcMiddle}) ({$wcLast})";
+
 			
 			$sql = "SELECT id, firstname, middlename, lastname FROM child ";
 			if(!isset($firstname) && !isset($middlename)){
