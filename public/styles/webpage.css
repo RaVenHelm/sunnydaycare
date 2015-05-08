@@ -141,6 +141,23 @@ input[type=checkbox]{
 #error{
  color: red;
 }
+#content{
+  margin-top:1%;
+  margin-left: 10%;
+  color: #736aff;
+  text-align: center;
+  height: 70%;
+  width:80%;
+  font-family:Arial;
+  font-weight:bold;
+  background-color: #ffff45;
+}
+li{
+  list-style-type: none;
+}
+img{
+  float: left;
+}
 footer{
 background-color:#736aff;
 margin: auto;
