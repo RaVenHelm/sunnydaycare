@@ -131,7 +131,12 @@ body{
 #lookup input{
 	margin: 10px 0;
 }
-.employeeNav{
+.single{
+    margin-bottom: 10px;
+}
+
+input[type=checkbox]{
+    margin: 10px 0;
 }
 #error{
  color: red;

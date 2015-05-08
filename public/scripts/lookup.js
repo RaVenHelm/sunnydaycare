@@ -40,10 +40,11 @@ $(document).ready(function () {
         collapsible: true,
         active: false
     });
-    $("#single").click(function () {
-        var id = $("#single").attr("value"),
+    $(".single").click(function () {
+        var id = $(".single").attr("id"),
             child = {},
             gender = "";
+        console.log(id);
         if (id) {
             $.ajax({
                 url: 'get.php',

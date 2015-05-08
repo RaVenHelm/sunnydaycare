@@ -7,11 +7,11 @@ $(document).ready(function () {
 		autoOpen: false,
 		minWidth: 400
 	});
-    if ($("#msg").html() !== "undefined"){
+    if ($("#msg").html() !== ""){
         $("#msg").dialog({
             modal: true,
-            minwidth: 400
-        })
+            minWidth: 400
+        });
     }
 	$("#loginForm").submit(function (event) {
 		//TODO: Add password RegExp

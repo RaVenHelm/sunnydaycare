@@ -7,7 +7,7 @@ $(document).ready(function () {
 		autoOpen: false,
 		minWidth: 400
 	});
-	$("#search").submit(function (event) {
+	$("#lookup").submit(function (event) {
 		var forbidden = new RegExp(/[\[\(\):;"'.,\\|\]\/]/),
 			errors = [],
 			index = 0;
@@ -40,6 +40,9 @@ $(document).ready(function () {
         autoOpen: false,
         minWidth: 400
     });
+    if ($("#msg").html() !== "") {
+        $("#msg").dialog("open");
+    }
 	$("#checkIn").click(function () {
 		$("#listHead").toggle(true);
 		$("#accordion").accordion({
@@ -69,8 +72,6 @@ $(document).ready(function () {
 			}
 			errorElement.append("</ul>");
 			errorElement.dialog("open");
-		} else {
-            $("#msg").dialog("open");
-        }
+		}
 	});
 });

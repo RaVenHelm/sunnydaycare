@@ -41,12 +41,15 @@
         <div class="header"><a href="/sunnydaycare">Sunny Daycare</a></div>
         <div class="wrapper">
             <?php include('../templates/userbar.php'); ?>
-            <form id="search" method="get">
-                <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
-                <input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
-                <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
-                <input type="submit" name="submit" id="searchSubmit" value="Search" >
-            </form>
+            <div id="search">
+                <h2>Child Check In / Check Out</h2>
+                <form id="lookup" method="get">
+                    <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+                    <input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
+                    <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
+                    <input type="submit" name="submit" id="searchSubmit" value="Search" >
+                </form>
+            </div>
             <div id="error" style="color:red;" title="Error"></div>
             <div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
             <div id="result">
