@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2015 at 05:03 PM
+-- Generation Time: May 08, 2015 at 04:07 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,14 +33,15 @@ CREATE TABLE IF NOT EXISTS `address` (
   `Client_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Client_id`),
   KEY `fk_Address_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `address`
 --
 
 INSERT INTO `address` (`id`, `type`, `address`, `Client_id`) VALUES
-(1, 'Billing', '123 Main Street Disneyland, CA 10001', 3);
+(1, 'Billing', '123 Main Street Disneyland, CA 10001', 3),
+(2, 'Mailing', '123 Main Street Disneyland, CA 10001', 3);
 
 -- --------------------------------------------------------
 
@@ -110,20 +111,21 @@ CREATE TABLE IF NOT EXISTS `child` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `child`
 --
 
 INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
-(2, 'F', '/pics/child/sally_smith042015.jpg', 1, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
+(1, 'M', NULL, 1, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(2, 'F', '/pics/child/sally_smith042015.jpg', 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
 (3, 'F', NULL, 0, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
 (4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson'),
-(5, 'M', NULL, 0, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
-(6, 'F', NULL, 0, 'Yes, she''s named Bambina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
-(7, 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith');
+(5, 'M', NULL, 1, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
+(6, 'F', NULL, 0, 'Yes, she''s named Bobina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
+(7, 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith'),
+(8, 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober');
 
 -- --------------------------------------------------------
 
@@ -154,7 +156,14 @@ CREATE TABLE IF NOT EXISTS `child incident` (
   `Child_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Child_id`),
   KEY `fk_Child Incident_Child1_idx` (`Child_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `child incident`
+--
+
+INSERT INTO `child incident` (`id`, `type`, `descrip`, `date`, `Child_id`) VALUES
+(3, 'Run away', 'He ran away to the local Wendy''s', '2015-04-01', 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `client`
@@ -188,8 +197,15 @@ INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, 
 (2, 'M', NULL, 0, 0, '1110000000', '', 1, 'Grandpa', 0, 'Bob', NULL, 'Smith'),
 (3, 'F', NULL, 1, 1, '5550001010', '3335551111', 1, 'Mother', 0, 'Mary', 'Lou', 'Smith'),
 (4, 'M', NULL, 1, 1, '2225554444', NULL, 1, 'Uncle', 1, 'Bob', 'Gene', 'Wilder'),
-(5, 'M', NULL, 1, 1, '789-343-1000', NULL, 1, 'Father', 1, 'Mickey', NULL, 'Mouse'),
-(6, 'F', NULL, 0, 0, '789-343-1000', NULL, 1, 'Mother', 0, 'Minnie', NULL, 'Mouse');
+(5, 'M', NULL, 1, 1, '7893431000', NULL, 1, 'Father', 1, 'Mickey', NULL, 'Mouse'),
+(6, 'F', NULL, 0, 0, '789-343-1000', NULL, 1, 'Mother', 0, 'Minnie', NULL, 'Mouse'),
+(7, 'F', NULL, 1, 1, '5555550000', NULL, 1, 'Aunt', 1, 'Sue', NULL, 'Byron'),
+(8, 'M', NULL, 1, 1, '8880005555', '1011010000', 1, 'Uncle', 0, 'Casey', NULL, 'Jones'),
+(9, 'F', NULL, 0, 0, '9008880606', '9008880707', 1, 'Mother', 0, 'Patricia', NULL, 'Goober'),
+(10, 'M', NULL, 0, 0, '1012023030', NULL, 0, 'Brother', 0, 'Tim', 'Toolman', 'Taylor'),
+(11, 'M', NULL, 1, 1, '1112223333', NULL, 1, 'Other', 1, 'Goofy', NULL, 'Dog'),
+(12, NULL, NULL, 0, 0, '4545651111', NULL, 1, 'Uncle', 0, 'James', NULL, 'Dean'),
+(13, NULL, NULL, 0, 1, '1110002222', NULL, 1, 'Father', 0, 'Fred', NULL, 'Flinstone');
 
 -- --------------------------------------------------------
 
@@ -245,8 +261,11 @@ INSERT INTO `client_has_child` (`Client_id`, `Child_id`) VALUES
 (1, 2),
 (3, 2),
 (4, 3),
+(7, 5),
+(8, 6),
 (1, 7),
-(3, 7);
+(3, 7),
+(9, 8);
 
 -- --------------------------------------------------------
 
@@ -294,6 +313,30 @@ CREATE TABLE IF NOT EXISTS `employee incident` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `event`
+--
+
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`id`, `title`, `date`, `time`, `description`) VALUES
+(1, 'Graduation', '2015-05-22', '11:00:00', 'Graduation class for those moving on into elementary school.'),
+(2, 'End of the school year picnic', '2015-05-20', '12:00:00', 'Picnic for families and students to celebrate those moving on to elementary school.\r\n\r\nSee AnnaBette for more details'),
+(3, 'Some event', '2015-04-08', '00:00:00', 'Some description');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `log`
 --
 
@@ -308,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   PRIMARY KEY (`id`,`Child_id`,`In_Client_id`),
   KEY `fk_Log_Child1_idx` (`Child_id`),
   KEY `fk_Log_Client1_idx` (`In_Client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `log`
@@ -322,7 +365,10 @@ INSERT INTO `log` (`id`, `Day`, `CheckIn`, `CheckOut`, `Child_id`, `In_Client_id
 (5, '2015-05-01', '00:32:28', '15:26:52', 1, 3, 3),
 (6, '2015-05-01', '19:28:27', '20:46:08', 2, 1, 3),
 (7, '2015-05-06', '06:06:46', '16:26:14', 1, 3, 3),
-(8, '2015-05-06', '06:04:56', NULL, 2, 1, NULL);
+(8, '2015-05-06', '24:00:00', NULL, 2, 1, NULL),
+(9, '2015-05-07', '13:22:00', NULL, 1, 3, NULL),
+(10, '2015-05-07', '13:24:57', '13:53:22', 2, 3, 1),
+(11, '2015-05-07', '13:44:45', NULL, 5, 7, NULL);
 
 -- --------------------------------------------------------
 

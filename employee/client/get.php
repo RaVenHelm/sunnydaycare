@@ -1,13 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ty
- * Date: 5/7/2015
- * Time: 5:16 PM
- */
 
-if($_POST["search"]){
+require_once('../../server/objects/Client.php');
+require_once('../../server/objects/Alert.php');
 
+if($_GET["search"]){
+
+    $id = $_GET["id"];
+
+    $alerts = Alert::getClient($id);
+
+    $client = Client::find_one_id($id);
+
+    var_dump($client);
+
+    return json_encode(array('client' => $client, 'alerts' => $alerts));
 } else {
-    return json_encode(array('error' => 'Invalid use'));
+    return json_encode(false);
 }

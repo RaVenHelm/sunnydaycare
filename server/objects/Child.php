@@ -20,10 +20,10 @@
 		private $allergies;
 		private $incidents;
 		private $restrictions;
+        private $medical;
+
 		
-		private $pickupList;
-		
-		function __construct($id, $f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions){
+		function __construct($id, $f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions, $medical){
 			$this->id = $id;
 			$this->firstName = $f;
 			$this->middleName = $m;
@@ -33,10 +33,11 @@
 			$this->isActive = $active;
 			$this->isCheckedIn = $checked;
 			$this->hasStateAssistance = $state;
-			$this->comments = $comments;
-			$this->allergies = $allergies;
+			$this->comments = null;
+			$this->allergies = null;
 			$this->incidents = null;
-			$this->restrictions = $restrictions;
+			$this->restrictions = null;
+            $this->medical = null;
 		}
 		
 		/*
@@ -180,6 +181,19 @@
 				}
 			}
 		}
+
+        public static function getIncidents($id){
+            global $database;
+
+            $sql = "SELECT * FROM `child incident` WHERE Child_id = :id;";
+
+            $sth = $database->prepare($sql);
+            if($sth->execute(array(':id' => $id))){
+                return $sth->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return null;
+            }
+        }
 		/*
 		 *
 		 *
@@ -187,10 +201,6 @@
 		 */
 		public function getFullName(){
 			return $this->firstName . (isset($this->middleName) ? " {$this->middleName}" : "") . " {$this->lastName}";
-		}
-		
-		public function getPickUpList(){
-			return $this->pickupList;
 		}
 		
 		/*

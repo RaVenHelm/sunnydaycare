@@ -33,10 +33,10 @@
 					<li><a href="child/checkin.php">Check In / Check Out</a></li>
 					<li><a href="client/register.php">Register a new Client</a></li>
 					<li><a href="child/register.php">Register a new Child</a></li>
-					<li><a href="#">Client Lookup</a></li>
+					<li><a href="client/lookup.php">Client Lookup</a></li>
 					<li><a href="child/lookup.php">Child Lookup</a></li>
-					<li><a href="#">Events</a></li>
-					<li><a href="#">Incidents</a></li>
+					<li><a href="events">Events</a></li>
+					<li><a href="incidents">Incidents</a></li>
 					<li><a href="reports.php">Reports</a></li>
 					<?php if($_SESSION["permissions"] >= 2){ ?>
 					<br>

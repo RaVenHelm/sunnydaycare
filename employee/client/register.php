@@ -14,7 +14,7 @@ if (isset($_POST["register"])) { //Form has been submitted
 
         $client = new Client($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"]);
 
-        if(isset($client)){
+        if($client->add()){
             $msg = "Client " . $client->getFullName() . " created!";
         }
 
@@ -68,15 +68,15 @@ else { //Form has not been submitted
             <label for="relationship">Relationship</label><br>
             <select name="relationship" id="relationship" required>
                 <option value="">Select one:</option>
-                <option value="mother">Mother</option>
-                <option value="father">Father</option>
-                <option value="brother">Brother</option>
-                <option value="sister">Sister</option>
-                <option value="grandmother">Grand Mother</option>
-                <option value="grandfather">Grand Father</option>
-                <option value="uncle">Uncle</option>
-                <option value="aunt">Aunt</option>
-                <option value="other">Other</option>
+                <option value="Mother">Mother</option>
+                <option value="Father">Father</option>
+                <option value="Brother">Brother</option>
+                <option value="Sister">Sister</option>
+                <option value="Grandmother">Grand Mother</option>
+                <option value="Grandfather">Grand Father</option>
+                <option value="Uncle">Uncle</option>
+                <option value="Aunt">Aunt</option>
+                <option value="Other">Other</option>
             </select><br>
 
             <label for="primarycontact">Is the primary contact?</label>

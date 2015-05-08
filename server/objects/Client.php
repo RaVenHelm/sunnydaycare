@@ -22,6 +22,9 @@ class Client {
     private $primaryPhone;
     private $secondaryPhone;
 
+    private $billingAddr;
+    private $mailingAddr;
+
     private $alerts;
     private $comments;
     private $incidents;
@@ -42,13 +45,14 @@ class Client {
         $this->primaryPhone = $pPhone;
         $this->secondaryPhone = $sPhone;
         $this->relationship = $relation;
+        $this->billingAddr = null;
+        $this->mailingAddr = null;
         $this->alerts = null;
         $this->comments = null;
         $this->incidents = null;
         $this->children = null;
         $this->picLink = null;
 
-        $this->add();
     }
 
     public function __set($name, $val){
@@ -80,30 +84,119 @@ class Client {
     public static function find_one_id($id){
         global $database;
 
-        $sql = "SELECT * FROM client WHERE id LIKE :id AND isActive = TRUE ;";
+        $sql = "SELECT * FROM client WHERE id = :id AND isActive = TRUE ;";
         $stmt = $database->prepare($sql);
         $stmt->execute(array(':id' => $id));
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"]);
+        var_dump($result);
+
+        $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"]);
 
         $id = $client->id;
+        $addresses = Client::getAddresses($id);
 
         $client->alerts = Client::getAlerts($id);
+        $client->billingAddr = $addresses["billing"];
+        $client->mailingAddr = $addresses["mailing"];
         $client->incidents = Client::getIncidents($id);
         $client->comments = Client::getComments($id);
         $client->children = Client::getChildList($id);
 
+        return $client;
+    }
+
+    public static function search($firstname, $middlename, $lastname){
+        global $database;
+
+        $wcFirst = "%{$firstname}%";
+        $wcMiddle = "%{$middlename}%";
+        $wcLast = "%{$lastname}%";
+
+
+        $sql = "SELECT id, firstname, middlename, lastname FROM client ";
+        if(!isset($firstname) && !isset($middlename)){
+            $sql .= "WHERE lastname LIKE :lname ORDER BY lastname;";
+            $stmt = $database->prepare($sql);
+            $stmt->execute(array(':lname' => $wcLast));
+        } elseif(!isset($middlename)) {
+            $sql .= "WHERE firstname LIKE :fname AND lastname LIKE :lname ORDER BY lastname;";
+            $stmt = $database->prepare($sql);
+            $stmt->execute(array(':fname' => $wcFirst, ':lname' => $wcLast));
+        } elseif(!isset($lastname)) {
+            $sql .= "WHERE firstname LIKE :fname AND middlename LIKE :mname ORDER BY lastname;";
+            $stmt = $database->prepare($sql);
+            $stmt->execute(array(':fname' => $wcFirst, ':mname' => $wcMiddle));
+        } elseif(!isset($firstname)) {
+            $sql .= "WHERE middlename LIKE :mname AND lastname LIKE :lname ORDER BY lastname;";
+            $stmt = $database->prepare($sql);
+            $stmt->execute(array(':mname' => $wcMiddle, ':lname' => $wcLast));
+        } else {
+            $sql .= "WHERE firstname LIKE :fname AND middlename LIKE :mname AND lastname LIKE :lname ORDER BY lastname;";
+            $stmt = $database->prepare($sql);
+            $stmt->execute(array(':fname' => $wcFirst, ':mname' => $wcMiddle, ':lname' => $wcLast));
+        }
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public static function getAlerts($id){
+    public static function getAddresses($id){
+        global $database;
 
+        $billing = "";
+        $mailing="";
+
+        $sql = "SELECT type, address FROM address WHERE Client_id = :id";
+
+        $sth = $database->prepare($sql);
+        $sth->execute(array(':id' => $id));
+
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $addr){
+            if($addr["type"] = "Billing"){
+                $billing = $addr["address"];
+            }
+            if($addr["type"] = "Mailing"){
+                $mailing = $addr["address"];
+            }
+        }
+
+        return array('billing' => $billing, 'mailing' => $mailing);
+    }
+
+    public static function getAlerts($id){
+        global $database;
+        if($id !== 0){
+            $sql = "SELECT type, descrip FROM `client alert` WHERE Client_id = :id";
+            $sth = $database->prepare($sql);
+            $sth->execute(array(':id' => $id));
+
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        } else if($id === 0) {
+            $sql = "SELECT type, descrip FROM `client alert`";
+
+            $sth = $database->prepare($sql);
+            $sth->execute();
+
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
     }
 
     public static function getIncidents($id){
+        global $database;
 
+        $sql = "SELECT * FROM `client incident` WHERE Client_id = :id;";
+
+        $sth = $database->prepare($sql);
+        if($sth->execute(array(':id' => $id))){
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
     }
 
     public static function getComments($id){
@@ -114,8 +207,8 @@ class Client {
 
     }
 
-    //Private functions
-    private function add(){
+
+    public function add(){
         global $database;
 
         $sql = "INSERT INTO client VALUES(NULL, :gender, :link, :contact, :payer, :pPhone, :sPhone, :active, :relation, :state, :fname, :mname, :lname ); ";
