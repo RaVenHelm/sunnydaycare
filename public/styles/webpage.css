@@ -53,6 +53,7 @@ body{
 	color:white;
 }
 #col_1 {
+ text-align: center;
  margin-top: 2%;
  margin-left: 8%;
  margin-bottom: 2.5%;
@@ -62,6 +63,7 @@ body{
  background-color: #ffff45;
 }
 #col_2 {
+ text-align: center;
  margin-top: 2%;
  margin-left: 2.5%;
  margin-bottom: 2.5%;
@@ -71,6 +73,7 @@ body{
  background-color: #47d147;
 }
 #col_3 {
+ text-align: center;
  margin-top: 2%;
  margin-right: 8%;
  margin-bottom: 2.5%;
