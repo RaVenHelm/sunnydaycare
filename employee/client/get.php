@@ -17,3 +17,5 @@ if($_GET["search"]){
 } else {
     return json_encode(false);
 }
+
+?>

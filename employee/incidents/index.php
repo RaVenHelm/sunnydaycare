@@ -31,9 +31,7 @@ $incidents = Incident::getAll();
 
     <div class="calendar">
         <?php if($incidents){?>
-            <?php foreach($incidents as $incident){?>
-                <pre></pre><?php print_r($incident); ?></pre>
-            <?php } ?>
+			<?php echo $incidents["child"][0]["type"] . "<br>" . $incidents["child"][0]["descrip"]; ?>
         <?php } ?>
     </div>
     <div id="error" title="Error"></div>

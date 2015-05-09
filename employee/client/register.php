@@ -49,7 +49,7 @@ else { //Form has not been submitted
     <?php include('../templates/userbar.php'); ?>
     <div id="search">
         <h2>Register Client</h2>
-        <form id="registerForm" name="register" method="post" action="register.php" novalidate>
+        <form id="registerForm" name="register" method="post" action="register.php">
             <label for="firstname">First Name: </label><br>
             <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
             <label for="middlename">Middle Name: </label><br>
@@ -83,7 +83,7 @@ else { //Form has not been submitted
             <input type="checkbox" name="primarycontact"><br>
 
             <label for="telephone[primary]">Primary Phone Number</label><br>
-            <input type="tel" name="telephone[primary]" placeholder="##########"><br>
+            <input type="tel" name="telephone[primary]" placeholder="##########" required><br>
 
             <label for="telephone[secondary]">Secondary Phone Number</label><br>
             <input type="tel" name="telephone[secondary]" placeholder="##########"><br>
@@ -92,10 +92,10 @@ else { //Form has not been submitted
             <input type="checkbox" name="billpayer"><br>
 
             <label for="address[mailing]">Mailing Address</label><br>
-            <input type="text" name="address[mailing]" placeholder="Mailing Address"><br>
+            <input type="text" name="address[mailing]" placeholder="Mailing Address" id="mailing" required><br>
 
             <label for="address[billing]">Billing Address</label><br>
-            <input type="text" name="address[billing]" placeholder="Billing Address"><br>
+            <input type="text" name="address[billing]" placeholder="Billing Address" id="billing" required><br>
 
             <label for="stateassistance">On state assistance?</label>
             <input type="checkbox" name="stateassistance"><br>

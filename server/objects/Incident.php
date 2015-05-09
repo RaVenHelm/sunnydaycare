@@ -19,7 +19,7 @@ class Incident {
     public static function getChildIncidents(){
         global $database;
 
-        $sql = "SELECT * FROM `child incident`;";
+        $sql = "SELECT type, descrip, date FROM `child incident`;";
 
         $sth = $database->prepare($sql);
         if($sth->execute()){
@@ -32,7 +32,7 @@ class Incident {
     public static function getClientIncidents(){
         global $database;
 
-        $sql = "SELECT * FROM `client incident`;";
+        $sql = "SELECT type, descrip, date FROM `client incident`;";
 
         $sth = $database->prepare($sql);
         if($sth->execute()){
@@ -45,7 +45,7 @@ class Incident {
     public static function getEmployeeIncidents(){
         global $database;
 
-        $sql = "SELECT * FROM `employee incident`;";
+        $sql = "SELECT type, descrip, date FROM `employee incident`;";
 
         $sth = $database->prepare($sql);
         if($sth->execute()){

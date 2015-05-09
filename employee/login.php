@@ -55,9 +55,6 @@ else { //Form has not been submitted
 		</div>
 		<div id="error" title="Error"></div>
 		<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
-		<footer>
-			<p>Footer</p>
-		</footer>
 	</body>
 
 	<script src="../public/scripts/login.js"></script>

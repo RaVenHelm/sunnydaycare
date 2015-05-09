@@ -47,7 +47,7 @@ if(isset($_GET["submit"])){
     <div id="result">
         <?php if(isset($result) && $result){ ?>
             <?php for($i = 0; $i < count($result); $i++) {?>
-                <button class="single" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
+                <button class="clientSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
             <?php } ?>
         <?php } ?>
         <div id="accordion" title="Client Data">

@@ -40,8 +40,8 @@ $(document).ready(function () {
         collapsible: true,
         active: false
     });
-    $(".single").click(function () {
-        var id = $(".single").attr("id"),
+    $(".childSingle").click(function () {
+        var id = $(".childSingle").attr("id"),
             child = {},
             gender = "";
         console.log(id);
@@ -69,6 +69,45 @@ $(document).ready(function () {
                     $(".gender").html(gender);
                     $(".comments").html((child.comments ? child.comments : "No comments"));
                     $(".pickupList").html(listName);
+
+                    $("#accordion").dialog("open");
+                }
+            })
+                .error(function (err) {
+                    errorElement.html("<ul><li>err</li></ul>");
+                    errorElement.dialog("open");
+                });
+        }
+    });
+	
+	$(".clientSingle").click(function () {
+        var id = $(".clientSingle").attr("id"),
+            client = {},
+            gender = "";
+        console.log(id);
+        if (id) {
+            $.ajax({
+                url: 'get.php',
+                method: 'get',
+                data: 'id=' + id,
+                success: function (data) {
+                    client = JSON.parse(data);
+                    console.log(client);
+
+                    var clientName = client.firstname + (client.middlename ? " " + client.middlename : "") +  " " + client.lastname,
+                        listName = client[0][0].firstname + (client[0][0].middlename ? " " + client[0][0].middlename : "") + " " + client[0][0].lastname;
+
+                    $(".name").html(clientName);
+                    $(".checkIn").html((client.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>" ));
+                    if(client.gender === "M"){
+                        gender = "Male";
+                    } else if (client.gender === "F") {
+                        gender = "Female";
+                    } else {
+                        gender = "Other/Not given";
+                    }
+                    $(".gender").html(gender);
+                    $(".comments").html((client.comments ? client.comments : "No comments"));
 
                     $("#accordion").dialog("open");
                 }
