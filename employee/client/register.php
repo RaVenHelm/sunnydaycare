@@ -47,7 +47,7 @@ else { //Form has not been submitted
 <div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
 <div class="wrapper">
     <?php include('../templates/userbar.php'); ?>
-    <div id="search">
+    <div class="register">
         <h2>Register Client</h2>
         <form id="registerForm" name="register" method="post" action="register.php">
             <label for="firstname">First Name: </label><br>

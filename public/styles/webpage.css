@@ -135,7 +135,15 @@ body{
 	margin: 10px 0;
 }
 .childSingle, .clientSingle{
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+}
+.register{
+	text-align: center;
+	background-color: cornsilk; 
+}
+
+form input{
+	width: 300px;
 }
 
 input[type=checkbox]{
