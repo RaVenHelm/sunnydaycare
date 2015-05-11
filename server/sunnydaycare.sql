@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2015 at 04:07 PM
+-- Generation Time: May 11, 2015 at 05:35 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -118,11 +118,11 @@ CREATE TABLE IF NOT EXISTS `child` (
 --
 
 INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'M', NULL, 1, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
 (2, 'F', '/pics/child/sally_smith042015.jpg', 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
 (3, 'F', NULL, 0, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
 (4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson'),
-(5, 'M', NULL, 1, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
+(5, 'M', NULL, 0, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
 (6, 'F', NULL, 0, 'Yes, she''s named Bobina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
 (7, 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith'),
 (8, 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober');
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `client`
@@ -204,8 +204,14 @@ INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, 
 (9, 'F', NULL, 0, 0, '9008880606', '9008880707', 1, 'Mother', 0, 'Patricia', NULL, 'Goober'),
 (10, 'M', NULL, 0, 0, '1012023030', NULL, 0, 'Brother', 0, 'Tim', 'Toolman', 'Taylor'),
 (11, 'M', NULL, 1, 1, '1112223333', NULL, 1, 'Other', 1, 'Goofy', NULL, 'Dog'),
-(12, NULL, NULL, 0, 0, '4545651111', NULL, 1, 'Uncle', 0, 'James', NULL, 'Dean'),
-(13, NULL, NULL, 0, 1, '1110002222', NULL, 1, 'Father', 0, 'Fred', NULL, 'Flinstone');
+(12, 'M', NULL, 0, 0, '4545651111', NULL, 1, 'Uncle', 0, 'James', NULL, 'Dean'),
+(13, 'M', NULL, 0, 1, '1110002222', NULL, 1, 'Father', 0, 'Fred', NULL, 'Flinstone'),
+(17, 'M', NULL, 0, 0, '1112223333', '0003331111', 1, 'Uncle', 1, 'Mack', NULL, 'Jones'),
+(19, 'M', NULL, 0, 0, '1012024000', NULL, 1, 'Grandfather', 0, 'Bob', NULL, 'Jones'),
+(20, 'M', NULL, 1, 1, '1112223333', NULL, 1, 'Uncle', 0, 'Alan', NULL, 'Smithee'),
+(21, 'M', NULL, 0, 0, '2323230000', NULL, 1, 'Other', 0, 'Tom', NULL, 'Hanks'),
+(22, 'M', NULL, 1, 1, '2022023344', NULL, 1, 'Father', 0, 'Hank', NULL, 'Hill'),
+(23, 'F', NULL, 1, 0, '4046061111', NULL, 1, 'Aunt', 0, 'Sally', NULL, 'Solomon');
 
 -- --------------------------------------------------------
 
@@ -283,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `permissions` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `employee`
@@ -292,7 +298,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
 INSERT INTO `employee` (`id`, `username`, `password_hash`, `firstname`, `middlename`, `lastname`, `permissions`) VALUES
 (1, 'joegordon', '$2y$10$P1fQB9uAviIYp/RWHWUYwe4ZQYmG16q.yj07hVYtMeZa1ho2HW70O', 'Joesph', NULL, 'Gordon-Levitt', 1),
 (2, 'scarjo101', '$2y$10$OFtOOIknt.tEYrOOQt7VGuXH2A/NnUlf2OGVr41HBe8ILADMqTvKa', 'Scarlett', NULL, 'Johansson', 1),
-(3, 'tenders0302', '$2y$10$A4qc5GncCYCTfFpWuRarT.NbHWjDoXYuwNBzv8kPUfZAeC0ZvTr5S', 'Tyberius', 'Caine', 'Enders', 4);
+(3, 'tenders0302', '$2y$10$A4qc5GncCYCTfFpWuRarT.NbHWjDoXYuwNBzv8kPUfZAeC0ZvTr5S', 'Tyberius', 'Caine', 'Enders', 4),
+(4, 'generic', '$2y$10$ScCi2YYUjiPmGYR3Oefp4e8dk6vIpd7ZlLX7UHZl3VyWvyx16kzoi', 'Generic', NULL, 'User', 4);
 
 -- --------------------------------------------------------
 
@@ -351,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   PRIMARY KEY (`id`,`Child_id`,`In_Client_id`),
   KEY `fk_Log_Child1_idx` (`Child_id`),
   KEY `fk_Log_Client1_idx` (`In_Client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `log`
@@ -368,7 +375,8 @@ INSERT INTO `log` (`id`, `Day`, `CheckIn`, `CheckOut`, `Child_id`, `In_Client_id
 (8, '2015-05-06', '24:00:00', NULL, 2, 1, NULL),
 (9, '2015-05-07', '13:22:00', NULL, 1, 3, NULL),
 (10, '2015-05-07', '13:24:57', '13:53:22', 2, 3, 1),
-(11, '2015-05-07', '13:44:45', NULL, 5, 7, NULL);
+(11, '2015-05-07', '13:44:45', NULL, 5, 7, NULL),
+(12, '2015-05-08', '19:43:14', '19:43:34', 1, 3, 3);
 
 -- --------------------------------------------------------
 
