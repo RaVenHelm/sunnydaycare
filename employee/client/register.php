@@ -12,7 +12,7 @@ if (isset($_POST["register"])) { //Form has been submitted
         $state = isset($_POST["stateassistance"]) ? true : false;
         $secondary = isset($_POST["telephone"]["secondary"]) ? $_POST["telephone"]["secondary"] : null;
 
-        $client = new Client($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"]);
+        $client = new Client($_POST["firstname"], $middle, $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"]);
 
         if($client->add()){
             $msg = "Client " . $client->getFullName() . " created!";
@@ -103,7 +103,6 @@ else { //Form has not been submitted
             <br><input type="submit" name="register" id="registerSubmit" value="Register" >
         </form>
     </div>
-    <div id="result"></div>
 </div>
 <div id="msg" title="Messge"><?php if(isset($msg)) echo $msg; ?></div>
 <div id="error" title="Error"></div>

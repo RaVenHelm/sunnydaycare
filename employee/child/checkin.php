@@ -44,8 +44,11 @@
             <div id="search">
                 <h2>Child Check In / Check Out</h2>
                 <form id="lookup" method="get">
+					<label for="firstname">First Name</label><br>
                     <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+					<label for="middlename">Middle Name</label><br>
                     <input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
+					<label for="lastname">Last Name</label><br>
                     <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
                     <input type="submit" name="submit" id="searchSubmit" value="Search" >
                 </form>

@@ -7,7 +7,7 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
 
 if(isset($_GET["submit"])){
     $result = Client::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
-    if(!$result) {$msg = "<ul><li>No child found.</li></ul>";}
+    if(!$result) {$msg = "<ul><li>No client found.</li></ul>";}
 }
 ?>
 

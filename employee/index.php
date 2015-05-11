@@ -35,10 +35,12 @@
 					<li><a href="child/register.php">Register a new Child</a></li>
 					<li><a href="client/lookup.php">Client Lookup</a></li>
 					<li><a href="child/lookup.php">Child Lookup</a></li>
-					<li><a href="events">Events</a></li>
+					<li><a href="events">Events</a></li><br>
+					<?php if($_SESSION["permissions"] >= 2){?>
 					<li><a href="incidents">Incidents</a></li>
 					<li><a href="reports.php">Reports</a></li>
-					<?php if($_SESSION["permissions"] >= 2){ ?>
+					<?php } ?>
+					<?php if($_SESSION["permissions"] >= 3){ ?>
 					<br>
 					<li><a href="#">Update Client Information</a></li>
 					<li><a href="#">Update Child Information</a></li>

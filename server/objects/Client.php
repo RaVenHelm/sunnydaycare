@@ -78,7 +78,7 @@ class Client {
     }
 
     public function getFullName(){
-        return $this->firstName . ( isset($this->middleName) ? " " . $this->middleName : "") . " " . $this->lastname;
+        return $this->firstName . ( isset($this->middleName) ? " " . $this->middleName : "") . " " . $this->lastName;
     }
 
     public static function find_one_id($id){
