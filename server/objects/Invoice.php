@@ -11,6 +11,6 @@ class Invoice {
     }
 
     public static function getAll($clientId){
-        
+
     }
 }
