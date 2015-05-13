@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2015 at 05:35 PM
+-- Generation Time: May 13, 2015 at 05:36 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -52,10 +52,17 @@ INSERT INTO `address` (`id`, `type`, `address`, `Client_id`) VALUES
 CREATE TABLE IF NOT EXISTS `allergy` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
-  `Medical_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`,`Medical_id`),
-  KEY `fk_Allergy_Medical1_idx` (`Medical_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `Child_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`Child_id`),
+  KEY `fk_Allergy_Medical1_idx` (`Child_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `allergy`
+--
+
+INSERT INTO `allergy` (`id`, `type`, `Child_id`) VALUES
+(1, 'qi6VSH3HHzx3BUYLI6opQg==', 29);
 
 -- --------------------------------------------------------
 
@@ -111,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `child` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `child`
@@ -125,7 +132,12 @@ INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `statea
 (5, 'M', NULL, 0, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
 (6, 'F', NULL, 0, 'Yes, she''s named Bobina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
 (7, 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith'),
-(8, 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober');
+(8, 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober'),
+(27, 'O', NULL, 0, NULL, 0, 1, 'Timmy', NULL, 'Turner'),
+(28, 'F', NULL, 0, NULL, 0, 1, 'Fresh', 'John', 'Prince'),
+(29, 'M', NULL, 0, NULL, 0, 1, 'Bobby', 'Hank', 'Hill'),
+(30, 'M', NULL, 0, NULL, 0, 1, 'Bobby', 'Hank', 'Hill'),
+(31, 'M', NULL, 0, NULL, 0, 1, 'Bobby', 'Hank', 'Hill');
 
 -- --------------------------------------------------------
 
@@ -186,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `middlename` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `client`
@@ -211,7 +223,8 @@ INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, 
 (20, 'M', NULL, 1, 1, '1112223333', NULL, 1, 'Uncle', 0, 'Alan', NULL, 'Smithee'),
 (21, 'M', NULL, 0, 0, '2323230000', NULL, 1, 'Other', 0, 'Tom', NULL, 'Hanks'),
 (22, 'M', NULL, 1, 1, '2022023344', NULL, 1, 'Father', 0, 'Hank', NULL, 'Hill'),
-(23, 'F', NULL, 1, 0, '4046061111', NULL, 1, 'Aunt', 0, 'Sally', NULL, 'Solomon');
+(23, 'F', NULL, 1, 0, '4046061111', NULL, 1, 'Aunt', 0, 'Sally', NULL, 'Solomon'),
+(24, 'F', NULL, 1, 1, '344-555-6666', '', 1, 'Aunt', 0, 'Oni', '', 'Knoe');
 
 -- --------------------------------------------------------
 
@@ -391,7 +404,17 @@ CREATE TABLE IF NOT EXISTS `medical` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`,`Child_id`),
   KEY `fk_Medical_Child1_idx` (`Child_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `medical`
+--
+
+INSERT INTO `medical` (`id`, `Child_id`, `section`, `description`) VALUES
+(3, 27, 'tjI9A1wThPSetVrjft2x0A==', 'xNo05uYNcIEUYzB8A3QxTOYuImUBELQ5'),
+(4, 28, 'KPIlcfHgZt2t90ezbYHTD9gVeij4+tP8w2fyBYw+nOM=', 'oYW7wTAs+QDRxGHJX7lA6w=='),
+(5, 29, '+R/P9FzeXwH/IDrputjgdgaq069FoTWg', 'N1OdqyazsTA1BRgcTL7dDQ=='),
+(6, 29, '0yUL8bwnCcguR9/14WY21OMVL9RZVsZB', 'skMqAwlGjbK5vsLHTFyz4Q==');
 
 -- --------------------------------------------------------
 
@@ -425,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `restriction` (
   `Child_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Child_id`),
   KEY `fk_Restriction_Child1_idx` (`Child_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `restriction`
@@ -433,7 +456,11 @@ CREATE TABLE IF NOT EXISTS `restriction` (
 
 INSERT INTO `restriction` (`id`, `type`, `detail`, `Child_id`) VALUES
 (1, 'religious', 'Rga+nhNJFHucG6y6hazVlLdodstcFNEpgJ66ubUjlXeOdy9sZt5U1+iA2kkkYxw8z4FbNOg6ZIGzAY1P7EZiwaywQ9Sp5x0p', 2),
-(2, 'personal', 'j4ayuRKQbJ2btZb4+c4ISkRV5/J5KeCDdxDPcZi+L9Xum1TZHlF64Q==', 1);
+(2, 'personal', 'j4ayuRKQbJ2btZb4+c4ISkRV5/J5KeCDdxDPcZi+L9Xum1TZHlF64Q==', 1),
+(7, 'Personal', 'abFQyKhUIiyNQGnNS3eSYMFlitInj0kMJ5wE6IwBems=', 27),
+(8, 'Personal', 'ofXnQZR1wm+nYK+Nqyia4W0+gKSCO4NHZUstDhSHlt0=', 28),
+(9, 'Religious', '6hVxvwY2qt0FP9F6IjLVtw==', 29),
+(10, 'Religious', 'SC+QsKpT+FouvA9s/svaPA==', 29);
 
 --
 -- Constraints for dumped tables
@@ -449,7 +476,7 @@ ALTER TABLE `address`
 -- Constraints for table `allergy`
 --
 ALTER TABLE `allergy`
-  ADD CONSTRAINT `fk_Allergy_Medical1` FOREIGN KEY (`Medical_id`) REFERENCES `medical` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Allergy_Child1` FOREIGN KEY (`Child_id`) REFERENCES `child` (`id`);
 
 --
 -- Constraints for table `billing`
