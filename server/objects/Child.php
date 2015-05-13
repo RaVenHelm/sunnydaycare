@@ -1,8 +1,11 @@
 <?php 
 	require_once('../../server/db/database.php');
+	require_once('../../server/functions.php');
     date_default_timezone_set('America/Denver');
 	
 	class Child{
+		private $data = array();
+
 		private $id;
 		
 		private $firstName;
@@ -23,8 +26,8 @@
         private $medical;
 
 		
-		function __construct($id, $f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions, $medical){
-			$this->id = $id;
+		function __construct($f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions, $medical){
+			$this->id = null;
 			$this->firstName = $f;
 			$this->middleName = $m;
 			$this->lastName = $l;
@@ -34,11 +37,22 @@
 			$this->isCheckedIn = $checked;
 			$this->hasStateAssistance = $state;
 			$this->comments = null;
-			$this->allergies = null;
+			$this->allergies = $allergies;
 			$this->incidents = null;
-			$this->restrictions = null;
-            $this->medical = null;
+			$this->restrictions = $restrictions;
+            $this->medical = $medical;
 		}
+
+		public function __set($name, $val){
+	        $this->data[$name] = $val;
+	    }
+
+	    public function  __get($name){
+	        if(array_key_exists($name, $this->data)){
+	            return $this->data[$name];
+	        }
+	        return null;
+	    }
 		
 		/*
 		 *
@@ -194,6 +208,7 @@
                 return null;
             }
         }
+
 		/*
 		 *
 		 *
@@ -201,6 +216,61 @@
 		 */
 		public function getFullName(){
 			return $this->firstName . (isset($this->middleName) ? " {$this->middleName}" : "") . " {$this->lastName}";
+		}
+
+		public function add(){
+			global $database;
+
+			$sql = "INSERT INTO child VALUES(NULL, :gender, :link, :checkedIn, :comments, :state, :active, :fname, :mname, :lname); ";
+	        
+	        $sth = $database->prepare($sql);
+
+	        $params = array(':gender' => $this->gender, ':link' => $this->picLink, ':checkedIn' => $this->isCheckedIn, ':comments' => $this->comments, ':active' => $this->isActive, ':state' => $this->hasStateAssistance, ':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
+
+	        if(!$sth->execute($params)){
+	        	echo "Child";
+	        }
+
+
+	        // Get ID of the child
+	        $child = Child::find_one($this->firstName, $this->middleName, $this->lastName);
+	        $this->id = $child["id"];
+
+	        //Create Medical record
+	        $sql = "INSERT INTO medical VALUES(NULL, :id, :section, :description);";
+	        $sth = $database->prepare($sql);
+
+	        $section = isset($this->medical[0]["section"]) ? encrypt($this->medical[0]["section"]) : null;
+	        $description = isset($this->medical[0]["description"]) ? encrypt($this->medical[0]["description"]) : null;
+
+	        $params = (array(':id' => $this->id, ':section' => $section, ':description' => $description));
+
+	        if(!$sth->execute($params)){
+	        	echo "Medical";
+	        }
+
+	        // Create Allergy Record(s)
+	        $sql = "INSERT INTO allergy VALUES(NULL, :type, :id);";
+	        $sth = $database->prepare($sql);
+
+	        $type = isset($this->allergies[0]["type"]) ? encrypt($this->allergies[0]["type"]) : null;
+	        $params = array(':type' => $type, ':id' => $this->id);
+
+	        if(!$sth->execute($params)){
+	        	echo "Allergy";
+	        }
+
+	        // Create Restriction Record(s)
+	        $sql = "INSERT INTO restriction VALUES(NULL, :type, :detail, :id);";
+	        $sth = $database->prepare($sql);
+
+	        $type = isset($this->restrictions[0]["type"]) ? $this->restrictions[0]["type"] : null;
+	        $detail = isset($this->restrictions[0]["detail"]) ? encrypt($this->restrictions[0]["detail"]) : null;
+	        $params = array(':type' => $type, ':detail' => $detail, ':id' => $this->id);
+
+	        if(!$sth->execute($params)){
+	        	echo "Restriction";
+	        }
 		}
 		
 		/*

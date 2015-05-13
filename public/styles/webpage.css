@@ -5,176 +5,243 @@
  *JQuery UI CSS Overrides
  */
 
-.ui-accordion .ui-accordion-header{
-	margin: 2px 10px 0 0;
+.ui-accordion .ui-accordion-header
+{
+    margin: 2px 10px 0 0;
 }
 
-.ui-accordion  .ui-accordion-content{
-	margin-right: 10px;
+.ui-accordion  .ui-accordion-content
+{
     min-height: 30px;
+    margin-right: 10px;
 }
 
-.userbar ul {
-	list-style-type: none;
+.userbar ul
+{
+    list-style-type: none;
 }
-.wrapper{
-	width: 80%;
-	margin: 0 auto;
+.wrapper
+{
+    width: 80%;
+    margin: 0 auto;
 }
 
-body, html{
- height: 100%;
+body,
+html
+{
+    height: 100%;
 }
-a:visited{
- color: blue;
+a:visited
+{
+    color: blue;
 }
-div.container{
- overflow: hidden;
+div.container
+{
+    overflow: hidden;
 }
-body{
- background-color: #ffffc9;
+body
+{
+    background-color: #ffffc9;
 }
-.header {
- background-color: #736aff;
- margin: 0 auto;
- height: 100px;
- width: 80%;
- font-family: Indie Flower;
- font-weight: bold;
- color: #ffff45;
- text-align: center;
- font-size: 4em;
+.header
+{
+    font-family: Indie Flower;
+    font-size: 4em;
+    font-weight: bold;
+
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+
+    text-align: center;
+
+    color: #ffff45;
+    background-color: #736aff;
 }
-.header a{
-	text-decoration: none;
-	color: #ffff45;
+.header a
+{
+    text-decoration: none;
+
+    color: #ffff45;
 }
-.header a:hover{
-	color:white;
+.header a:hover
+{
+    color: white;
 }
-#col_1 {
- text-align: center;
- margin-top: 2%;
- margin-left: 8%;
- margin-bottom: 2.5%;
- float: left;
- width: 25%;
- height: 400px;
- background-color: #ffff45;
+#col_1
+{
+    float: left;
+
+    width: 25%;
+    height: 400px;
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    margin-left: 8%;
+
+    text-align: center;
+
+    background-color: #ffff45;
 }
-#col_2 {
- text-align: center;
- margin-top: 2%;
- margin-left: 2.5%;
- margin-bottom: 2.5%;
- display: inline-block;
- width: 29%;
- height: 400px;
- background-color: #47d147;
+#col_2
+{
+    display: inline-block;
+
+    width: 29%;
+    height: 400px;
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    margin-left: 2.5%;
+
+    text-align: center;
+
+    background-color: #47d147;
 }
-#col_3 {
- text-align: center;
- margin-top: 2%;
- margin-right: 8%;
- margin-bottom: 2.5%;
- float: right;
- width: 25%;
- height: 400px;
- background-color: #ff3030;
+#col_3
+{
+    float: right;
+
+    width: 25%;
+    height: 400px;
+    margin-top: 2%;
+    margin-right: 8%;
+    margin-bottom: 2.5%;
+
+    text-align: center;
+
+    background-color: #ff3030;
 }
-#search {
- margin-top: 2%;
- margin-left: 5%;
- margin-bottom: 2.5%;
- padding: 15px 0 0 15px;
- float: left;
- width: 40%;
- height: 400px;
- background-color: #7de2ff;
+#search
+{
+    float: left;
+
+    width: 40%;
+    height: 400px;
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    margin-left: 5%;
+    padding: 15px 0 0 15px;
+
+    background-color: #7de2ff;
 }
-#result{
- margin-top: 2%;
- margin-right: 5%;
- margin-bottom: 2.5%;
- padding: 15px 0 0 15px;
- float: right;
- width: 40%;
- height: 400px;
- background-color: #60ff88;
+#result
+{
+    float: right;
+
+    width: 40%;
+    height: 400px;
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-bottom: 2.5%;
+    padding: 15px 0 0 15px;
+
+    background-color: #60ff88;
 }
-#login{
- margin-left: 30%;
- margin-right: 25.5%;
- margin-top: 7%;
- margin-bottom: 2.5%;
- padding-top: 40px;
- width: 40%;
- height: 250px;
- background-color: #ffff45;
- font-size: 1.5em;
- text-align: center;
- color: #736aff;
+#login
+{
+    font-size: 1.5em;
+
+    width: 40%;
+    height: 250px;
+    margin-top: 7%;
+    margin-right: 25.5%;
+    margin-bottom: 2.5%;
+    margin-left: 30%;
+    padding-top: 40px;
+
+    text-align: center;
+
+    color: #736aff;
+    background-color: #ffff45;
 }
-#loginForm{
-	margin-top: 40px;
+.employeeNav li
+{
+    list-style-type: none;
 }
-#username{
-	margin-bottom: 10px;
+#loginForm
+{
+    margin-top: 40px;
 }
-#password{
-	margin-bottom: 10px;
-}
-#firstname{
+#username
+{
     margin-bottom: 10px;
 }
-#middlename{
+#password
+{
     margin-bottom: 10px;
 }
-#lastname{
+#firstname
+{
+    margin-bottom: 10px;
+}
+#middlename
+{
+    margin-bottom: 10px;
+}
+#lastname
+{
     margin-bottom: 10px;
 }
 
-#lookup input{
-	margin: 10px 0;
-}
-.childSingle, .clientSingle{
-	margin-bottom: 10px;
-}
-.register{
-	text-align: center;
-	background-color: cornsilk; 
-}
-
-form input{
-	width: 300px;
-}
-
-input[type=checkbox]{
+#lookup input
+{
     margin: 10px 0;
 }
-#error{
- color: red;
+.childSingle,
+.clientSingle
+{
+    margin-bottom: 10px;
 }
-#content{
-  margin-top:1%;
-  margin-left: 10%;
-  color: #736aff;
-  text-align: center;
-  height: 70%;
-  width:80%;
-  font-family:Arial;
-  font-weight:bold;
-  background-color: #ffff45;
+.register
+{
+    text-align: center;
+
+    background-color: cornsilk;
 }
-li{
-  list-style-type: none;
+
+form input
+{
+    width: 300px;
 }
-img{
-  float: left;
+
+#medicalAdd,
+#allergyAdd,
+#restrictionAdd
+{
+    float: right;
 }
-footer{
-background-color:#736aff;
-margin: auto;
-height: 100px;
-width: 80%;
+
+input[type=checkbox]
+{
+    margin: 10px 0;
+}
+#error
+{
+    color: red;
+}
+#content
+{
+    font-family: Arial;
+    font-weight: bold;
+
+    width: 80%;
+    height: 70%;
+    margin-top: 1%;
+    margin-left: 10%;
+
+    text-align: center;
+
+    color: #736aff;
+    background-color: #ffff45;
+}
+img
+{
+    float: left;
+}
+footer
+{
+    width: 80%;
+    height: 100px;
+    margin: auto;
+
+    background-color: #736aff;
 }

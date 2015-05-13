@@ -41,7 +41,7 @@ $(document).ready(function () {
         active: false
     });
     $(".childSingle").click(function () {
-        var id = $(".childSingle").attr("id"),
+        var id = $(this).attr("id"),
             child = {},
             gender = "";
         console.log(id);
@@ -58,8 +58,8 @@ $(document).ready(function () {
                         listName = child[0][0].firstname + (child[0][0].middlename ? " " + child[0][0].middlename : "") + " " + child[0][0].lastname;
 
                     $(".name").html(childName);
-                    $(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>" ));
-                    if(child.gender === "M"){
+                    $(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>"));
+                    if (child.gender === "M") {
                         gender = "Male";
                     } else if (child.gender === "F") {
                         gender = "Female";
@@ -79,27 +79,25 @@ $(document).ready(function () {
                 });
         }
     });
-	
 	$(".clientSingle").click(function () {
-        var id = $(".clientSingle").attr("id"),
+        var id = $(this).attr("id"),
             client = {},
             gender = "";
-        console.log(id);
         if (id) {
             $.ajax({
                 url: 'get.php',
                 method: 'get',
-                data: 'id=' + id,
+                data: 'id=' + id + '&search=true',
                 success: function (data) {
-                    client = JSON.parse(data);
-                    console.log(client);
+                    var res = JSON.parse(data),
+                        client = res.client,
+                        alerts = res.alerts,
+                        clientName = client.firstname + (client.middlename ? " " + client.middlename : "") +  " " + client.lastname,
+                        isBillPayer = client.billpayer !== "0" ? " <b>(Bill Payer)</b>" : "",
+                        isPrimaryContact = client.primarycontact !== "0" ? " <b>(Primary Contact)</b>" : "";
 
-                    var clientName = client.firstname + (client.middlename ? " " + client.middlename : "") +  " " + client.lastname,
-                        listName = client[0][0].firstname + (client[0][0].middlename ? " " + client[0][0].middlename : "") + " " + client[0][0].lastname;
-
-                    $(".name").html(clientName);
-                    $(".checkIn").html((client.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>" ));
-                    if(client.gender === "M"){
+                    $(".name").html(clientName + isBillPayer + isPrimaryContact);
+                    if (client.gender === "M") {
                         gender = "Male";
                     } else if (client.gender === "F") {
                         gender = "Female";
@@ -107,6 +105,8 @@ $(document).ready(function () {
                         gender = "Other/Not given";
                     }
                     $(".gender").html(gender);
+                    $(".primaryPhone").html(client.primaryphone);
+                    $(".secondaryPhone").html(client.secondaryphone);
                     $(".comments").html((client.comments ? client.comments : "No comments"));
 
                     $("#accordion").dialog("open");

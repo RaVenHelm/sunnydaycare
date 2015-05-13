@@ -77,6 +77,10 @@ class Client {
         return $sth->execute($params);
     }
 
+    public function to_array(){
+        return array('firstname' => $this->firstName, 'middlename' => $this->middleName, 'lastname' => $this->lastName, 'gender' => $this->gender, 'primaryphone' => $this->primaryPhone, 'secondaryphone' => $this->secondaryPhone, 'primarycontact' => $this->isPrimaryContact, 'billpayer' => $this->isBillPayer);
+    }
+
     public function getFullName(){
         return $this->firstName . ( isset($this->middleName) ? " " . $this->middleName : "") . " " . $this->lastName;
     }
@@ -89,8 +93,6 @@ class Client {
         $stmt->execute(array(':id' => $id));
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        var_dump($result);
 
         $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"]);
 

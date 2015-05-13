@@ -14,6 +14,7 @@ if (isset($_POST["register"])) { //Form has been submitted
 
         $client = new Client($_POST["firstname"], $middle, $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"]);
 
+        //TODO: Add Client object validations
         if($client->add()){
             $msg = "Client " . $client->getFullName() . " created!";
         }
@@ -50,14 +51,15 @@ else { //Form has not been submitted
     <div class="register">
         <h2>Register Client</h2>
         <form id="registerForm" name="register" method="post" action="register.php">
-            <label for="firstname">First Name: </label><br>
+            (<span style="color:red;">*</span>) Required<br>
+            <label for="firstname">First Name: <span style="color:red;">*</span></label><br>
             <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
             <label for="middlename">Middle Name: </label><br>
             <input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
-            <label for="lastname">Last Name: </label><br>
+            <label for="lastname">Last Name: <span style="color:red;">*</span></label><br>
             <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
 
-            <label for="gender">Gender</label><br>
+            <label for="gender">Gender <span style="color:red;">*</span></label><br>
             <select name="gender" id="gender" required>
                 <option value="">Select one:</option>
                 <option value="M">Male</option>
@@ -65,7 +67,7 @@ else { //Form has not been submitted
                 <option value="O">Other/Not disclosed</option>
             </select><br>
 
-            <label for="relationship">Relationship</label><br>
+            <label for="relationship">Relationship <span style="color:red;">*</span></label><br>
             <select name="relationship" id="relationship" required>
                 <option value="">Select one:</option>
                 <option value="Mother">Mother</option>
@@ -82,19 +84,22 @@ else { //Form has not been submitted
             <label for="primarycontact">Is the primary contact?</label>
             <input type="checkbox" name="primarycontact"><br>
 
-            <label for="telephone[primary]">Primary Phone Number</label><br>
-            <input type="tel" name="telephone[primary]" placeholder="##########" required><br>
+            <label for="telephone[primary]">Primary Phone Number <span style="color:red;">*</span></label><br>
+            <input type="tel" name="telephone[primary]" class="phone" placeholder="###-###-####" required><br>
 
             <label for="telephone[secondary]">Secondary Phone Number</label><br>
-            <input type="tel" name="telephone[secondary]" placeholder="##########"><br>
+            <input type="tel" name="telephone[secondary]" class="phone" placeholder="###-###-####"><br>
 
             <label for="billpayer">Is the bill payer?</label>
             <input type="checkbox" name="billpayer"><br>
 
-            <label for="address[mailing]">Mailing Address</label><br>
+            <label for="address[mailing]">Mailing Address <span style="color:red;">*</span></label><br>
             <input type="text" name="address[mailing]" placeholder="Mailing Address" id="mailing" required><br>
 
-            <label for="address[billing]">Billing Address</label><br>
+            <label for="addressSame">Is the Billing Address the same as Mailing Address?</label>
+            <input type="checkbox" name="addressSame" id="addressSame"><br>
+
+            <label for="address[billing]">Billing Address <span style="color:red;">*</span></label><br>
             <input type="text" name="address[billing]" placeholder="Billing Address" id="billing" required><br>
 
             <label for="stateassistance">On state assistance?</label>
@@ -104,7 +109,7 @@ else { //Form has not been submitted
         </form>
     </div>
 </div>
-<div id="msg" title="Messge"><?php if(isset($msg)) echo $msg; ?></div>
+<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 <div id="error" title="Error"></div>
 </body>
 

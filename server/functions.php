@@ -16,9 +16,8 @@
             die("The file {$path} could not be found.");
         }
     }
-	//Usage: $var =& encrypt($var);
 	//@param should be a string
-	function &encrypt($data){
+	function encrypt($data){
 		$key = pack('H*', "A2B50B9613BF979D304A1FF2CAACD528EC61C8FE57E90B7AF7F6AE654FBA0FBF");
 		
 		$key_size = strlen($key);
@@ -30,7 +29,7 @@
 		
 		$cipheredtext = $iv . $cipheredtext;
 		$ciphered_64 = base64_encode($cipheredtext);
-		return $data =& $ciphered_64;
+		return $ciphered_64;
 		//Store encrypted values after encryption
 	}
 	

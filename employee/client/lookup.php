@@ -53,19 +53,18 @@ if(isset($_GET["submit"])){
         <div id="accordion" title="Client Data">
             <h3>Name</h3>
             <div class="name"><p></p></div>
-            <h3>Check In Status</h3>
-            <div class="checkIn"></div>
             <h3>Gender</h3>
             <div class="gender"></div>
+            <h3>Primary Phone Number</h3>
+            <div class="primaryPhone"></div>
+            <h3>Secondary Phone Number</h3>
+            <div class="secondaryPhone"></div>
             <h3>Comments</h3>
             <div class="comments"></div>
-            <h3>Pick Up List</h3>
-            <div class="pickupList"></div>
         </div>
         <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
     </div>
 </div>
 </body>
-
 <script src="../../public/scripts/lookup.js"></script>
 </html>

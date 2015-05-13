@@ -1,10 +1,18 @@
 <?php 
 	require_once('../../server/session.php');
 	require_once('../../server/functions.php');
+	require_once('../../server/objects/Child.php');
 	
 	if (!$session->is_logged_in()) { redirect_to('../login.php'); }
-	if (isset($_POST["submit"])) { //Form has been submitted
-        var_dump($_POST);
+	if (isset($_POST["register"])) { //Form has been submitted
+		$middlename = $_POST["middlename"] == "" ? null : $_POST["middlename"];
+		$allergies = isset($_POST["allergy"]) ? $_POST["allergy"] : null;
+		$restrictions = isset($_POST["restriction"]) ? $_POST["restriction"] : null;
+		$medical = isset($_POST["medical"]) ? $_POST["medical"] : null;
+
+        $child = new Child($_POST["firstname"], $middlename, $_POST["lastname"], $_POST["bday"], $_POST["gender"], true, false, false, null, $allergies, $restrictions, $medical);
+        
+        $child->add();
 	}
 	else { //Form has not been submitted
 
@@ -31,7 +39,7 @@
 		<div class="header"><a href="/sunnydaycare/">Sunny Daycare</a></div>
 			<div class="wrapper">
                 <?php include('../templates/userbar.php'); ?>
-				<div id="search">
+				<div class="register">
 					<h2>Register Child</h2>
 					<form id="registerForm" name="register" method="post" action="register.php" novalidate>
                         <label for="firstname">First Name: </label><br>
@@ -53,32 +61,54 @@
                         </select><br>
 
                         <label for="allergy">Allergies?</label><br>
-                        <input type="text" name="allergy" class="allergy"><br>
+                        <button id="allergyBttn" name="allergy">Add</button><br>
+                        
+                        <div id="allergyDia" title="Allergies">
+                        	<input type="text" id="allergy" class="allergy" placeholder="Allergy"><br>
+                        	<button id="removeAllergy">Remove All</button>
+                        	<button id="allergyAdd">Add</button>
+                        </div>
+                        <div id="allergyList"></div>
 
                         <label for="medical">Medical Information</label><br>
-                        <input type="text" name="medical[section]" class="medical" placeholder="Section"><br>
-                        <input type="text" name="medical[description]" class="medical" placeholder="Description"><br>
+                        <button id="medicalBttn">Add</button><br>
+
+                        <div id="medicalDia" title="Medical">
+                        	<input type="text" id="section" class="medical" placeholder="Section"><br>
+                        	<input type="text" id="description" class="medical" placeholder="Description"><br>
+                        	<button id="removeMedical">Remove All</button>
+                        	<button id="medicalAdd">Add</button>
+
+                        </div>
+                        <div id="medicalList"></div>
 
                         <label for="restriction">Restrictions?</label><br>
-                        <input type="text" name="restriction[type]" class="restriction" placeholder="Type"><br>
-                        <input type="text" name="restriction[detail]" class="restriction" placeholder="Detail"><br>
+                        <button id="restrictionBttn" name="restriction">Add</button><br>
 
-                        <form method="get" action="../client/lookup.php">
-                            <label for="client">Clients</label><br>
-                            <input type="text" name="client[firstname]" id="clientFirst" placeholder="First Name" required><br>
-                            <input type="text" name="client[middlename]" id="clientMiddle" placeholder="Middle Name"><br>
-                            <input type="text" name="client[lastname]" id="clientLast" placeholder="Last Name" required><br>
-                            <input type="submit" name="search" id="lookupSubmit" value="Search" >
-                        </form>
+                        <div id="restrictionDia" title="Restrictions">
+                        	<input type="text" id="type" class="restriction" placeholder="Type"><br>
+                        	<input type="text" id="detail" class="restriction" placeholder="Detail"><br>
+                        	<button id="removeRestriction">Remove All</button>
+                        	<button id="restrictionAdd">Add</button>
+                        </div>
+                        <div id="restrictionList"></div>
+
+                        <label for="client">Clients</label><br>
+                        <input type="text" name="clientFirst" id="clientFirst" placeholder="First Name" required><br>
+                        <input type="text" name="clientMiddle" id="clientMiddle" placeholder="Middle Name"><br>
+                        <input type="text" name="clientLast" id="clientLast" placeholder="Last Name" required><br>
+                        <input type="submit" name="search" id="lookupSubmit" value="Search" >
+
+                        <div id="clientList" title="Clients"></div>
+                        <div id="clientsToAdd"></div>
 
 						<br><input type="submit" name="register" id="registerSubmit" value="Register" >
 					</form>
 				</div>
-				<div id="result"></div>
 			</div>
 		<div id="msg" title="Messge"><?php if(isset($msg)) echo $msg; ?></div>
 		<div id="error" title="Error"></div>
 	</body>
-
+	<script src="../../public/scripts/underscore-min.js"></script>
 	<script src="../../public/scripts/register.js"></script>
 </html>
