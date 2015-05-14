@@ -18,7 +18,7 @@ $(document).ready(function () {
 		var errors = [],
 			max_length = 25,
 			min_length = 8,
-			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/]/),
+			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/\^@&$#*~]/),
 			index = 0;
 		//Clear out error div before reuse
 		errorElement.html("");

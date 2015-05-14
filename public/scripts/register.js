@@ -18,9 +18,10 @@ $(document).ready(function () {
     $("#clientList").dialog(dialogOptions);
 	//Check for errors before sending to server
 	$("#registerForm").submit(function (event) {
+		//event.preventDefault();
 		var errors = [],
 			index = 0,
-			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/]/),
+			forbidden = new RegExp(/[\[;"'.\\|\]\/@$%\^&!]/),
 			birthday = new RegExp(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 			phone = new RegExp(/^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/);
 		//Clear previous errors
@@ -29,25 +30,35 @@ $(document).ready(function () {
 		if ($("#firstname").val().trim() === "" || $("#lastname").val().trim() === "") {
 			errors.push("First/Last name cannot be blank");
 		}
-		if ($("#mailing").val().trim() === "" || $("#billing").val().trim() === "") {
-			errors.push("Address cannot be blank");
+		if ($("#mailing").val() !== undefined || $("#billing").val() !== undefined) {
+			if ($("#mailing").val().trim() === "" || $("#billing").val().trim() === "") {
+				errors.push("Address cannot be blank");
+			}
+		}
+		if ($("#relationship").val() === "") {
+			errors.push("Relationship must be selected");
 		}
 		if ($("#gender").val() === "") {
-			errors.push("Gender cannot be null");
+			errors.push("Gender must be selected");
 		}
-		if (!phone.exec($(".phone").val().trim())) {
-			errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
-		}
-		if (!forbidden.exec($("input").val().trim())) {
-			errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
-		}
-		if (!birthday.exec($("#bday").val().trim())) {
-			errors.push("Birthday must be in: yyyy-mm-dd format");
+		if ($(".phone").val() !== undefined) {
+			if (!phone.exec($(".phone").val().trim())) {
+				errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
+			}
+		};
+		$("input").each(function () {
+			if (forbidden.exec($(this).val().trim())) {
+				errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
+			}
+		});
+		if ($("#bday").val() !== undefined) {
+			if (!birthday.exec($("#bday").val().trim())) {
+				errors.push("Birthday must be in: yyyy-mm-dd format");
+			}
 		}
 		//Check for if any errors exist
 		if (errors.length > 0) {
 			event.preventDefault();
-			console.log(errors);
 			errorElement.append("<ul>");
 			for (index; index < errors.length; index++) {
 				errorElement.append("<li>" +  errors[index] + "</li>");

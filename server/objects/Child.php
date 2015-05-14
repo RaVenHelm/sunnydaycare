@@ -246,7 +246,7 @@
 	        $params = (array(':id' => $this->id, ':section' => $section, ':description' => $description));
 
 	        if(!$sth->execute($params)){
-	        	echo "Medical";
+	        	return false;
 	        }
 
 	        // Create Allergy Record(s)
@@ -257,7 +257,7 @@
 	        $params = array(':type' => $type, ':id' => $this->id);
 
 	        if(!$sth->execute($params)){
-	        	echo "Allergy";
+	        	return false;
 	        }
 
 	        // Create Restriction Record(s)
@@ -269,7 +269,7 @@
 	        $params = array(':type' => $type, ':detail' => $detail, ':id' => $this->id);
 
 	        if(!$sth->execute($params)){
-	        	echo "Restriction";
+	        	return false;
 	        }
 		}
 		

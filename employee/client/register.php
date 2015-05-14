@@ -50,7 +50,7 @@ else { //Form has not been submitted
     <?php include('../templates/userbar.php'); ?>
     <div class="register">
         <h2>Register Client</h2>
-        <form id="registerForm" name="register" method="post" action="register.php">
+        <form id="registerForm" name="register" method="post" action="register.php" novalidate>
             (<span style="color:red;">*</span>) Required<br>
             <label for="firstname">First Name: <span style="color:red;">*</span></label><br>
             <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
