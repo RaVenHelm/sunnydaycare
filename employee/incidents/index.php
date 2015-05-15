@@ -38,7 +38,7 @@
             <?php include('../templates/userbar.php'); ?>
             <div id="search">
                 <h2>Child Incidents Search</h2>
-                <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form id="childLookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <label for"firstname">First Name</label><br>
                     <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
                     <label for"firstname">Middle Name</label><br>
@@ -49,7 +49,7 @@
                 </form>
                 <br>
                 <h2>Client Incidents Search</h2>
-                <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form id="clientLookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <label for"firstname">First Name</label><br>
                     <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
                     <label for"firstname">Middle Name</label><br>

@@ -28,8 +28,8 @@
 		<div class="header"><a href="/sunnydaycare">Sunny Daycare</a></div>
 		<div class="container">
 			<div class="wrapper">
+			<?php include('templates/userbar.php'); ?>
 			<ul class="employeeNav">
-				<?php include('templates/userbar.php'); ?>
 					<li><a href="child/checkin.php">Check In / Check Out</a></li>
 					<li><a href="client/register.php">Register a new Client</a></li>
 					<li><a href="child/register.php">Register a new Child</a></li>
