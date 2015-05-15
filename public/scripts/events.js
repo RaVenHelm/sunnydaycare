@@ -1,10 +1,15 @@
 $(document).ready(function () {
-	var calendar = $('#calendar') , eventElement = $('#event');
+	var calendar = $('#calendar') , eventElement = $('#event'), errorElement = $('#error');
 	eventElement.dialog({
 			modal: true,
 			autoOpen: false,
 			minWidth: 400
 		});
+   errorElement.dialog({
+         modal: true,
+         autoOpen: false,
+         minWidth: 400
+      });
    $.ajax({
 	url: 'get.php',
 	method: 'get',
@@ -32,9 +37,11 @@ $(document).ready(function () {
    	});
    })
    .fail(function(error) {
-   	
+   	errorElement.html("Error finding events: " + error);
+      errorElement.dialog("open");
    });
    eventElement.on('dialogclose', function () {
    	eventElement.html("");
    });
+   $("input[type=submit], button").button();
 });

@@ -13,12 +13,10 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
 
 <head>
     <meta charset="utf-8">
-    
 
     <!-- Custom styles -->
     <link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
     <link rel="Stylesheet" href="../../public/styles/webpage.css" type="text/css" />
-    
 </head>
 
 <body>
@@ -34,7 +32,8 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
     <div id="error" title="Error"></div>
 
     <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
-
+    <button id="add">Add</button>
+    <button id="edit">Edit</button> 
 </div>
 </body>
 

@@ -10,10 +10,6 @@
         $result = Child::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
         if(!$result) {$msg = "<ul><li>No child found.</li></ul>";}
     }
-    if(isset($_GET["client"])){
-        $result = Client::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
-        if(!$result) {$msg = "<ul><li>No client found.</li></ul>";}
-    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +18,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Sunny Day Care | Incidents Page</title>
+        <title>Sunny Day Care | Medical Records Page</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
@@ -37,7 +33,7 @@
         <div class="wrapper">
             <?php include('../templates/userbar.php'); ?>
             <div id="search">
-                <h2>Child Incidents Search</h2>
+                <h2>Child Medical Records Search</h2>
                 <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <label for"firstname">First Name</label><br>
                     <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
@@ -48,16 +44,6 @@
                     <input type="submit" name="child" id="lookupSubmit" value="Search" >
                 </form>
                 <br>
-                <h2>Client Incidents Search</h2>
-                <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <label for"firstname">First Name</label><br>
-                    <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
-                    <label for"firstname">Middle Name</label><br>
-                    <input type="text" name="middlename" id="middlename" placeholder="Middle Name" ><br>
-                    <label for"firstname">Last Name</label><br>
-                    <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
-                    <input type="submit" name="client" id="lookupSubmit" value="Search" >
-                </form>
             </div>
             
             <div id="error" title="Error"></div>
@@ -72,16 +58,6 @@
                     <div class="name"><p></p></div>
                         <h3>Check In Status</h3>
                         <div class="checkIn"></div>
-                        <h3>Gender</h3>
-                        <div class="gender"></div>
-                        <h3>Comments</h3>
-                        <div class="comments"></div>
-                        <h3>Pick Up List</h3>
-                        <div class="pickupList"></div>
-                </div>
-                <div id="clientAccordion" title="Client Data">
-                    <h3>Name</h3>
-                    <div class="name"></div>
                         <h3>Gender</h3>
                         <div class="gender"></div>
                         <h3>Comments</h3>

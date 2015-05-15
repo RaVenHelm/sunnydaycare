@@ -45,7 +45,7 @@
 					<br>
 					<li><a href="#">Update Client Information</a></li>
 					<li><a href="#">Update Child Information</a></li>
-					<li><a href="#">Medical</a></li>
+					<li><a href="Medical">Medical</a></li>
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>
 					<br />
