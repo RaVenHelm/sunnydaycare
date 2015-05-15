@@ -104,7 +104,7 @@
 				return $result;
 		}
 
-        /**
+        /*
          * Find a child in the records by ID
          * @param $id : child id
          * @return array with child details
@@ -318,7 +318,7 @@
 		 */
 		private static function retrievePickupList($id){
 			global $database;
-			$sql = "SELECT client.id, client.firstname, client.middlename, client.lastname, billpayer FROM client LEFT JOIN client_has_child AS cc ON client.id = cc.Client_id LEFT JOIN child ON cc.Child_id = child.id WHERE child.id = :id ORDER BY billpayer DESC;";
+			$sql = "SELECT client.id, client.firstname, client.middlename, client.lastname, billpayer, primarycontact FROM client LEFT JOIN client_has_child AS cc ON client.id = cc.Client_id LEFT JOIN child ON cc.Child_id = child.id WHERE child.id = :id ORDER BY billpayer DESC;";
 			$stmt = $database->prepare($sql);
 			$stmt->execute(array(':id' => $id));
 			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

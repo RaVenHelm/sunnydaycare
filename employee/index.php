@@ -39,12 +39,13 @@
 					<?php if($_SESSION["permissions"] >= 2){?>
 					<li><a href="incidents">Incidents</a></li>
 					<li><a href="reports.php">Reports</a></li>
+					<li><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
 					<br>
 					<li><a href="#">Update Client Information</a></li>
 					<li><a href="#">Update Child Information</a></li>
-					<li><a href="#">Billing</a></li>
+					<li><a href="#">Medical</a></li>
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>
 					<br />

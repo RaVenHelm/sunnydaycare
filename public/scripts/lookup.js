@@ -44,18 +44,14 @@ $(document).ready(function () {
         var id = $(this).attr("id"),
             child = {},
             gender = "";
-        console.log(id);
-        if (id) {
             $.ajax({
                 url: 'get.php',
                 method: 'get',
                 data: 'id=' + id,
                 success: function (data) {
                     child = JSON.parse(data);
-                    console.log(child);
-
                     var childName = child.firstname + (child.middlename ? " " + child.middlename : "") +  " " + child.lastname,
-                        listName = child[0][0].firstname + (child[0][0].middlename ? " " + child[0][0].middlename : "") + " " + child[0][0].lastname;
+                        listName = "", isBillPayer = "", isPrimaryContact = "";
 
                     $(".name").html(childName);
                     $(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>"));
@@ -68,7 +64,14 @@ $(document).ready(function () {
                     }
                     $(".gender").html(gender);
                     $(".comments").html((child.comments ? child.comments : "No comments"));
-                    $(".pickupList").html(listName);
+                    $(".pickupList").append("<ul>");
+                    for (var i = 0; i < child[0].length; i++) {
+                        listName = child[0][i].firstname + (child[0][i].middlename ? " " + child[0][i].middlename : "") + " " + child[0][i].lastname;
+                        isBillPayer = (child[0][i].billpayer === "1") ? "<b>(Bill Payer)</b>" : "";
+                        isPrimaryContact = (child[0][i].primarycontact === "1") ? "<b>(Primary Contact)</b>" : "";
+                        $(".pickupList").append("<li>" + listName + " " + isBillPayer + isPrimaryContact + "</li>");
+                    };
+                    $(".pickupList").append("</ul>");
 
                     $("#accordion").dialog("open");
                 }
