@@ -3,7 +3,7 @@
 require_once('../../server/objects/Client.php');
 require_once('../../server/objects/Alert.php');
 
-if($_GET["search"]){
+if(isset($_GET["search"])){
 	if (isset($_GET["id"])) {
 		$id = $_GET["id"];
 

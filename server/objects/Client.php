@@ -102,7 +102,7 @@ class Client {
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"]);
+        $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"], null);
 
         $id = $client->id;
         $addresses = Client::getAddresses($id);
