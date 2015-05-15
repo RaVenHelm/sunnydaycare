@@ -33,9 +33,9 @@ class Client {
 
     private $picLink;
 
-    function __construct($f, $m, $l, $gender, $active, $primary, $payer, $state, $pPhone, $sPhone, $relation){
+    function __construct($f, $m, $l, $gender, $active, $primary, $payer, $state, $pPhone, $sPhone, $relation, $bAddr, $mAddr){
         $this->firstName = $f;
-        $this->middleName = $m;
+        $this->middleName = ($m == "" || $m == null) ? null : $m;
         $this->lastName = $l;
         $this->gender = $gender;
         $this->isActive = $active;
@@ -43,10 +43,10 @@ class Client {
         $this->isBillPayer = $payer;
         $this->hasStateAssistance = $state;
         $this->primaryPhone = $pPhone;
-        $this->secondaryPhone = $sPhone;
+        $this->secondaryPhone = ($sPhone == "" || $sPhone == null) ? null : $sPhone;
         $this->relationship = $relation;
-        $this->billingAddr = null;
-        $this->mailingAddr = null;
+        $this->billingAddr = $bAddr;
+        $this->mailingAddr = $mAddr;
         $this->alerts = null;
         $this->comments = null;
         $this->incidents = null;
@@ -83,6 +83,14 @@ class Client {
 
     public function getFullName(){
         return $this->firstName . ( isset($this->middleName) ? " " . $this->middleName : "") . " " . $this->lastName;
+    }
+    public function getAddr($isBilling)
+    {
+        if($isBilling){
+            return $this->billingAddr;
+        } else {
+            return $this->mailingAddr;
+        }
     }
 
     public static function find_one_id($id){
@@ -147,7 +155,7 @@ class Client {
         global $database;
 
         $billing = "";
-        $mailing="";
+        $mailing = "";
 
         $sql = "SELECT type, address FROM address WHERE Client_id = :id";
 
@@ -217,6 +225,44 @@ class Client {
         $sth = $database->prepare($sql);
 
         $params = array(':gender' => $this->gender, ':link' => $this->picLink, ':contact' => $this->isPrimaryContact, ':payer' => $this->isBillPayer, ':pPhone' => $this->primaryPhone, ':sPhone' => $this->secondaryPhone, ':active' => $this->isActive, ':relation' => $this->relationship, ':state' => $this->hasStateAssistance, ':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
+
+        if(!$sth->execute($params)) {
+            return false;
+        }
+
+
+
+        $sql = "SELECT id from client WHERE firstname = :fname AND middlename = :mname AND lastname = :lname;";
+        $sth = $database->prepare($sql);
+        $params = array(':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
+
+        if (!$sth->execute($params)) {
+            return false;
+        }
+
+        $id = $sth->fetch(PDO::FETCH_ASSOC);
+        
+        $this->id = $id["id"];
+
+
+        $this->insertAddress(true);
+        $this->insertAddress(false);        
+
+        return $this;
+    }
+
+    private function insertAddress($isBilling) {
+        global $database;
+
+        $sql = "INSERT INTO address VALUES(NULL, :type, :address, :id);";
+
+        $sth = $database->prepare($sql);
+
+        if ($isBilling) {
+            $params = array(':type' => 'Billing', ':address' => $this->billingAddr, ':id' => $this->id);
+        } else {
+            $params = array(':type' => 'Mailling', ':address' => $this->mailingAddr, ':id' => $this->id);
+        }
 
         return $sth->execute($params);
     }

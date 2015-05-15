@@ -12,11 +12,11 @@ if (isset($_POST["register"])) { //Form has been submitted
         $state = isset($_POST["stateassistance"]) ? true : false;
         $secondary = isset($_POST["telephone"]["secondary"]) ? $_POST["telephone"]["secondary"] : null;
 
-        $client = new Client($_POST["firstname"], $middle, $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"]);
+        $client = new Client($_POST["firstname"], $middle, $_POST["lastname"], $_POST["gender"], true, $contact, $payer, $state, $_POST["telephone"]["primary"], $secondary, $_POST["relationship"], $_POST["address"]["billing"], $_POST["address"]["mailing"]);
 
         //TODO: Add Client object validations
-        if($client->add()){
-            $msg = "Client " . $client->getFullName() . " created!";
+        if($result = $client->add()){
+            $msg = "Client " . $result->getFullName() . " created!<br> Their mailing address is:<br>" . $result->getAddr(false);
         }
 
     } catch (Exception $ex){

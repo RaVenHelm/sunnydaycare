@@ -5,8 +5,6 @@ require_once('../../server/objects/Event.php');
 
 if (!$session->is_logged_in()) { redirect_to('../login.php'); }
 
-    $events = Event::getAll();
-    //var_dump($events);
 ?>
 
 <!DOCTYPE html>
@@ -15,13 +13,12 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
 
 <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    
 
     <!-- Custom styles -->
     <link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
     <link rel="Stylesheet" href="../../public/styles/webpage.css" type="text/css" />
+    
 </head>
 
 <body>
@@ -29,19 +26,25 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
 <div class="wrapper" style="background-color: cornsilk;">
     <?php include('../templates/userbar.php'); ?>
 
-    <div class="calendar">
-        <?php if($events){?>
-            <?php foreach($events as $event){?>
-                <pre></pre><?php print_r($event); ?></pre>
-            <?php } ?>
-        <?php } ?>
+    <div id="calendar" class="clearfix">  
     </div>
+
+    <div id="event" title="Event"></div>
+    
     <div id="error" title="Error"></div>
 
     <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
 
 </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+    <script src="../../public/scripts/moment.min.js"></script>
+    <script src="../../public/scripts/underscore.min.js"></script>
+    <script src="../../public/scripts/clndr.min.js"></script>
 
 <script src="../../public/scripts/events.js"></script>
 </html>
