@@ -10,9 +10,9 @@
 		$restrictions = isset($_POST["restriction"]) ? $_POST["restriction"] : null;
 		$medical = isset($_POST["medical"]) ? $_POST["medical"] : null;
 
-        $child = new Child($_POST["firstname"], $middlename, $_POST["lastname"], $_POST["bday"], $_POST["gender"], true, false, false, null, $allergies, $restrictions, $medical);
+        $child = new Child($_POST["firstname"], $middlename, $_POST["lastname"], $_POST["bday"], $_POST["gender"], true, false, false, null, $allergies, $restrictions, $medical, $_POST["client"]);
         
-        $child->add();
+        if($result = $child->add()) $msg = "Child " . $result->getFullName() . " created!";
 	}
 	else { //Form has not been submitted
 

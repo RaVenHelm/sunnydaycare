@@ -21,7 +21,7 @@ $(document).ready(function () {
 		//event.preventDefault();
 		var errors = [],
 			index = 0,
-			forbidden = new RegExp(/[\[;"'.\\|\]\/@$%\^&!]/),
+			forbidden = new RegExp(/[\[;"'\\|\]\/@$%\^&!]/),
 			birthday = new RegExp(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 			phone = new RegExp(/^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/);
 		//Clear previous errors
@@ -45,7 +45,7 @@ $(document).ready(function () {
 			if (!phone.exec($(".phone").val().trim())) {
 				errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
 			}
-		};
+		}
 		$("input").each(function () {
 			if (forbidden.exec($(this).val().trim())) {
 				errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
@@ -106,24 +106,17 @@ $(document).ready(function () {
 				}
 				$("#clientList").dialog("open");
 				$(".clientSingle").click(function () {
-					var id = $(this).attr("id");
-					clientsToAdd.push(id);
+					var id = $(this).attr("id"),
+						name = $(this).html(),
+						count  = $("#clientsToAdd").children("#clients").length;
 					$("span[name=" + id + "]").html('Added!');
-					$("#remove").click(function () {
-						//Reset the array
-						clientsToAdd = [];
-						$("span[name=" + id + "]").html('Removed');
-					});
+					$("#clientsToAdd").append('<h2 id="clients">' + name + '</h2>');
+					$("#clientsToAdd").append('<input type="hidden" name="client[' + count + ']" value="' + id + '">');
 				});
-				$("#clientList").on("dialogclose", function () {
-					var i = 0, name = "";
-					$("#clientsToAdd").html("");
-					for (i; i < clientsToAdd.length; i++) {
-						name = _.where(clients, { id: clientsToAdd[i] })[0].firstname;
-						$("#clientsToAdd").append('<div id="clientsToAdd">' + name);
-						$("#clientsToAdd").append('<input type="hidden" name="client[' + i + ']" value="' + clientsToAdd[i] + '"></div>');
-					}
+				$("#remove").click(function () {
+					//Reset the array
 					clientsToAdd = [];
+					$("#clientsToAdd").html("");
 				});
 			}
 		});
@@ -142,6 +135,9 @@ $(document).ready(function () {
 			list.append('<div class="restriction"><input name="restriction[' + count + '][type]" value="' + type + '"><br><input name="restriction[' + count + '][detail]" value="' + detail + '"><br></div>');
 		}
 	});
+	$("#removeRestriction").click(function () {
+		$("#restrictionList").html("");
+	});
 	$("#medicalDia").dialog(dialogOptions);
 	$("#medicalBttn").click(function (event) {
 		event.preventDefault();
@@ -156,6 +152,9 @@ $(document).ready(function () {
 			list.append('<div class="medical"><input name="medical[' + count + '][section]" value="' + section + '"><br><input name="medical[' + count + '][description]" value="' + description + '"><br></div>');
 		}
 	});
+	$("#removeMedical").click(function () {
+		$("#medicalList").html("");
+	});
 	$("#allergyDia").dialog(dialogOptions);
 	$("#allergyBttn").click(function (event) {
 		event.preventDefault();
@@ -168,6 +167,9 @@ $(document).ready(function () {
 		if (type !== "") {
 			list.append('<div class="allergy"><input name="allergy[' + count + '][type]" value="' + type + '"><br></div>');
 		}
+	});
+	$("#removeAllergy").click(function () {
+		$("#allergyList").html("");
 	});
     $("input[type=submit], button").button();
 	$("#msg").dialog(dialogOptions);

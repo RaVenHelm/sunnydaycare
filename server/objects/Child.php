@@ -25,8 +25,10 @@
 		private $restrictions;
         private $medical;
 
+        private $clientList;
+
 		
-		function __construct($f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions, $medical){
+		function __construct($f, $m, $l, $dob, $g, $active, $checked, $state, $comments, $allergies, $restrictions, $medical, $clientList){
 			$this->id = null;
 			$this->firstName = $f;
 			$this->middleName = $m;
@@ -41,6 +43,7 @@
 			$this->incidents = null;
 			$this->restrictions = $restrictions;
             $this->medical = $medical;
+            $this->clientList = $clientList;
 		}
 
 		public function __set($name, $val){
@@ -228,7 +231,7 @@
 	        $params = array(':gender' => $this->gender, ':link' => $this->picLink, ':checkedIn' => $this->isCheckedIn, ':comments' => $this->comments, ':active' => $this->isActive, ':state' => $this->hasStateAssistance, ':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
 
 	        if(!$sth->execute($params)){
-	        	echo "Child";
+	        	return false;
 	        }
 
 
@@ -237,40 +240,34 @@
 	        $this->id = $child["id"];
 
 	        //Create Medical record
-	        $sql = "INSERT INTO medical VALUES(NULL, :id, :section, :description);";
-	        $sth = $database->prepare($sql);
-
-	        $section = isset($this->medical[0]["section"]) ? encrypt($this->medical[0]["section"]) : null;
-	        $description = isset($this->medical[0]["description"]) ? encrypt($this->medical[0]["description"]) : null;
-
-	        $params = (array(':id' => $this->id, ':section' => $section, ':description' => $description));
-
-	        if(!$sth->execute($params)){
-	        	return false;
+	        for ($i=0; $i < count($this->medical); $i++) { 
+	        	if (!$this->insertMedical($this->medical[$i])) {
+	        		return false;
+	        	}
 	        }
 
 	        // Create Allergy Record(s)
-	        $sql = "INSERT INTO allergy VALUES(NULL, :type, :id);";
-	        $sth = $database->prepare($sql);
-
-	        $type = isset($this->allergies[0]["type"]) ? encrypt($this->allergies[0]["type"]) : null;
-	        $params = array(':type' => $type, ':id' => $this->id);
-
-	        if(!$sth->execute($params)){
-	        	return false;
+	        for ($i=0; $i < count($this->allergies); $i++) { 
+	        	if (!$this->insertAllergy($this->allergies[$i])) {
+	        		return false;
+	        	}
 	        }
 
 	        // Create Restriction Record(s)
-	        $sql = "INSERT INTO restriction VALUES(NULL, :type, :detail, :id);";
-	        $sth = $database->prepare($sql);
-
-	        $type = isset($this->restrictions[0]["type"]) ? $this->restrictions[0]["type"] : null;
-	        $detail = isset($this->restrictions[0]["detail"]) ? encrypt($this->restrictions[0]["detail"]) : null;
-	        $params = array(':type' => $type, ':detail' => $detail, ':id' => $this->id);
-
-	        if(!$sth->execute($params)){
-	        	return false;
+	        for ($i=0; $i < count($this->restrictions); $i++) { 
+	        	if (!$this->insertRestriction($this->restrictions[$i])) {
+	        		return false;
+	        	}
 	        }
+
+	        //Create Client-Child Relation
+	        for ($i=0; $i < count($this->clientList); $i++) { 
+	        	if(!$this->insertClient($this->clientList[$i])){
+	        		return false;
+	        	}
+	        }
+
+	        return $this;
 		}
 		
 		/*
@@ -363,6 +360,58 @@
 			return $result;
 		 }
 	
-		
+		/*
+		 *
+		 *
+		 */
+		private function insertMedical($medical){
+			global $database;
+
+			$sql = "INSERT INTO medical VALUES(NULL, :id, :section, :description);";
+	        $sth = $database->prepare($sql);
+
+	        $section = isset($medical["section"]) ? encrypt($medical["section"]) : null;
+	        $description = isset($medical["description"]) ? encrypt($medical["description"]) : null;
+
+	        $params = (array(':id' => $this->id, ':section' => $section, ':description' => $description));
+
+	        return $sth->execute($params);
+		}
+
+		private function insertAllergy($allergy){
+			global $database;
+
+			$sql = "INSERT INTO allergy VALUES(NULL, :type, :id);";
+	        $sth = $database->prepare($sql);
+
+	        $type = isset($allergy["type"]) ? encrypt($allergy["type"]) : null;
+	        $params = array(':type' => $type, ':id' => $this->id);
+
+	        return $sth->execute($params);
+		}
+
+		private function insertRestriction($restr){
+			global $database;
+
+			$sql = "INSERT INTO restriction VALUES(NULL, :type, :detail, :id);";
+	        $sth = $database->prepare($sql);
+
+	        $type = isset($restr["type"]) ? $restr["type"] : null;
+	        $detail = isset($restr["detail"]) ? encrypt($restr["detail"]) : null;
+	        $params = array(':type' => $type, ':detail' => $detail, ':id' => $this->id);
+
+	        return $sth->execute($params);
+		}
+
+		private function insertClient($client){
+			global $database;
+
+			$sql = "INSERT INTO `client_has_child` VALUES(:Client, :Child);";
+			$sth = $database->prepare($sql);
+
+			$params = array(':Client' => $client, ':Child' => $this->id);
+
+			return $sth->execute($params);
+		}
 	}
 ?>
