@@ -11,15 +11,6 @@
     	if(!$result) $msg = "<ul><li>No client found.</li></ul>";
     }
 
-
-    if (isset($_POST["billing"])) {
-    	if($invoice = Invoice::create($_POST["id"], $_POST["startDate"], $_POST["endDate"])) {
-    		$msg = '<h4>Invoice Created:</h4><ul><li>Date Made: ' . $invoice["dateMade"] . '</li><li>Date Due: ' . $invoice["dueDate"] . '</li><li>Amount Due: $' . number_format($invoice["total"], 2, '.', '') . '</ul>';
-    	} else {
-    		$msg = '<p class="error">Could not create invoice</p>';
-    	}
-    }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +32,7 @@
 		<div class="wrapper">
 			<?php include('../templates/userbar.php'); ?>
 			<div id="search">
-				<h2>Create Client Billing</h2>
+				<h2>View Client Billing</h2>
 		        <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>" novalidate>
 		            <label for"firstname">First Name</label><br>
 		            <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
@@ -51,23 +42,17 @@
 		            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
 		            <input type="submit" name="submit" id="lookupSubmit" value="Search" >
 		        </form>
-		        <button><a href="view.php">View Billing Statements</a></button>
 			</div>
 			<div id="result">
 				<?php if(isset($result) && $result){ ?>
 		            <?php for($i = 0; $i < count($result); $i++) {?>
-		                <button class="clientSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
+		                <button class="billingSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
 		            <?php } ?>
 	        	<?php } ?>
 			</div>
-			<div id="accordion" title="Client Data">
-	            <form id="createBilling" method="post" name="billing" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	            	<label for="startEndDates"></label><br>
-	            	<input type="text" class="startEndDates" name="startDate" placeholder="Start Date" required><br>
-	            	<input type="text" class="startEndDates" name="endDate" placeholder="End Date" required><br>
-	            	<input type="hidden" name="id" id="id">
-	            	<input type="submit" name="billing" value="Submit">
-	            </form>
+			<div id="accordion" title="Billing Data">
+	            <h3>Invoice</h3>
+	            <div class="invoice"></div>
 	        </div>
 			<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 		</div>

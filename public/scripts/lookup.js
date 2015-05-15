@@ -80,8 +80,7 @@ $(document).ready(function () {
                     errorElement.html("<ul><li>err</li></ul>");
                     errorElement.dialog("open");
                 });
-        }
-    });
+        });
 	$(".clientSingle").click(function () {
         var id = $(this).attr("id"),
             client = {},
