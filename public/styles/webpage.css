@@ -25,21 +25,14 @@
     width: 80%;
     margin: 0 auto;
 }
-.wrapper div {
-	position: relative;
-	text-align: center;
-	padding: 1px;
-}
+
 .clearfix:after
 {
     line-height: 0;
-
     display: block;
     visibility: hidden;
     clear: both;
-
     height: 0;
-
     content: '.';
 }
 .clearfix
@@ -68,13 +61,10 @@ body
     font-family: Indie Flower;
     font-size: 4em;
     font-weight: bold;
-
     width: 80%;
     height: 100px;
     margin: 0 auto;
-
     text-align: center;
-
     color: #ffff45;
     background-color: #736aff;
 }
@@ -88,100 +78,31 @@ body
 {
     color: white;
 }
-#col_1 #col_2 #col_3 a 
-{
-    position: absolute;
-}
-#col_1
-{
-    float: left;
-    width: 25%;
-    height: 400px;
-    margin-top: 2%;
-    margin-bottom: 2.5%;
-    margin-left: 8%;
-    text-align: center;
-    background-color: #ffff45;
-}
-#col_1 img, #col_2 img, #col_3 img {
-	margin: auto;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-
-}
-#col_2
-{
-    display: inline-block;
-    width: 29%;
-    height: 400px;
-    margin-top: 2%;
-    margin-bottom: 2.5%;
-    margin-left: 2.5%;
-    background-color: #47d147;
-}
-#col_3
-{
-    float: right;
-    width: 25%;
-    height: 400px;
-    margin-top: 2%;
-    margin-right: 8%;
-    margin-bottom: 2.5%;
-    text-align: center;
-    background-color: #ff3030;
-}
-#col_1 img {
-	width: 275; 
-	height: 250;
-}
-#col_2 img {
-	width: 200;
-	height: 275;
-}
-#col_3 img {
-	width: 275; 
-	height: 250;
-}
-.wrapper div span {
-	display: block;
-	text-decoration: underline;
-	margin: 10px 5px 0;
-	background-color: #fff;
-	padding: 5px;
-}
 #search
 {
     float: left;
-
     width: 40%;
     height: 400px;
     margin-top: 2%;
     margin-bottom: 2.5%;
     margin-left: 5%;
     padding: 15px 0 0 15px;
-
     background-color: #7de2ff;
 }
 #result
 {
     float: right;
-
     width: 40%;
     height: 400px;
     margin-top: 2%;
     margin-right: 5%;
     margin-bottom: 2.5%;
     padding: 15px 0 0 15px;
-
     background-color: #60ff88;
 }
 #login
 {
     font-size: 1.5em;
-
     width: 40%;
     height: 250px;
     margin-top: 7%;
@@ -189,42 +110,34 @@ body
     margin-bottom: 2.5%;
     margin-left: 30%;
     padding-top: 40px;
-
     text-align: center;
-
     color: #736aff;
     background-color: #ffff45;
 }
 .employeeNav
 {
-    display: inline-block;
-
-    width: 90%;
     margin: 0 auto;
+    width: 400px;
     padding: 0;
-
     text-align: center;
 }
 .employeeNav li
 {
-    display: inline-block;
-
-    width: 250px;
     margin: 10px auto;
     padding: 10px 0;
-
-    list-style-type: none;
-
     border: 2px solid black;
+    list-style-type: none;
     background-color: #7de2ff;
 }
 .employeeNav li a
 {
     text-decoration: none;
+
 }
 .employeeNav li a:hover
 {
-    color: #000;
+    color: #000000;
+    font-size: 1.2em;
 }
 #loginForm
 {
@@ -262,20 +175,11 @@ body
 }
 .register
 {
-    background-color: #ffc46f;
-}
-.register h2
-{
-    padding: 30px 0 0 30px;
-
-    text-decoration: underline;
-}
-#registerForm
-{
-    margin-left: 100px;
+    text-align: center;
+    background-color: cornsilk;
 }
 
-form input[type=text]
+form input
 {
     width: 300px;
 }
@@ -295,18 +199,14 @@ input[type=checkbox]
 {
     color: red;
 }
-#content
-{
-    font-family: Arial;
+#content {
+	font-family: Arial;
     font-weight: bold;
-
     width: 80%;
-    height: 70%;
+    height: 65%;
     margin-top: 1%;
     margin-left: 10%;
-
     text-align: center;
-
     color: #736aff;
     background-color: #ffff45;
 }
@@ -314,42 +214,34 @@ input[type=checkbox]
 #calendar
 {
     font-size: 14px;
-
     max-width: 600px;
     margin: 30px 200px;
-
     text-align: center;
 }
 #calendar .clndr .clndr-controls
 {
     display: inline-block;
-
     width: 100%;
 }
 #calendar .clndr .clndr-controls .month
 {
     float: left;
-
     width: 33%;
-
     text-align: center;
 }
 #calendar .clndr .clndr-controls .clndr-control-button
 {
     float: left;
-
     width: 33%;
 }
 #calendar .clndr .clndr-table
 {
     width: 100%;
-
     table-layout: fixed;
 }
 #calendar .clndr .clndr-table .header-days
 {
     font-size: 10px;
-
     height: 30px;
 
     background: #0d70a6;
@@ -358,7 +250,6 @@ input[type=checkbox]
 {
     text-align: center;
     vertical-align: middle;
-
     color: #fff;
     border-top: 1px solid #000;
     border-left: 1px solid #000;
@@ -424,10 +315,8 @@ input[type=checkbox]
 #calendar .clndr .clndr-table tr .day .day-contents
 {
     font-size: 12px;
-
     box-sizing: border-box;
     padding: 8px;
-
     text-align: right;
 }
 #calendar .clndr .clndr-table tr .empty,
@@ -466,15 +355,10 @@ input[type=checkbox]
 {
     border-bottom: 1px solid #000;
 }
-img
-{
-    float: left;
-}
 footer
 {
     width: 80%;
     height: 100px;
     margin: auto;
-
     background-color: #736aff;
 }
