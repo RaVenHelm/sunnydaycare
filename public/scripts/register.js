@@ -134,9 +134,8 @@ $(document).ready(function () {
 		if (type !== "" && detail !== "") {
 			list.append('<div class="restriction"><input name="restriction[' + count + '][type]" value="' + type + '"><br><input name="restriction[' + count + '][detail]" value="' + detail + '"><br></div>');
 		}
-	});
-	$("#removeRestriction").click(function () {
-		$("#restrictionList").html("");
+		$("#type").val('');
+		$("#detail").val('');
 	});
 	$("#medicalDia").dialog(dialogOptions);
 	$("#medicalBttn").click(function (event) {
@@ -151,9 +150,8 @@ $(document).ready(function () {
 		if (section !== "" && description !== "") {
 			list.append('<div class="medical"><input name="medical[' + count + '][section]" value="' + section + '"><br><input name="medical[' + count + '][description]" value="' + description + '"><br></div>');
 		}
-	});
-	$("#removeMedical").click(function () {
-		$("#medicalList").html("");
+		$("#section").val('');
+		$("#description").val('');
 	});
 	$("#allergyDia").dialog(dialogOptions);
 	$("#allergyBttn").click(function (event) {
@@ -167,9 +165,8 @@ $(document).ready(function () {
 		if (type !== "") {
 			list.append('<div class="allergy"><input name="allergy[' + count + '][type]" value="' + type + '"><br></div>');
 		}
-	});
-	$("#removeAllergy").click(function () {
-		$("#allergyList").html("");
+		//Reset the text
+		$("input#allergy").val("");
 	});
     $("input[type=submit], button").button();
 	$("#msg").dialog(dialogOptions);

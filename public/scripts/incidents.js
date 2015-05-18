@@ -32,5 +32,46 @@ $(document).ready(function () {
 			errorElement.dialog("open");
 		}
 	});
+	$(".childSingle").click(function () {
+		$.ajax({
+			url: 'get.php',
+			type: 'get',
+			data: {
+				type: 'child',
+				id: $(this).val()
+			}
+		})
+		.done(function(res) {
+			incidents = JSON.parse(res);
+			console.log(incidents[0]);
+			$(".childAccordion").children(".name").html($(".childSingle").val());
+			$(".childAccordion").children(".type").html(incidents.type);
+			$(".childAccordion").dialog("open");
+		})
+		.fail(function(error) {
+			errorElement.html(error);
+			errorElement.dialog("open");
+		});		
+	});
+	$(".clientSingle").click(function () {
+		var incidents = "";
+		$.ajax({
+			url: 'get.php',
+			type: 'get',
+			data: {
+				type: 'client',
+				id: $(this).val()
+			}
+		})
+		.done(function(res) {
+			incidents = JSON.parse(res);
+			$(".clientAccordion").children(".name").html($(".clientSingle").val());
+			$(".clientAccordion").children(".type").html(incidents.type);
+		})
+		.fail(function() {
+			errorElement.html(error);
+			errorElement.dialog("open");
+		});
+	});
 	$("input[type=submit], button").button();
 });

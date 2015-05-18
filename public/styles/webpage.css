@@ -83,6 +83,10 @@ body
 {
     color: white;
 }
+#col_1 #col_2 #col_3 a 
+{
+    position: absolute;
+}
 #col_1
 {
     float: left;
@@ -170,35 +174,34 @@ body
 }
 .employeeNav
 {
+    display: inline-block;
+
+    width: 90%;
     margin: 0 auto;
-
-    width: 400px;
-
     padding: 0;
 
     text-align: center;
 }
 .employeeNav li
 {
+    display: inline-block;
+
+    width: 250px;
     margin: 10px auto;
-
     padding: 10px 0;
-
-    border: 2px solid black;
 
     list-style-type: none;
 
+    border: 2px solid black;
     background-color: #7de2ff;
 }
 .employeeNav li a
 {
     text-decoration: none;
-
 }
 .employeeNav li a:hover
 {
-    color: #000000;
-    font-size: 1.2em;
+    color: #000;
 }
 #loginForm
 {
@@ -236,12 +239,20 @@ body
 }
 .register
 {
-    text-align: center;
+    background-color: #ffc46f;
+}
+.register h2
+{
+    padding: 30px 0 0 30px;
 
-    background-color: cornsilk;
+    text-decoration: underline;
+}
+#registerForm
+{
+    margin-left: 100px;
 }
 
-form input
+form input[type=text]
 {
     width: 300px;
 }

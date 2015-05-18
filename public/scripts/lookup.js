@@ -41,46 +41,43 @@ $(document).ready(function () {
         active: false
     });
     $(".childSingle").click(function () {
-        var id = $(this).attr("id"),
-            child = {},
-            gender = "";
-            $.ajax({
-                url: 'get.php',
-                method: 'get',
-                data: 'id=' + id,
-                success: function (data) {
-                    child = JSON.parse(data);
-                    var childName = child.firstname + (child.middlename ? " " + child.middlename : "") +  " " + child.lastname,
-                        listName = "", isBillPayer = "", isPrimaryContact = "";
+		var id = $(this).attr("id"),
+			child = {},
+			gender = "";
+		$.ajax({
+			url: 'get.php',
+			method: 'get',
+			data: 'id=' + id,
+			success: function (data) {
+				var child = JSON.parse(data), childName = child.firstname + (child.middlename ? " " + child.middlename : "") +  " " + child.lastname, listName = "", isBillPayer = "", isPrimaryContact = "", i = 0;
+				$(".name").html(childName);
+				$(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>"));
+				if (child.gender === "M") {
+					gender = "Male";
+				} else if (child.gender === "F") {
+					gender = "Female";
+				} else {
+					gender = "Other/Not given";
+				}
+				$(".gender").html(gender);
+				$(".comments").html((child.comments ? child.comments : "No comments"));
+				$(".pickupList").append("<ul>");
+				for (i = 0; i < child[0].length; i++) {
+					listName = child[0][i].firstname + (child[0][i].middlename ? " " + child[0][i].middlename : "") + " " + child[0][i].lastname;
+					isBillPayer = (child[0][i].billpayer === "1") ? "<b>(Bill Payer)</b>" : "";
+					isPrimaryContact = (child[0][i].primarycontact === "1") ? "<b>(Primary Contact)</b>" : "";
+					$(".pickupList").append("<li>" + listName + " " + isBillPayer + isPrimaryContact + "</li>");
+				}
+				$(".pickupList").append("</ul>");
 
-                    $(".name").html(childName);
-                    $(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>"));
-                    if (child.gender === "M") {
-                        gender = "Male";
-                    } else if (child.gender === "F") {
-                        gender = "Female";
-                    } else {
-                        gender = "Other/Not given";
-                    }
-                    $(".gender").html(gender);
-                    $(".comments").html((child.comments ? child.comments : "No comments"));
-                    $(".pickupList").append("<ul>");
-                    for (var i = 0; i < child[0].length; i++) {
-                        listName = child[0][i].firstname + (child[0][i].middlename ? " " + child[0][i].middlename : "") + " " + child[0][i].lastname;
-                        isBillPayer = (child[0][i].billpayer === "1") ? "<b>(Bill Payer)</b>" : "";
-                        isPrimaryContact = (child[0][i].primarycontact === "1") ? "<b>(Primary Contact)</b>" : "";
-                        $(".pickupList").append("<li>" + listName + " " + isBillPayer + isPrimaryContact + "</li>");
-                    };
-                    $(".pickupList").append("</ul>");
-
-                    $("#accordion").dialog("open");
-                }
-            })
-                .error(function (err) {
-                    errorElement.html("<ul><li>err</li></ul>");
-                    errorElement.dialog("open");
-                });
-        });
+				$("#accordion").dialog("open");
+			}
+		})
+			.error(function (err) {
+				errorElement.html("<ul><li>err</li></ul>");
+				errorElement.dialog("open");
+			});
+	});
 	$(".clientSingle").click(function () {
         var id = $(this).attr("id"),
             client = {},

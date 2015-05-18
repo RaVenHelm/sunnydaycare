@@ -69,25 +69,23 @@
                 <?php } ?>
                 <div id="childAccordion" title="Child Data">
                     <h3>Name</h3>
-                    <div class="name"><p></p></div>
-                        <h3>Check In Status</h3>
+                    <div class="name"></div>
+                        <h3>Type</h3>
                         <div class="checkIn"></div>
-                        <h3>Gender</h3>
-                        <div class="gender"></div>
-                        <h3>Comments</h3>
-                        <div class="comments"></div>
-                        <h3>Pick Up List</h3>
-                        <div class="pickupList"></div>
+                        <h3>Date</h3>
+                        <div class="date"></div>
+                        <h3>Description</h3>
+                        <div class="desciption"></div>
                 </div>
                 <div id="clientAccordion" title="Client Data">
                     <h3>Name</h3>
                     <div class="name"></div>
-                        <h3>Gender</h3>
-                        <div class="gender"></div>
-                        <h3>Comments</h3>
-                        <div class="comments"></div>
-                        <h3>Pick Up List</h3>
-                        <div class="pickupList"></div>
+                        <h3>Type</h3>
+                        <div class="type"></div>
+                        <h3>Date</h3>
+                        <div class="date"></div>
+                        <h3>Description</h3>
+                        <div class="description"></div>
                 </div>
                 <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
             </div>

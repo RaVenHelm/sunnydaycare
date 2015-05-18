@@ -25,10 +25,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<!-- JQuery Core/UI -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+		
 
 		<!-- Custom Styles-->
 		<link rel="Stylesheet" href="../../public/styles/normalize.css" />
@@ -65,7 +62,6 @@
                         
                         <div id="allergyDia" title="Allergies">
                         	<input type="text" id="allergy" class="allergy" placeholder="Allergy"><br>
-                        	<button id="removeAllergy">Remove All</button>
                         	<button id="allergyAdd">Add</button>
                         </div>
                         <div id="allergyList"></div>
@@ -76,7 +72,6 @@
                         <div id="medicalDia" title="Medical">
                         	<input type="text" id="section" class="medical" placeholder="Section"><br>
                         	<input type="text" id="description" class="medical" placeholder="Description"><br>
-                        	<button id="removeMedical">Remove All</button>
                         	<button id="medicalAdd">Add</button>
 
                         </div>
@@ -88,7 +83,6 @@
                         <div id="restrictionDia" title="Restrictions">
                         	<input type="text" id="type" class="restriction" placeholder="Type"><br>
                         	<input type="text" id="detail" class="restriction" placeholder="Detail"><br>
-                        	<button id="removeRestriction">Remove All</button>
                         	<button id="restrictionAdd">Add</button>
                         </div>
                         <div id="restrictionList"></div>
@@ -100,6 +94,7 @@
                         <input type="submit" name="search" id="lookupSubmit" value="Search" >
 
                         <div id="clientList" title="Clients"></div>
+                        <h3>Clients who can pick up this child</h3>
                         <div id="clientsToAdd"></div>
 
 						<br><input type="submit" name="register" id="registerSubmit" value="Register" >
@@ -109,6 +104,12 @@
 		<div id="msg" title="Messge"><?php if(isset($msg)) echo $msg; ?></div>
 		<div id="error" title="Error"></div>
 	</body>
-	<script src="../../public/scripts/underscore-min.js"></script>
+
+    <!-- JQuery Core/UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+	<script src="../../public/scripts/underscore.min.js"></script>
 	<script src="../../public/scripts/register.js"></script>
 </html>

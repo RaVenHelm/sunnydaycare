@@ -35,20 +35,18 @@
 					<li><a href="child/register.php">Register a new Child</a></li>
 					<li><a href="client/lookup.php">Client Lookup</a></li>
 					<li><a href="child/lookup.php">Child Lookup</a></li>
-					<li><a href="events">Events</a></li><br>
+					<li><a href="events">Events</a></li>
 					<?php if($_SESSION["permissions"] >= 2){?>
 					<li><a href="incidents">Incidents</a></li>
 					<li><a href="reports.php">Reports</a></li>
 					<li><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
-					<br>
 					<li><a href="#">Update Client Information</a></li>
 					<li><a href="#">Update Child Information</a></li>
 					<li><a href="Medical">Medical</a></li>
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>
-					<br />
 					<li><a href="#">Create a new Employee</a></li>
 					<li><a href="#">View Employee Incidents</a></li>
 					<li><a href="#">Edit Employee</a></li>

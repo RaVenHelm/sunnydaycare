@@ -3,9 +3,9 @@
 	
 	global $database;
 	
-	$password = password_hash("password!", PASSWORD_BCRYPT);
+	$password = password_hash("garyspassword", PASSWORD_BCRYPT);
 	
-	$sql = "INSERT INTO employee VALUES (NULL, 'generic', :pass, 'Generic', NULL, 'User', 4)";
+	$sql = "INSERT INTO employee VALUES (NULL, 'generic', :pass, 'Gary', NULL, 'The Janitor', 1)";
 	
 	$sth = $database->prepare($sql);
 	

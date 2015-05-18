@@ -16,26 +16,26 @@ class Incident {
         return array('child' => $childIncidents, 'client' => $clientIncidents, 'employee' => $employeeIncidents);
     }
 
-    public static function getChildIncidents(){
+    public static function getChildIncidents($id){
         global $database;
 
-        $sql = "SELECT type, descrip, date FROM `child incident`;";
+        $sql = "SELECT type, descrip, date FROM `child incident` WHERE Child_id = :id;";
 
         $sth = $database->prepare($sql);
-        if($sth->execute()){
+        if($sth->execute(array(':id' => $id))){
             return $sth->fetchAll(PDO::FETCH_ASSOC);
         } else {
             return null;
         }
     }
 
-    public static function getClientIncidents(){
+    public static function getClientIncidents($id){
         global $database;
 
-        $sql = "SELECT type, descrip, date FROM `client incident`;";
+        $sql = "SELECT type, descrip, date FROM `client incident` WHERE Client_id = :id;";
 
         $sth = $database->prepare($sql);
-        if($sth->execute()){
+        if($sth->execute(array(':id' => $id))){
             return $sth->fetchAll(PDO::FETCH_ASSOC);
         } else {
             return null;
