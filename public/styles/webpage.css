@@ -25,6 +25,11 @@
     width: 80%;
     margin: 0 auto;
 }
+.wrapper div {
+	position: relative;
+	text-align: center;
+	padding: 1px;
+}
 .clearfix:after
 {
     line-height: 0;
@@ -90,44 +95,62 @@ body
 #col_1
 {
     float: left;
-
     width: 25%;
     height: 400px;
     margin-top: 2%;
     margin-bottom: 2.5%;
     margin-left: 8%;
-
     text-align: center;
-
     background-color: #ffff45;
+}
+#col_1 img, #col_2 img, #col_3 img {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+
 }
 #col_2
 {
     display: inline-block;
-
     width: 29%;
     height: 400px;
     margin-top: 2%;
     margin-bottom: 2.5%;
     margin-left: 2.5%;
-
-    text-align: center;
-
     background-color: #47d147;
 }
 #col_3
 {
     float: right;
-
     width: 25%;
     height: 400px;
     margin-top: 2%;
     margin-right: 8%;
     margin-bottom: 2.5%;
-
     text-align: center;
-
     background-color: #ff3030;
+}
+#col_1 img {
+	width: 275; 
+	height: 250;
+}
+#col_2 img {
+	width: 200;
+	height: 275;
+}
+#col_3 img {
+	width: 275; 
+	height: 250;
+}
+.wrapper div span {
+	display: block;
+	text-decoration: underline;
+	margin: 10px 5px 0;
+	background-color: #fff;
+	padding: 5px;
 }
 #search
 {
