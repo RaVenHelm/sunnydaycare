@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	'use strict';
 	var errorElement = $("#error"), childElement = $("#accordion"), messageElement = $("#msg"),
 		dialogOptions = {
@@ -6,13 +6,13 @@ $(document).ready(function() {
 			autoOpen: false,
 			minWidth: 400
 		};
-		$(".startEndDates").datepicker({
-	        dateFormat: 'yy-mm-dd',
-	        maxDate: 'c +1m',
-	        changeMonth: true,
-	        changeYear: true,
-	        yearRange: 'c-5:c'
-	    }),
+	$(".startEndDates").datepicker({
+		dateFormat: 'yy-mm-dd',
+		maxDate: 'c +1m',
+		changeMonth: true,
+		changeYear: true,
+		yearRange: 'c-5:c'
+	});
 	errorElement.dialog(dialogOptions);
 	childElement.dialog(dialogOptions);
 	messageElement.dialog(dialogOptions);
@@ -55,17 +55,17 @@ $(document).ready(function() {
 				id : $(this).val()
 			}
 		})
-		.done(function(res) {
-			var invoices = $.parseJSON(res);
-			if (invoices.length === 0) {
-				errorElement.html("<p>Error: No invoices for this Client</p>");
-				errorElement.dialog("open");
-			} else {
-				$(".invoice").append('<ul>');
-				$.each(invoices, function(index, val) {
+			.done(function (res) {
+				var invoices = $.parseJSON(res);
+				if (invoices.length === 0) {
+					errorElement.html("<p>Error: No invoices for this Client</p>");
+					errorElement.dialog("open");
+				} else {
+					$(".invoice").append('<ul>');
+				}
+				$.each(invoices, function (index, val) {
 					var invoice = invoices[index];
 					console.log(invoice);
-
 					$(".invoice").append('<li>Invoice Date: ' + invoice.datemade + '</li>');
 					$(".invoice").append('<li>Date Due: ' + invoice.datedue + '</li>');
 					$(".invoice").append('<li>Amount: $' + invoice.total  + '</li>');
@@ -75,12 +75,11 @@ $(document).ready(function() {
 				$(".invoice").append('</ul>');
 				childElement.dialog("open");
 				childElement.accordion();
-			}
-		})
-		.fail(function(error) {
-			errorElement.html("<p>Error: " + error + "</p>");
-			errorElement.dialog("open");
-		})
+			})
+			.fail(function (error) {
+				errorElement.html("<p>Error: " + error + "</p>");
+				errorElement.dialog("open");
+			});
 	});
 	if (messageElement.html() !== "") {
 		messageElement.dialog("open");

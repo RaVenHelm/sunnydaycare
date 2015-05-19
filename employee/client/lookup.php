@@ -51,8 +51,7 @@ if(isset($_GET["submit"])){
             <?php } ?>
         <?php } ?>
         <div id="accordion" title="Client Data">
-            <h3>Name</h3>
-            <div class="name"><p></p></div>
+            <h3 class="name"></h3>
             <h3>Gender</h3>
             <div class="gender"></div>
             <h3>Primary Phone Number</h3>

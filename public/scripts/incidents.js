@@ -1,13 +1,19 @@
 $(document).ready(function () {
 	var errorElement = $('#error'), clientAccordion = $('#clientAccordion'), childAccordion = $('#childAccordion'),
 		dialogOptions = {
-        modal: true,
-        autoOpen: false,
-        heightStyle: 'auto',
-        minWidth: 600
-    };
-	clientAccordion.dialog(dialogOptions).accordion();
-	childAccordion.dialog(dialogOptions).accordion();
+	        modal: true,
+	        autoOpen: false,
+	        heightStyle: 'auto',
+	        minWidth: 600
+    	},
+    	accordionOptions = {
+    		active: false,
+    		collapsible: true
+    	};
+	clientAccordion.dialog(dialogOptions);
+	clientAccordion.accordion(accordionOptions);
+	childAccordion.dialog(dialogOptions);
+	childAccordion.accordion(accordionOptions);
 	$("form").submit(function (event) {
 		var errors = [],
 			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/\^&*!@#$%~]/),
@@ -43,10 +49,19 @@ $(document).ready(function () {
 		})
 		.done(function(res) {
 			incidents = JSON.parse(res);
-			console.log(incidents[0]);
-			$(".childAccordion").children(".name").html($(".childSingle").val());
-			$(".childAccordion").children(".type").html(incidents.type);
-			$(".childAccordion").dialog("open");
+			console.log(incidents.length);
+			if (incidents.length == 0) {
+				childAccordion.html("<ul><li><b>No incidents found</b></li></ul>");
+			} else {
+				$.each(incidents, function (index, el) {
+					//console.log(incidents.length);
+					childAccordion.children(".name").append($(".childSingle").html());
+					childAccordion.children(".type").append(el.type);
+					childAccordion.children(".date").append(el.date);
+					childAccordion.children(".description").append(el.descrip);
+				});
+			}
+			childAccordion.dialog("open");
 		})
 		.fail(function(error) {
 			errorElement.html(error);
@@ -64,9 +79,13 @@ $(document).ready(function () {
 			}
 		})
 		.done(function(res) {
-			incidents = JSON.parse(res);
-			$(".clientAccordion").children(".name").html($(".clientSingle").val());
-			$(".clientAccordion").children(".type").html(incidents.type);
+			if (res.length !== 0) {
+				incidents = JSON.parse(res);
+				clientAccordion.children(".name").html($(".clientSingle").val());
+				clientAccordion.children(".type").html(incidents.type);
+				clientAccordion.children(".date").append(el.date);
+				clientAccordion.children(".description").append(el.descrip);
+			}
 		})
 		.fail(function() {
 			errorElement.html(error);
