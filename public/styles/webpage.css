@@ -120,6 +120,8 @@ body
     width: 400px;
     padding: 0;
     text-align: center;
+
+    font-size: 1.3em;
 }
 .employeeNav li
 {
@@ -127,7 +129,6 @@ body
     padding: 10px 0;
     border: 2px solid black;
     list-style-type: none;
-    background-color: #7de2ff;
 }
 .employeeNav li a
 {
@@ -137,7 +138,6 @@ body
 .employeeNav li a:hover
 {
     color: #000000;
-    font-size: 1.2em;
 }
 #loginForm
 {
@@ -175,11 +175,18 @@ body
 }
 .register
 {
-    text-align: center;
     background-color: cornsilk;
 }
-
-form input
+.register h2
+{
+    padding-top: 10px;
+    margin: 0 0 10px 10px;
+}
+#registerForm
+{
+    margin-left: 100px;
+}
+form input[type=text]
 {
     width: 300px;
 }
@@ -354,6 +361,22 @@ input[type=checkbox]
 #calendar .clndr .clndr-table tr:last-child .my-empty
 {
     border-bottom: 1px solid #000;
+}
+.levelOne
+{
+    background-color: #ffff19;
+}
+.levelTwo
+{
+    background-color: #53f5f5;
+}
+.levelThree
+{
+    background-color: #fff0f0;   
+}
+.levelFour
+{
+    background-color: #66ff66;
 }
 footer
 {

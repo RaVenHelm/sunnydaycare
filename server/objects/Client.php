@@ -68,17 +68,25 @@ class Client {
 
     public function save(){
         global $database;
+        $msg = "";
 
         $sql = "UPDATE client SET firstname = :fname, middlename = :mname, lastname = :lname, gender = :gender, primarycontact = :primaryContact, billpayer = :bill, primaryphone = :primaryPhone, secondaryphone = :secondaryPhone, isactive = :active, relationship = :relation, stateassistance = :state, piclink = :link WHERE id = :id;";
         $sth = $database->prepare($sql);
 
         $params = array(':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName, ':gender' => $this->gender, ':primaryContact' => $this->isPrimaryContact, ':bill' => $this->isBillPayer, ':primaryPhone' => $this->primaryPhone, ':secondaryPhone' => $this->secondaryPhone, ':active' => $this->isActive, ':relation' => $this->relationship, ':state' => $this->hasStateAssistance, ':link' => $this->picLink, ':id' => $this->id );
 
-        return $sth->execute($params);
+        if(!$sth->execute($params)){
+            return false;
+        }
+
+        if(!$this->updateAddress(true)) return false;
+        if(!$this->updateAddress(false)) return false;
+
+        return true;
     }
 
     public function to_array(){
-        return array('firstname' => $this->firstName, 'middlename' => $this->middleName, 'lastname' => $this->lastName, 'gender' => $this->gender, 'primaryphone' => $this->primaryPhone, 'secondaryphone' => $this->secondaryPhone, 'primarycontact' => $this->isPrimaryContact, 'billpayer' => $this->isBillPayer);
+        return array('id' => $this->id,'firstname' => $this->firstName, 'middlename' => $this->middleName, 'lastname' => $this->lastName, 'gender' => $this->gender, 'primaryphone' => $this->primaryPhone, 'secondaryphone' => $this->secondaryPhone, 'isactive' => $this->isActive, 'primarycontact' => $this->isPrimaryContact, 'billpayer' => $this->isBillPayer, 'relationship' => $this->relationship, 'stateassistance' => $this->hasStateAssistance, 'mailingAddr' => $this->mailingAddr, 'billingAddr' => $this->billingAddr);
     }
 
     public function getFullName(){
@@ -101,6 +109,14 @@ class Client {
         }
     }
 
+    public function setComments($val){
+        $this->comments = $val;
+    }
+
+    public function setId($val){
+        $this->id = $val;
+    }
+
 
     public static function find_one_id($id){
         global $database;
@@ -114,6 +130,7 @@ class Client {
         $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"], null);
 
         $client->id = $id;
+
         $addresses = Client::getAddresses($id);
 
         $client->alerts = Client::getAlerts($id);
@@ -275,6 +292,25 @@ class Client {
             $params = array(':type' => 'Mailling', ':address' => $this->mailingAddr, ':id' => $this->id);
         }
 
+        return $sth->execute($params);
+    }
+
+    private function updateAddress($isBilling) {
+        global $database;
+
+        $sql = "UPDATE address SET address=:address WHERE Client_id=:id AND type=:type ;";
+
+        $sth = $database->prepare($sql);
+
+
+
+        if ($isBilling) {
+            $params = array(':type' => 'Billing', ':address' => $this->billingAddr, ':id' => $this->id);
+        } else {
+            $params = array(':type' => 'Mailling', ':address' => $this->mailingAddr, ':id' => $this->id);
+        }
+
+        //var_dump($this);
         return $sth->execute($params);
     }
 }

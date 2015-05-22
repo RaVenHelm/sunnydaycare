@@ -4,7 +4,6 @@ require_once('../../server/functions.php');
 require_once('../../server/objects/Event.php');
 
 if (!$session->is_logged_in()) { redirect_to('../login.php'); }
-var_dump($_POST);
 if (isset($_POST["add"])) {
     
     if (Event::add($_POST["title"], $_POST["date"], $_POST["time"], $_POST["description"])) {

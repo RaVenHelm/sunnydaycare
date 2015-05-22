@@ -30,26 +30,26 @@
 			<div class="wrapper">
 			<?php include('templates/userbar.php'); ?>
 			<ul class="employeeNav">
-					<li><a href="child/checkin.php">Check In / Check Out</a></li>
-					<li><a href="client/register.php">Register a new Client</a></li>
-					<li><a href="child/register.php">Register a new Child</a></li>
-					<li><a href="client/lookup.php">Client Lookup</a></li>
-					<li><a href="child/lookup.php">Child Lookup</a></li>
-					<li><a href="events">Events</a></li>
+					<li class="levelOne"><a href="child/checkin.php">Check In / Check Out</a></li>
+					<li class="levelOne"><a href="client/register.php">Register a new Client</a></li>
+					<li class="levelOne"><a href="child/register.php">Register a new Child</a></li>
+					<li class="levelOne"><a href="client/lookup.php">Client Lookup</a></li>
+					<li class="levelOne"><a href="child/lookup.php">Child Lookup</a></li>
+					<li class="levelOne"><a href="events">Events</a></li>
 					<?php if($_SESSION["permissions"] >= 2){?>
-					<li><a href="incidents">Incidents</a></li>
-					<li><a href="reports.php">Reports</a></li>
-					<li><a href="billing">Billing</a></li>
+					<li class="levelTwo"><a href="incidents">Incidents</a></li>
+					<li class="levelTwo"><a href="reports.php">Reports</a></li>
+					<li class="levelTwo"><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
-					<li><a href="client/update.php">Update Client Information</a></li>
-					<li><a href="child/update.php">Update Child Information</a></li>
-					<li><a href="Medical">Medical</a></li>
+					<li class="levelThree"><a href="client/update.php">Update Client Information</a></li>
+					<li class="levelThree"><a href="child/update.php">Update Child Information</a></li>
+					<li class="levelThree"><a href="Medical">Medical</a></li>
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>
-					<li><a href="#">Create a new Employee</a></li>
-					<li><a href="#">View Employee Incidents</a></li>
-					<li><a href="#">Edit Employee</a></li>
+					<li class="levelFour"><a href="#">Create a new Employee</a></li>
+					<li class="levelFour"><a href="#">View Employee Incidents</a></li>
+					<li class="levelFour"><a href="#">Edit Employee</a></li>
 					<?php } ?>
 				</ul>
 			</div>

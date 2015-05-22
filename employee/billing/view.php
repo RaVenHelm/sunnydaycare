@@ -42,6 +42,7 @@
 		            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
 		            <input type="submit" name="submit" id="lookupSubmit" value="Search" >
 		        </form>
+		        <button id="back"><a href="index.php">Billing Home Page</a></button>
 			</div>
 			<div id="result">
 				<?php if(isset($result) && $result){ ?>

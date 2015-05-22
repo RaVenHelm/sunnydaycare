@@ -67,5 +67,5 @@
 		</div>
 	</body>
 
-	<script src="../../public/scripts/lookup.js"></script>
+	<script src="../../public/scripts/update.js"></script>
 </html>
