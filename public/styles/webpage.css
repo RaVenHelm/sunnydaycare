@@ -1,0 +1,364 @@
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+
+/*
+ *
+ *JQuery UI CSS Overrides
+ */
+
+.ui-accordion .ui-accordion-header
+{
+    margin: 2px 10px 0 0;
+}
+
+.ui-accordion  .ui-accordion-content
+{
+    min-height: 30px;
+    margin-right: 10px;
+}
+
+.userbar ul
+{
+    list-style-type: none;
+}
+.wrapper
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.clearfix:after
+{
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: '.';
+}
+.clearfix
+{
+    display: inline-block;
+}
+body,
+html
+{
+    height: 100%;
+}
+a:visited
+{
+    color: blue;
+}
+div.container
+{
+    overflow: hidden;
+}
+body
+{
+    background-color: #ffffc9;
+}
+.header
+{
+    font-family: Indie Flower;
+    font-size: 4em;
+    font-weight: bold;
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffff45;
+    background-color: #736aff;
+}
+.header a
+{
+    text-decoration: none;
+
+    color: #ffff45;
+}
+.header a:hover
+{
+    color: white;
+}
+#search
+{
+    float: left;
+    width: 40%;
+    height: 400px;
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    margin-left: 5%;
+    padding: 15px 0 0 15px;
+    background-color: #7de2ff;
+}
+#result
+{
+    float: right;
+    width: 40%;
+    height: 400px;
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-bottom: 2.5%;
+    padding: 15px 0 0 15px;
+    background-color: #60ff88;
+}
+#login
+{
+    font-size: 1.5em;
+    width: 40%;
+    height: 250px;
+    margin-top: 7%;
+    margin-right: 25.5%;
+    margin-bottom: 2.5%;
+    margin-left: 30%;
+    padding-top: 40px;
+    text-align: center;
+    color: #736aff;
+    background-color: #ffff45;
+}
+.employeeNav
+{
+    margin: 0 auto;
+    width: 400px;
+    padding: 0;
+    text-align: center;
+}
+.employeeNav li
+{
+    margin: 10px auto;
+    padding: 10px 0;
+    border: 2px solid black;
+    list-style-type: none;
+    background-color: #7de2ff;
+}
+.employeeNav li a
+{
+    text-decoration: none;
+
+}
+.employeeNav li a:hover
+{
+    color: #000000;
+    font-size: 1.2em;
+}
+#loginForm
+{
+    margin-top: 40px;
+}
+#username
+{
+    margin-bottom: 10px;
+}
+#password
+{
+    margin-bottom: 10px;
+}
+#firstname
+{
+    margin-bottom: 10px;
+}
+#middlename
+{
+    margin-bottom: 10px;
+}
+#lastname
+{
+    margin-bottom: 10px;
+}
+
+#lookup input
+{
+    margin: 10px 0;
+}
+.childSingle,
+.clientSingle
+{
+    margin-bottom: 10px;
+}
+.register
+{
+    text-align: center;
+    background-color: cornsilk;
+}
+
+form input
+{
+    width: 300px;
+}
+
+#medicalAdd,
+#allergyAdd,
+#restrictionAdd
+{
+    float: right;
+}
+
+input[type=checkbox]
+{
+    margin: 10px 0;
+}
+#error
+{
+    color: red;
+}
+#content {
+	font-family: Arial;
+    font-weight: bold;
+    width: 80%;
+    height: 65%;
+    margin-top: 1%;
+    margin-left: 10%;
+    text-align: center;
+    color: #736aff;
+    background-color: #ffff45;
+}
+
+#calendar
+{
+    font-size: 14px;
+    max-width: 600px;
+    margin: 30px 200px;
+    text-align: center;
+}
+#calendar .clndr .clndr-controls
+{
+    display: inline-block;
+    width: 100%;
+}
+#calendar .clndr .clndr-controls .month
+{
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+#calendar .clndr .clndr-controls .clndr-control-button
+{
+    float: left;
+    width: 33%;
+}
+#calendar .clndr .clndr-table
+{
+    width: 100%;
+    table-layout: fixed;
+}
+#calendar .clndr .clndr-table .header-days
+{
+    font-size: 10px;
+    height: 30px;
+
+    background: #0d70a6;
+}
+#calendar .clndr .clndr-table .header-days .header-day
+{
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+}
+#calendar .clndr .clndr-table .header-days .header-day:last-child
+{
+    border-right: 1px solid #000;
+}
+#calendar .clndr .clndr-table tr
+{
+    height: 85px;
+}
+#calendar .clndr .clndr-table tr td
+{
+    vertical-align: top;
+}
+#calendar .clndr .clndr-table tr .day
+{
+    width: 100%;
+    height: inherit;
+
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+}
+#calendar .clndr .clndr-table tr .day:hover
+{
+    background: #eee;
+}
+#calendar .clndr .clndr-table tr .day.today,
+#calendar .clndr .clndr-table tr .day.my-today
+{
+    background: #9ad6e3;
+}
+#calendar .clndr .clndr-table tr .day.today:hover,
+#calendar .clndr .clndr-table tr .day.my-today:hover
+{
+    background: #72c6d8;
+}
+#calendar .clndr .clndr-table tr .day.today.event,
+#calendar .clndr .clndr-table tr .day.my-today.event
+{
+    background: #a7dbc1;
+}
+#calendar .clndr .clndr-table tr .day.event,
+#calendar .clndr .clndr-table tr .day.my-event
+{
+    background: #b4e09f;
+}
+#calendar .clndr .clndr-table tr .day.event:hover,
+#calendar .clndr .clndr-table tr .day.my-event:hover
+{
+    background: #96d478;
+}
+#calendar .clndr .clndr-table tr .day.inactive,
+#calendar .clndr .clndr-table tr .day.my-inactive
+{
+    background: #ddd;
+}
+#calendar .clndr .clndr-table tr .day:last-child
+{
+    border-right: 1px solid #000;
+}
+#calendar .clndr .clndr-table tr .day .day-contents
+{
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 8px;
+    text-align: right;
+}
+#calendar .clndr .clndr-table tr .empty,
+#calendar .clndr .clndr-table tr .adjacent-month,
+#calendar .clndr .clndr-table tr .my-empty,
+#calendar .clndr .clndr-table tr .my-adjacent-month
+{
+    width: 100%;
+    height: inherit;
+
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    background: #eee;
+}
+#calendar .clndr .clndr-table tr .empty:hover,
+#calendar .clndr .clndr-table tr .adjacent-month:hover,
+#calendar .clndr .clndr-table tr .my-empty:hover,
+#calendar .clndr .clndr-table tr .my-adjacent-month:hover
+{
+    background: #ddd;
+}
+#calendar .clndr .clndr-table tr .empty:last-child,
+#calendar .clndr .clndr-table tr .adjacent-month:last-child,
+#calendar .clndr .clndr-table tr .my-empty:last-child,
+#calendar .clndr .clndr-table tr .my-adjacent-month:last-child
+{
+    border-right: 1px solid #000;
+}
+#calendar .clndr .clndr-table tr:last-child .day,
+#calendar .clndr .clndr-table tr:last-child .my-day
+{
+    border-bottom: 1px solid #000;
+}
+#calendar .clndr .clndr-table tr:last-child .empty,
+#calendar .clndr .clndr-table tr:last-child .my-empty
+{
+    border-bottom: 1px solid #000;
+}
+footer
+{
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    background-color: #736aff;
+}
