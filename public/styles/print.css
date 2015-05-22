@@ -1,0 +1,35 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:500);
+/* LESS Mixins */
+/* Non mixins */
+.wrapper {
+  width: 80%;
+  margin-left: 25px;
+}
+.invoiceNum {
+  background-color: #58b3ad;
+  font-size: 2em;
+  padding-left: 15px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+ul li {
+  padding: 0 15px;
+}
+ul li h3 {
+  border-bottom: 1px solid #e9e9e9;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  padding: 5px;
+}
+ul li p {
+  padding-left: 30px;
+}
+ul li ul {
+  margin-bottom: 10px;
+}
+ul li ul li {
+  display: inline;
+  padding: 0 30px;
+}

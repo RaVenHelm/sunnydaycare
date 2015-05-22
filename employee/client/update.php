@@ -32,7 +32,7 @@ if(isset($_GET["submit"])){
     <?php include('../templates/userbar.php'); ?>
     <div id="search">
         <h2>Client Search</h2>
-        <form id="lookup" method="get" action="lookup.php">
+        <form id="lookup" method="get" action="update.php">
             <label for"firstname">First Name</label><br>
             <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
             <label for"firstname">Middle Name</label><br>

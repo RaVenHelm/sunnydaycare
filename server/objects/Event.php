@@ -13,4 +13,13 @@ class Event {
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function add($title, $date, $time, $desc){
+    	global $database;
+
+    	$sql = "INSERT INTO event VALUES(NULL, :title, :date, :time, :desc);";
+    	$sth = $database->prepare($sql);
+
+    	return $sth->execute(array(':title' => $title, ':date' => $date, ':time' => $time, ':desc' => $desc));
+    }
 }

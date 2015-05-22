@@ -1,18 +1,24 @@
 $(document).ready(function () {
 	'use strict';
-	var calendar = $('#calendar'), eventElement = $('#event'), errorElement = $('#error');
-	eventElement.dialog({
-		modal: true,
-		autoOpen: false,
-		minWidth: 400
-	});
-    errorElement.dialog({
-        modal: true,
-        autoOpen: false,
-        minWidth: 400
+	var calendar = $('#calendar'), eventElement = $('#event'), errorElement = $('#error'),
+		dialogOptions = {
+			modal: true,
+			autoOpen: false,
+			minWidth: 400
+		};
+	eventElement.dialog(dialogOptions);
+    errorElement.dialog(dialogOptions);
+    $("#msg").dialog(dialogOptions);
+    $("#addDialog").dialog(dialogOptions);
+    $("#date").datepicker({
+    	minDate: "c",
+    	maxDate: "+1 y",
+    	changeMonth: true,
+    	changeYear: true,
+    	dateFormat: "yy-mm-dd"
     });
     $.ajax({
-		url: '../employee/events/get.php',
+		url: '../events/get.php',
 		method: 'get',
 		data: {events: 'true'}
 	})
@@ -44,5 +50,13 @@ $(document).ready(function () {
 	eventElement.on('dialogclose', function () {
 		eventElement.html("");
 	});
+	$("#addEvent").submit(function () {
+	});
+	$("#add").click(function () {
+		$("#addDialog").dialog("open");
+	});
+	if ($("#msg").html() !== "") {
+		$("#msg").dialog("open");
+	}
 	$("input[type=submit], button").button();
 });

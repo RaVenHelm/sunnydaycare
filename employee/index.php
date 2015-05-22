@@ -42,8 +42,8 @@
 					<li><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
-					<li><a href="#">Update Client Information</a></li>
-					<li><a href="#">Update Child Information</a></li>
+					<li><a href="client/update.php">Update Client Information</a></li>
+					<li><a href="child/update.php">Update Child Information</a></li>
 					<li><a href="Medical">Medical</a></li>
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>

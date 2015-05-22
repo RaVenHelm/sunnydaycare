@@ -59,14 +59,15 @@ class Invoice {
     	$dueDate = $dateMade->modify('+1 month');
 
     	$invoice['dueDate'] = $dueDate->format('Y-m-d');
-    	
-
 
     	if(!Invoice::add($invoice, $id)) {
     		return false;
-    	} else {
-    		return $invoice;
     	}
+
+        $invoice['id'] = Invoice::getId($id, $dueDate);
+
+        return $invoice;
+
     }
 
     public static function add($invoice, $clientId) {
@@ -91,6 +92,20 @@ class Invoice {
     	} else {
     		return $sth->fetchAll(PDO::FETCH_ASSOC);
     	}
+    }
+
+    public static function getId($clientId, $date) {
+        global $database;
+
+        $sql = "SELECT `billing`.id FROM `billing` WHERE Client_id = :id AND datemade = :date;";
+
+        $sth = $database->prepare($sql);
+
+        if(!$sth->execute(array(':id' => $clientId, ':date' => $date))) {
+            return false;
+        } else {
+            return $sth->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
     private static function getRates() {

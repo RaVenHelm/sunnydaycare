@@ -1,0 +1,50 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:500);
+
+@nice-blue: #58b3ad;
+@lightGrey: #cfcfcf;
+
+/* LESS Mixins */
+.ubuntu() {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1.2em;
+}
+
+.thinUnderline() {
+	border-bottom: 1px solid lighten(@lightGrey, 10%);
+}
+
+/* Non mixins */
+
+.wrapper {
+	width: 80%;
+	margin-left: 25px;
+}
+
+.invoiceNum {
+	background-color: @nice-blue;
+	font-size: 2em;
+	padding-left: 15px;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	li {
+		padding: 0 15px;
+		h3 {
+			.thinUnderline();
+			.ubuntu();
+			padding: 5px;
+		}
+		p {
+			padding-left: 30px;
+		}
+		ul {
+			margin-bottom: 10px;
+			li {
+				display: inline;
+				padding: 0 30px;
+			}
+		}
+	}
+}

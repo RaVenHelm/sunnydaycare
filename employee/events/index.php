@@ -4,6 +4,15 @@ require_once('../../server/functions.php');
 require_once('../../server/objects/Event.php');
 
 if (!$session->is_logged_in()) { redirect_to('../login.php'); }
+var_dump($_POST);
+if (isset($_POST["add"])) {
+    
+    if (Event::add($_POST["title"], $_POST["date"], $_POST["time"], $_POST["description"])) {
+        $msg = "Event Added!";
+    } else {
+        $msg = "Event could not be added.";
+    }
+}
 
 ?>
 
@@ -31,9 +40,21 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
     
     <div id="error" title="Error"></div>
 
-    <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
+    <div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
     <button id="add">Add</button>
-    <button id="edit">Edit</button> 
+    <div id="addDialog" title="Add An Event">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" name="add" id="addEvent" method="post">
+            <label for="title">Title</label><br>
+            <input type="text" id="title" name="title"><br>
+            <label for="date">Date</label><br>
+            <input type="text" id="date" name="date"><br>
+            <label for="time">Time</label><br>
+            <input type="time" id="time" name="time"><br>
+            <label for="description">Description</label><br>
+            <textarea id="description" name="description"></textarea><br>
+            <input type="submit" name="add" value="Add">
+        </form>
+    </div>
 </div>
 </body>
 
@@ -45,5 +66,5 @@ if (!$session->is_logged_in()) { redirect_to('../login.php'); }
     <script src="../../public/scripts/underscore.min.js"></script>
     <script src="../../public/scripts/clndr.min.js"></script>
 
-<script src="../../public/scripts/events.js"></script>
+<script src="../../public/scripts/employee.events.js"></script>
 </html>

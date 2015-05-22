@@ -84,14 +84,23 @@ class Client {
     public function getFullName(){
         return $this->firstName . ( isset($this->middleName) ? " " . $this->middleName : "") . " " . $this->lastName;
     }
-    public function getAddr($isBilling)
-    {
+    
+    public function getAddr($isBilling){
         if($isBilling){
             return $this->billingAddr;
         } else {
             return $this->mailingAddr;
         }
     }
+
+    public function getPhone($isPrimary){
+        if($isPrimary){
+            return $this->primaryPhone;
+        } else {
+            return $this->secondaryPhone;
+        }
+    }
+
 
     public static function find_one_id($id){
         global $database;
@@ -104,7 +113,7 @@ class Client {
 
         $client = new Client($result["firstname"], $result["middlename"], $result["lastname"], $result["gender"], $result["isactive"], $result["primarycontact"], $result["billpayer"], $result["stateassistance"], $result["primaryphone"], $result["secondaryphone"], $result["relationship"], $result["piclink"], null);
 
-        $id = $client->id;
+        $client->id = $id;
         $addresses = Client::getAddresses($id);
 
         $client->alerts = Client::getAlerts($id);
@@ -157,7 +166,7 @@ class Client {
         $billing = "";
         $mailing = "";
 
-        $sql = "SELECT type, address FROM address WHERE Client_id = :id";
+        $sql = "SELECT type, address FROM address WHERE Client_id = :id;";
 
         $sth = $database->prepare($sql);
         $sth->execute(array(':id' => $id));
@@ -165,10 +174,10 @@ class Client {
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($result as $addr){
-            if($addr["type"] = "Billing"){
+            if($addr["type"] == "Billing"){
                 $billing = $addr["address"];
             }
-            if($addr["type"] = "Mailing"){
+            if($addr["type"] == "Mailing"){
                 $mailing = $addr["address"];
             }
         }
@@ -217,7 +226,9 @@ class Client {
 
     }
 
-
+    public function getId(){
+        return $this->id;
+    }
     public function add(){
         global $database;
 

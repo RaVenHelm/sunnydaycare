@@ -60,21 +60,22 @@ $(document).ready(function () {
 				if (invoices.length === 0) {
 					errorElement.html("<p>Error: No invoices for this Client</p>");
 					errorElement.dialog("open");
-				} else {
-					$(".invoice").append('<ul>');
 				}
 				$.each(invoices, function (index, val) {
-					var invoice = invoices[index];
-					console.log(invoice);
-					$(".invoice").append('<li>Invoice Date: ' + invoice.datemade + '</li>');
-					$(".invoice").append('<li>Date Due: ' + invoice.datedue + '</li>');
-					$(".invoice").append('<li>Amount: $' + invoice.total  + '</li>');
-					$(".invoice").append('<li>Is it paid off? ' + (invoice.isFullyPaid === "1" ? "<li><b>Paid Off</b></li>" : '<li><p class="error"><b>NOT PAID OFF</b></p></li>'));
-					$(".invoice").append('<li>Payment Date: ' + (invoice.paymentdate !== null ? "<li>" + invoice.paymentdate + "</li>" : '<li><p class="error"><b>NO PAYMENTS MADE</b></p></li>'));
+					var invoice = invoices[index],
+						accordionString  = '<h3>Invoice</h3><div><ul>' + '<li>Invoice Date: ' + invoice.datemade + '</li>' + '<li>Date Due: ' + invoice.datedue + '</li>' + '<li>Amount: $' + invoice.total  + '</li>' + '<li>Is it paid off? ' + (invoice.isFullyPaid === "1" ? "<li>Paid Off</li>" : '<li>NOT PAID OFF</li>') + '<li>Payment Date: ' + (invoice.paymentdate !== null ? "<li>" + invoice.paymentdate + "</li>" : '<li>NO PAYMENTS MADE</li>') + '</ul></div>';
+					// $("#accordion").append('<h3>Invoice</h3><div><ul>');
+					// $("#accordion").append('<li>Invoice Date: ' + invoice.datemade + '</li>');
+					// $("#accordion").append('<li>Date Due: ' + invoice.datedue + '</li>');
+					// $("#accordion").append('<li>Amount: $' + invoice.total  + '</li>');
+					// $("#accordion").append('<li>Is it paid off? ' + (invoice.isFullyPaid === "1" ? "<li>Paid Off</li>" : '<li>NOT PAID OFF</li>'));
+					// $("#accordion").append('<li>Payment Date: ' + (invoice.paymentdate !== null ? "<li>" + invoice.paymentdate + "</li>" : '<li>NO PAYMENTS MADE</li>'));
+					// $("#accordion").append('</ul></div>');
+					$("#invoiceList").append(accordionString);
 				});
-				$(".invoice").append('</ul>');
+				$("#accordion").append('<form name="print" action="print.php" method="get"><input type="submit" class="print" name="print" value="Print"><input type="hidden" name="id" value=' + $(".billingSingle").val() + '></form>');
 				childElement.dialog("open");
-				childElement.accordion();
+				$("#invoiceList").accordion();
 			})
 			.fail(function (error) {
 				errorElement.html("<p>Error: " + error + "</p>");

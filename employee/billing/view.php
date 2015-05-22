@@ -51,8 +51,7 @@
 	        	<?php } ?>
 			</div>
 			<div id="accordion" title="Billing Data">
-	            <h3>Invoice</h3>
-	            <div class="invoice"></div>
+	            <div id="invoiceList"></div>
 	        </div>
 			<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 		</div>
