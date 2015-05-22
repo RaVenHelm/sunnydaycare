@@ -17,9 +17,14 @@ $(document).ready(function () {
         autoOpen: false,
         minWidth: 600
     });
+    $("#clientList").dialog({
+        modal: true,
+        autoOpen: false,
+        minWidth: 600
+    });
 	$("#lookup").submit(function (event) {
 		var errors = [],
-			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/]/),
+			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/0-9]/),
 			index = 0;
 		errorElement.html("");
 		$(".result").html("");

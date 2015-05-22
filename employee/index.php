@@ -38,7 +38,7 @@
 					<li class="levelOne"><a href="events">Events</a></li>
 					<?php if($_SESSION["permissions"] >= 2){?>
 					<li class="levelTwo"><a href="incidents">Incidents</a></li>
-					<li class="levelTwo"><a href="reports.php">Reports</a></li>
+					<!-- <li class="levelTwo"><a href="reports.php">Reports</a></li> -->
 					<li class="levelTwo"><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
