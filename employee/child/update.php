@@ -9,6 +9,11 @@
 		$result = Child::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
 		if(!$result) {$msg = "<ul><li>No child found.</li></ul>";}
 	}
+
+	if(isset($_POST["update"])){
+		$child = Child($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["bday"], $_POST["gender"], isset($_POST["active"])? true :  false, null, isset($_POST["stateassistance"]) ? true : false, $_POST["comments"], null, null, null, null);
+		$msg = "Child Record Updated";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +40,9 @@
 				<form id="lookup" method="get" action="update.php">
 					<label for"firstname">First Name</label><br>
 					<input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
-					<label for"firstname">Middle Name</label><br>
+					<label for"middlename">Middle Name</label><br>
 					<input type="text" name="middlename" id="middlename" placeholder="Middle Name" ><br>
-					<label for"firstname">Last Name</label><br>
+					<label for"lastname">Last Name</label><br>
 					<input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
 					<input type="submit" name="submit" id="lookupSubmit" value="Search" >
 				</form>
@@ -62,6 +67,12 @@
                         <label for="bday">Birthday: (yyyy-mm-dd)</label><br>
                         <input type="text" name="bday" id="bday" required><br><br>
 
+                        <label for="isactive">Active?</label>
+            			<input type="checkbox" name="isactive" class="isactive"><br>
+
+            			<label for="stateassistance">On state assistance?</label>
+            			<input type="checkbox" name="stateassistance" id="assist"><br>
+
                         <label for="gender">Gender</label><br>
                         <select name="gender" id="gender" required>
                             <option value="">Select one:</option>
@@ -70,15 +81,8 @@
                             <option value="O">Other/Not disclosed</option>
                         </select><br>
 
-                        <label for="client">Clients</label><br>
-                        <input type="text" name="clientFirst" id="clientFirst" placeholder="First Name" required><br>
-                        <input type="text" name="clientMiddle" id="clientMiddle" placeholder="Middle Name"><br>
-                        <input type="text" name="clientLast" id="clientLast" placeholder="Last Name" required><br>
-                        <input type="submit" name="search" id="lookupSubmit" value="Search" >
-
-                        <div id="clientList" title="Clients"></div>
-                        <h3>Clients who can pick up this child</h3>
-                        <div id="clientsToAdd"></div>
+                        <label for="comments">Comments</label>
+            			<textarea name="comments" class="comments" cols="30" rows="10"></textarea>
 
 						<br><input type="submit" name="update" id="updateSubmit" value="Update" >
 					</form>

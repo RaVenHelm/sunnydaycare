@@ -44,7 +44,7 @@
 					<?php if($_SESSION["permissions"] >= 3){ ?>
 					<li class="levelThree"><a href="client/update.php">Update Client Information</a></li>
 					<li class="levelThree"><a href="child/update.php">Update Child Information</a></li>
-					<li class="levelThree"><a href="Medical">Medical</a></li>
+					<!-- <li class="levelThree"><a href="Medical">Medical</a></li> -->
 					<?php } ?> 
 					<?php if($_SESSION["permissions"] == 4){ ?>
 					<li class="levelFour"><a href="#">Create a new Employee</a></li>

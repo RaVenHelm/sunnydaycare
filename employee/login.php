@@ -45,7 +45,7 @@ else { //Form has not been submitted
 	</head>
 
 	<body>
-		<div class="header"><a href="/">Sunny Daycare</a></div>
+		<div class="header"><a href="/sunnydaycare">Sunny Daycare</a></div>
 		<div id="login">
 			<label for="login">Employee Login</label>
 			<form id="loginForm" name="login" method="post" action="login.php">

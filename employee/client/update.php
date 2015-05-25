@@ -118,7 +118,7 @@ if (isset($_POST["update"])) {
             <label for="stateassistance">On state assistance?</label>
             <input type="checkbox" name="stateassistance" id="assist"><br>
 
-            <label for="comments">
+            <label for="comments">Comments</label>
             <textarea name="comments" class="comments" cols="30" rows="10"></textarea>
 
             <input type="hidden" name="id" class="id">
