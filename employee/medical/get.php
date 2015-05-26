@@ -12,15 +12,16 @@
 
     if (isset($_GET["submit"])) {
     	if (isset($_GET["id"])) {
-    		$medical = Medical::getRecord($_GET["id"]);
-    		$medical->decryptMembers();
-    		var_dump($medical);
-    		//echo json_encode($medical, JSON_PRETTY_PRINT);
+    		$medicalEncrypt = Medical::getRecord($_GET["id"]);
+			//var_dump($medicalEncrypt);
+			if (!is_array($medicalEncrypt)) {
+
+	  			$medical = $medicalEncrypt->decryptMembers();
+    			echo str_replace('\\u0000', "", json_encode($medical->toArray(), JSON_PRETTY_PRINT));
+	  		} else {
+	  			echo json_encode($medicalEncrypt, JSON_PRETTY_PRINT);
+	  		}		
+    		
     	}
     }
-	
-	function toArrayDecrypted($record)
-	{
-				
-	}
 ?>

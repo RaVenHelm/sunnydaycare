@@ -49,20 +49,18 @@
             <div id="result">
                 <?php if(isset($result) && $result){ ?>
                         <?php for($i = 0; $i < count($result); $i++) {?>
-                            <button class="childSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
+                            <button class="childSingle" val="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
                         <?php } ?>
                 <?php } ?>
                 <div id="childAccordion" title="Child Data">
-                    <h3>Name</h3>
-                    <div class="name"><p></p></div>
-                        <h3>Check In Status</h3>
-                        <div class="checkIn"></div>
-                        <h3>Gender</h3>
-                        <div class="gender"></div>
-                        <h3>Comments</h3>
-                        <div class="comments"></div>
-                        <h3>Pick Up List</h3>
-                        <div class="pickupList"></div>
+                    <h3 class="name">Name</h3>
+                    <div></div>
+                    <h3>Medical Information</h3>
+                    <div class="medical"></div>
+                    <h3>Allergies</h3>
+                    <div class="allergies"></div>
+                    <h3>Restrictions</h3>
+                    <div class="restrictions"></div>
                 </div>
                 <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
             </div>

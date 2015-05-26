@@ -9,7 +9,8 @@ $(function(){
     });
 	childAccordion.accordion({
 		active: false,
-		collapsible: true
+		collapsible: true,
+		heightStyle: 'content'
 	});
 	errorElement.dialog({
         modal: true,
@@ -42,7 +43,57 @@ $(function(){
 		}
 	});
 	$(".childSingle").click(function (event) {
-		console.log("Bang");
+		var name = $(this).html();
+		$(".medical").html("");
+		$(".allergies").html("");
+		$(".restrictions").html("");
+		$.ajax({
+			url: 'get.php',
+			type: 'get',
+			data: {
+				submit: 'true',
+				id: $(this).val()
+			},
+			success: function (res) {
+				var record = $.parseJSON(res), medical = record.medical, allergies = record.allergies, restriction = record.restrictions,
+					medicalOut = "", allergyOut = "", restrictionOut = "",
+					i = (medical !== undefined ? medical.length - 1 : 0),
+					j = (allergies !== undefined ? allergies.length - 1 : 0),
+					k = (restriction !== undefined ? restriction.length - 1 : 0);
+				
+				console.log(record);
+				$(".name").html(name);
+
+				$(".medical").append("<ul>");
+				for (i; i >= 0; i--) {
+					medicalOut += "<li>" + medical[i].section + ": " + medical[i].description + "</li>";
+				};
+				console.log(medicalOut);
+				$(".medical").append(medicalOut);
+				$(".medical").append("</ul>");
+
+				$(".allergies").append("<ul>");
+				for (j; j >= 0; j--) {
+					allergyOut += "<li>" + allergies[j].type + "</li>";
+				};
+				console.log(allergyOut);
+				$(".allergies").append(allergyOut);
+				$(".allergies").append("</ul>");
+
+				$(".restrictions").append("<ul>");
+				for (k; k >= 0; k--) {
+					restrictionOut += "<li>" + restriction[k].type + ": " + restriction[k].detail + "</li>";
+				};
+				console.log(restrictionOut);
+				$(".restrictions").append(restrictionOut);
+				$(".restrictions").append("</ul>");
+
+				childAccordion.dialog("open");
+			}
+		})
+		.fail(function(error) {
+			console.log(error);
+		});
 	});
 	$("input[type=submit], button").button();
 });

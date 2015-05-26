@@ -69,10 +69,7 @@
 			$this->setMedical($med);
 			$this->setAllergies($allg);
 			$this->setRestrictions($rest);
-
-			// var_dump($med);
-			// var_dump($allg);
-			// var_dump($rest);
+			return $this;
 		}
 
 		public function toArray()
@@ -93,7 +90,7 @@
 
 			// Get the medical records
 			$tmp = Medical::retrieveMedical($id);
-			if(!$tmp){
+			if(!$tmp && !is_array($tmp)){
 				return array("error" => "Could not find medical records");
 			} else {
 				$medical = $tmp;
@@ -101,7 +98,7 @@
 
 			// Get list of allergies
 			$tmp = Medical::retrieveAllergies($id);
-			if (!$tmp) {
+			if (!$tmp && !is_array($tmp)) {
 				return array("error" => "Could not find allergies");
 			} else {
 				$allergies = $tmp;
@@ -109,7 +106,7 @@
 			
 			// Get list of restrictions 
 			$tmp = Medical::retrieveRestrictions($id);
-			if (!$tmp) {
+			if (!$tmp && !is_array($tmp)) {
 				return array("error" => "Could not find restrictions");
 			} else {
 				$restrictions = $tmp;
