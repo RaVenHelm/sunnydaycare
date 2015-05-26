@@ -260,9 +260,9 @@ class Client {
 
 
 
-        $sql = "SELECT id from client WHERE firstname = :fname AND middlename = :mname AND lastname = :lname;";
+        $sql = "SELECT id from client WHERE firstname = :fname AND lastname = :lname;";
         $sth = $database->prepare($sql);
-        $params = array(':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
+        $params = array(':fname' => $this->firstName, ':lname' => $this->lastName);
 
         if (!$sth->execute($params)) {
             return false;
@@ -271,7 +271,6 @@ class Client {
         $id = $sth->fetch(PDO::FETCH_ASSOC);
         
         $this->id = $id["id"];
-
 
         $this->insertAddress(true);
         $this->insertAddress(false);        
@@ -291,8 +290,8 @@ class Client {
         } else {
             $params = array(':type' => 'Mailling', ':address' => $this->mailingAddr, ':id' => $this->id);
         }
-
-        return $sth->execute($params);
+        $result = $sth->execute($params);
+        return $result;
     }
 
     private function updateAddress($isBilling) {

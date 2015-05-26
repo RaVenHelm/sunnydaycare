@@ -21,7 +21,7 @@ $(document).ready(function () {
 		//event.preventDefault();
 		var errors = [],
 			index = 0,
-			forbidden = new RegExp(/[\[;"'\\|\]\/@$%\^&!]/),
+			forbidden = new RegExp(/[\[;"'\\|\]\/@$%\^&!\(\)]/),
 			birthday = new RegExp(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 			phone = new RegExp(/^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/);
 		//Clear previous errors
@@ -30,6 +30,9 @@ $(document).ready(function () {
 		if ($("#firstname").val().trim() === "" || $("#lastname").val().trim() === "") {
 			errors.push("First/Last name cannot be blank");
 		}
+        if (forbidden.exec($("#firstname").val().trim()) !== null || forbidden.exec($("#middlename").val().trim()) !== null || forbidden.exec($("#lastname").val().trim()) !== null){
+            errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
+        }
 		if ($("#mailing").val() !== undefined || $("#billing").val() !== undefined) {
 			if ($("#mailing").val().trim() === "" || $("#billing").val().trim() === "") {
 				errors.push("Address cannot be blank");
