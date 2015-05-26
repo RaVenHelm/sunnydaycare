@@ -1,8 +1,18 @@
 $(document).ready(function () {
 	'use strict';
-	var errorElement = $("#error");
+	var errorElement = $("#error"), viewLog = $(".viewLog");
 	$("button, input[type=submit]").button();
 	errorElement.dialog({
+		modal: true,
+		autoOpen: false,
+		minWidth: 400
+	});
+	$("#msg").dialog({
+        modal: true,
+        autoOpen: false,
+        minWidth: 400
+    });
+	viewLog.dialog({
 		modal: true,
 		autoOpen: false,
 		minWidth: 400
@@ -35,32 +45,14 @@ $(document).ready(function () {
 		collapsible: false,
 		active: 0
 	});
-    $("#msg").dialog({
-        modal: true,
-        autoOpen: false,
-        minWidth: 400
-    });
     if ($("#msg").html() !== "") {
         $("#msg").dialog("open");
     }
-	$("#checkIn").click(function () {
-		$("#listHead").toggle(true);
-		$("#accordion").accordion({
-			active: 1
-		});
-	});
-	$("#checkOut").click(function () {
-		$("#listHead").toggle(true);
-		$("#accordion").accordion({
-			active: 1
-		});
-	});
-	$("#checkInForm").submit(function (event) {
+	$(".checkInForm").submit(function (event) {
 		var id = 0, index = 0, errors = [];
 		errorElement.html("");
-		$("select option:selected").each(function () {
-			id = $(this).val();
-		});
+		id = $("select option:selected").val();
+		console.log(id);
 		if (!id) {
 			errors.push("Select the person on this list");
 		}

@@ -38,7 +38,7 @@
 			$this->isActive = $active;
 			$this->isCheckedIn = $checked;
 			$this->hasStateAssistance = $state;
-			$this->comments = null;
+			$this->comments = $comments;
 			$this->allergies = $allergies;
 			$this->incidents = null;
 			$this->restrictions = $restrictions;
@@ -84,24 +84,38 @@
 		public static function find_one($first, $middle=null, $last){
 			global $database;
 				if($middle == null || $middle == ""){
-					$sql = "SELECT * FROM child WHERE firstname = :fname AND lastname = :lname AND isActive = TRUE ;";
+					$sql = "SELECT * FROM child WHERE firstname LIKE :fname AND lastname LIKE :lname AND isActive = TRUE ;";
 					$stmt = $database->prepare($sql);
-					$stmt->execute(array(':fname' => $first, ':lname' => $last));
+					$stmt->execute(array(':fname' => '%' . $first . '%', ':lname' => '%' . $last . '%'));
 				} else {
 					$sql = "SELECT * FROM child WHERE firstname LIKE :fname AND middlename LIKE :mname AND lastname LIKE :lname AND isActive = TRUE ;";
 					$stmt = $database->prepare($sql);
 					$stmt->execute(array(':fname' => '%' . $first . '%', ':mname' => '%' . $middle . '%' ,':lname' => '%' . $last . '%'));
 				}
 				//TODO: Should return a child
-				$result = $stmt->fetch(PDO::FETCH_ASSOC);
+				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+				$return = [];
 				//Find who can pick the child up and append it to the result
-				if($result["id"]){
-					$pickup = Child::retrievePickupList($result["id"]);
-					$log = Child::retrieveTodaysLog($result["id"]);
-					array_push($result, $pickup, $log);
+				if(count($result) != 0){
+					for ($i = 0; $i < count($result); $i++) {
+						$child = [];
+						$childRaw = $result[$i];
+						$childObj = new Child($childRaw["firstname"], $childRaw["middlename"], $childRaw["lastname"], $childRaw["birthday"], $childRaw["gender"], $childRaw["isactive"], $childRaw["checkedIn"], $childRaw["stateassistance"], $childRaw["comments"], null, null, null, null);
+						$childObj->setId($childRaw["id"]);
+						$childObj->setClientList(Child::retrievePickupList($result[$i]["id"]));
+						$child["child"] = $childObj;
+						$child["log"] = Child::retrieveTodaysLog($result[$i]["id"]);
+						$return[$i] = $child;
+					}
 				}
-				return $result;
+				return $return;
+		}
+
+		public function setClientList($value){
+			if(is_array($value)){
+				$this->clientList = $value;
+			}
 		}
 
         /*
@@ -141,7 +155,7 @@
 				return "Could not checkin/checkout: A client or child was not specified.";
 			} else {
 				//See if operation is checkin
-				if($isCheckIn){
+				if(!$isCheckIn){
 					//Create new log table
 					$sql = "INSERT INTO log (Day, CheckIn, Child_id, In_Client_id) VALUES (DATE(:date), :time, :childId, :clientId);";
 					$sth = $database->prepare($sql);
@@ -150,11 +164,12 @@
 					$params = array(':date' => date('Y-m-d'), ':time' => date('H:i:s'), ':childId' => $childId, ':clientId' => $clientId);
 					
 					//Success on updating log
-					if($sth->execute($params)){
+					$result = $sth->execute($params);
+					
+					if($result){
 						//Set child record to checked in
 						$sql = "UPDATE child SET checkedIn = TRUE WHERE id = :id ;";
 						$sth = $database->prepare($sql);
-						
 						//Success on checking in
 						if($sth->execute(array(':id' => $childId))){
 							return "Checked In on {$date} at {$time}";
@@ -221,6 +236,22 @@
 			return $this->firstName . (isset($this->middleName) ? " {$this->middleName}" : "") . " {$this->lastName}";
 		}
 
+		public function getId(){
+			return $this->id;
+		}
+
+		public function setId($id){
+			$this->id = $id;
+		}
+
+		public function getClientList(){
+			return $this->clientList;
+		}
+
+		public function getCheckedIn(){
+			return $this->isCheckedIn;
+		}
+
 		public function add(){
 			global $database;
 
@@ -283,7 +314,7 @@
 			$wcLast = "%{$lastname}%";
 
 			
-			$sql = "SELECT id, firstname, middlename, lastname FROM child ";
+			$sql = "SELECT * FROM child ";
 			if(!isset($firstname) && !isset($middlename)){
 				$sql .= "WHERE lastname LIKE :lname ORDER BY lastname;";
 				$stmt = $database->prepare($sql);
