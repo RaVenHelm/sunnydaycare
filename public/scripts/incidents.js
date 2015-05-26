@@ -95,6 +95,8 @@ $(document).ready(function () {
 					clientAccordion.append("<h4>Description</h4>");
 					clientAccordion.append("<div>" + el.descrip + "</div>");
 				});
+			} else {
+				clientAccordion.html("<ul><li><b>No incidents found</b></li></ul>");
 			}
 			clientAccordion.dialog("open");
 		})

@@ -66,7 +66,6 @@
                 echo $ex->getMessage();
             }
         }
-        
     }
     
     $database = new Database();

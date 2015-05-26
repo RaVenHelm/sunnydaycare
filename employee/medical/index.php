@@ -5,6 +5,7 @@
     require_once('../../server/objects/Client.php');
     
     if (!$session->is_logged_in()) { redirect_to('../login.php'); }
+    if ($_SESSION["permissions"] < 3) { redirect_to('../index.php'); }
     
     if(isset($_GET["child"])){
         $result = Child::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
@@ -19,9 +20,7 @@
     <head>
         <meta charset="utf-8">
         <title>Sunny Day Care | Medical Records Page</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        
         
         <!-- Custom styles -->
         <link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
@@ -69,6 +68,9 @@
             </div>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
-    <script src="../../public/scripts/incidents.js"></script>
+    <script src="../../public/scripts/medical.js"></script>
 </html>

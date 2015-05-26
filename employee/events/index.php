@@ -33,7 +33,7 @@ if (isset($_POST["add"])) {
     <?php include('../templates/userbar.php'); ?>
 
     <div id="calendar" class="clearfix">  
-    </div>
+    </div><br>
 
     <div id="event" title="Event"></div>
     
