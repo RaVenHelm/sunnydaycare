@@ -5,14 +5,13 @@
     require_once('../../server/objects/Client.php');
     
     if (!$session->is_logged_in()) { redirect_to('../login.php'); }
-    
     if(isset($_GET["child"])){
         $result = Child::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
         if(!$result) {$msg = "<ul><li>No child found.</li></ul>";}
     }
     if(isset($_GET["client"])){
-        $result = Client::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
-        if(!$result) {$msg = "<ul><li>No client found.</li></ul>";}
+        $client = Client::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
+        if(!$client) {$msg = "<ul><li>No client found.</li></ul>";}
     }
 ?>
 
@@ -23,9 +22,6 @@
     <head>
         <meta charset="utf-8">
         <title>Sunny Day Care | Incidents Page</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         
         <!-- Custom styles -->
         <link rel="Stylesheet" href="../../public/styles/normalize.css" type="text/css"/>
@@ -67,29 +63,20 @@
                             <button class="childSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
                         <?php } ?>
                 <?php } ?>
-                <div id="childAccordion" title="Child Data">
-                    <h3 class="name"></h3>
-                    <div></div>
-                    <h3>Type</h3>
-                    <div class="type"></div>
-                    <h3>Date</h3>
-                    <div class="date"></div>
-                    <h3>Description</h3>
-                    <div class="description"></div>
-                </div>
-                <div id="clientAccordion" title="Client Data">
-                    <h3 class="name"></h3>
-                    <h3>Type</h3>
-                    <div class="type"></div>
-                    <h3>Date</h3>
-                    <div class="date"></div>
-                    <h3>Description</h3>
-                    <div class="description"></div>
-                </div>
+                <?php if(isset($client) && $client){ ?>
+                        <?php for($i = 0; $i < count($client); $i++) {?>
+                            <button class="clientSingle" id="<?php echo $client[$i]["id"]; ?>" value="<?php echo $client[$i]["id"]; ?>"><?php echo $client[$i]["firstname"] . " " . $client[$i]["middlename"] . " " . $client[$i]["lastname"]; ?></button><br>
+                        <?php } ?>
+                <?php } ?>
+                <div id="childAccordion" title="Child Data"></div>
+                <div id="clientAccordion" title="Client Data"></div>
                 <div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
             </div>
         </div>
     </body>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="../../public/scripts/moment.min.js"></script>
     <script src="../../public/scripts/incidents.js"></script>
 </html>

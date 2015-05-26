@@ -49,16 +49,21 @@ $(document).ready(function () {
 		})
 		.done(function(res) {
 			incidents = JSON.parse(res);
-			console.log(incidents.length);
+			//Reset the accordion
+			childAccordion.html("");
 			if (incidents.length == 0) {
 				childAccordion.html("<ul><li><b>No incidents found</b></li></ul>");
 			} else {
+				childAccordion.attr('title', $(".childSingle").html() + "'s Incidents");
+				childAccordion.append("<h3>" + $(".childSingle").html() + "</h3>");
+				childAccordion.append("<div></div>");
 				$.each(incidents, function (index, el) {
-					//console.log(incidents.length);
-					childAccordion.children(".name").append($(".childSingle").html());
-					childAccordion.children(".type").append(el.type);
-					childAccordion.children(".date").append(el.date);
-					childAccordion.children(".description").append(el.descrip);
+					childAccordion.append("<h4>Type</h4>");
+					childAccordion.append("<div>" + el.type + "</div>");
+					childAccordion.append("<h4>Date</h4>");
+					childAccordion.append("<div>" + moment(el.date).format("MM-DD-YYYY") + "</div>");
+					childAccordion.append("<h4>Description</h4>");
+					childAccordion.append("<div>" + el.descrip + "</div>");
 				});
 			}
 			childAccordion.dialog("open");
@@ -79,13 +84,19 @@ $(document).ready(function () {
 			}
 		})
 		.done(function(res) {
-			if (res.length !== 0) {
-				incidents = JSON.parse(res);
-				clientAccordion.children(".name").html($(".clientSingle").val());
-				clientAccordion.children(".type").html(incidents.type);
-				clientAccordion.children(".date").append(el.date);
-				clientAccordion.children(".description").append(el.descrip);
+			incidents = JSON.parse(res);
+			clientAccordion.html("");
+			if (incidents.length !== 0) {
+				$.each(incidents, function(index, el) {
+					clientAccordion.append("<h4>Type</h4>");
+					clientAccordion.append("<div>" + el.type + "</div>");
+					clientAccordion.append("<h4>Date</h4>");
+					clientAccordion.append("<div>" + moment(el.date).format("MM-DD-YYYY") + "</div>");
+					clientAccordion.append("<h4>Description</h4>");
+					clientAccordion.append("<div>" + el.descrip + "</div>");
+				});
 			}
+			clientAccordion.dialog("open");
 		})
 		.fail(function() {
 			errorElement.html(error);
