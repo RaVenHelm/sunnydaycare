@@ -109,7 +109,7 @@
 						$return[$i] = $child;
 					}
 				}
-				return $return;
+				return $return[0];
 		}
 
 		public function setClientList($value){
@@ -255,20 +255,22 @@
 		public function add(){
 			global $database;
 
-			$sql = "INSERT INTO child VALUES(NULL, :gender, :link, :checkedIn, :comments, :state, :active, :fname, :mname, :lname); ";
+			$sql = "INSERT INTO child VALUES(NULL, :bday, :gender, :link, :checkedIn, :comments, :state, :active, :fname, :mname, :lname); ";
 	        
 	        $sth = $database->prepare($sql);
 
-	        $params = array(':gender' => $this->gender, ':link' => $this->picLink, ':checkedIn' => $this->isCheckedIn, ':comments' => $this->comments, ':active' => $this->isActive, ':state' => $this->hasStateAssistance, ':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
+	        $params = array(':bday' => $this->dob, ':gender' => $this->gender, ':link' => $this->picLink, ':checkedIn' => $this->isCheckedIn, ':comments' => $this->comments, ':active' => $this->isActive, ':state' => $this->hasStateAssistance, ':fname' => $this->firstName, ':mname' => $this->middleName, ':lname' => $this->lastName);
 
-	        if(!$sth->execute($params)){
+	        $res = $sth->execute($params);
+	        if(!$res){
 	        	return false;
 	        }
 
 
 	        // Get ID of the child
 	        $child = Child::find_one($this->firstName, $this->middleName, $this->lastName);
-	        $this->id = $child["id"];
+	        // var_dump($child);
+	        $this->id = $child["child"]->getId();
 
 	        //Create Medical record
 	        for ($i=0; $i < count($this->medical); $i++) { 

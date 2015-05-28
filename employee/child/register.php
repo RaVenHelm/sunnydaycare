@@ -13,7 +13,6 @@
         $child = new Child($_POST["firstname"], $middlename, $_POST["lastname"], $_POST["bday"], $_POST["gender"], true, false, false, null, $allergies, $restrictions, $medical, $_POST["client"]);
         
         if($result = $child->add()) $msg = "Child " . $result->getFullName() . " created!";
-        else var_dump($result);
 	}
 	else { //Form has not been submitted
 
