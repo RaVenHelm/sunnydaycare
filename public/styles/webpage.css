@@ -29,10 +29,13 @@
 .clearfix:after
 {
     line-height: 0;
+
     display: block;
     visibility: hidden;
     clear: both;
+
     height: 0;
+
     content: '.';
 }
 .clearfix
@@ -61,10 +64,13 @@ body
     font-family: Indie Flower;
     font-size: 4em;
     font-weight: bold;
+
     width: 80%;
     height: 100px;
     margin: 0 auto;
+
     text-align: center;
+
     color: #ffff45;
     background-color: #736aff;
 }
@@ -81,28 +87,33 @@ body
 #search
 {
     float: left;
+
     width: 40%;
-    height: 400px;
+    min-height: 400px;
     margin-top: 2%;
     margin-bottom: 2.5%;
     margin-left: 5%;
-    padding: 15px 0 0 15px;
+    padding: 15px 0 15px 15px;
+
     background-color: #7de2ff;
 }
 #result
 {
     float: right;
+
     width: 40%;
     height: 400px;
     margin-top: 2%;
     margin-right: 5%;
     margin-bottom: 2.5%;
-    padding: 15px 0 0 15px;
+    padding: 15px 0 15px 15px;
+
     background-color: #60ff88;
 }
 #login
 {
     font-size: 1.5em;
+
     width: 40%;
     height: 250px;
     margin-top: 7%;
@@ -110,34 +121,38 @@ body
     margin-bottom: 2.5%;
     margin-left: 30%;
     padding-top: 40px;
+
     text-align: center;
+
     color: #736aff;
     background-color: #ffff45;
 }
 .employeeNav
 {
-    margin: 0 auto;
-    width: 400px;
-    padding: 0;
-    text-align: center;
-
     font-size: 1.3em;
+
+    width: 400px;
+    margin: 0 auto;
+    padding: 0;
+
+    text-align: center;
 }
 .employeeNav li
 {
     margin: 10px auto;
     padding: 10px 0;
-    border: 2px solid black;
+
     list-style-type: none;
+
+    border: 2px solid black;
 }
 .employeeNav li a
 {
     text-decoration: none;
-
 }
 .employeeNav li a:hover
 {
-    color: #000000;
+    color: #000;
 }
 #loginForm
 {
@@ -164,7 +179,10 @@ body
 {
     margin-bottom: 10px;
 }
-
+#alert
+{
+    color: red;
+}
 #lookup input
 {
     margin: 10px 0;
@@ -180,8 +198,8 @@ body
 }
 .register h2
 {
-    padding-top: 10px;
     margin: 0 0 10px 10px;
+    padding-top: 10px;
 }
 #registerForm
 {
@@ -207,14 +225,18 @@ input[type=checkbox]
 {
     color: red;
 }
-#content {
-	font-family: Arial;
+#content
+{
+    font-family: Arial;
     font-weight: bold;
+
     width: 80%;
     height: 65%;
     margin-top: 1%;
     margin-left: 10%;
+
     text-align: center;
+
     color: #736aff;
     background-color: #ffff45;
 }
@@ -222,34 +244,42 @@ input[type=checkbox]
 #calendar
 {
     font-size: 14px;
+
     max-width: 600px;
     margin: 30px 200px;
+
     text-align: center;
 }
 #calendar .clndr .clndr-controls
 {
     display: inline-block;
+
     width: 100%;
 }
 #calendar .clndr .clndr-controls .month
 {
     float: left;
+
     width: 33%;
+
     text-align: center;
 }
 #calendar .clndr .clndr-controls .clndr-control-button
 {
     float: left;
+
     width: 33%;
 }
 #calendar .clndr .clndr-table
 {
     width: 100%;
+
     table-layout: fixed;
 }
 #calendar .clndr .clndr-table .header-days
 {
     font-size: 10px;
+
     height: 30px;
 
     background: #0d70a6;
@@ -258,6 +288,7 @@ input[type=checkbox]
 {
     text-align: center;
     vertical-align: middle;
+
     color: #fff;
     border-top: 1px solid #000;
     border-left: 1px solid #000;
@@ -323,8 +354,10 @@ input[type=checkbox]
 #calendar .clndr .clndr-table tr .day .day-contents
 {
     font-size: 12px;
+
     box-sizing: border-box;
     padding: 8px;
+
     text-align: right;
 }
 #calendar .clndr .clndr-table tr .empty,
@@ -373,16 +406,17 @@ input[type=checkbox]
 }
 .levelThree
 {
-    background-color: #fff0f0;   
+    background-color: #fff0f0;
 }
 .levelFour
 {
-    background-color: #66ff66;
+    background-color: #6f6;
 }
 footer
 {
     width: 80%;
     height: 100px;
     margin: auto;
+
     background-color: #736aff;
 }

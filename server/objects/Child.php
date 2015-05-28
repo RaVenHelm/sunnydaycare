@@ -300,6 +300,18 @@
 
 	        return $this;
 		}
+
+		public function save()
+		{
+			global $database;
+
+			$sql = "UPDATE child SET firstname = ?, middlename = ?, lastname = ?, birthday = ?, gender = ?, comments = ?, stateassistance = ?, isactive = ? WHERE id = ?;";
+			$sth = $database->prepare($sql);
+
+			if (!$sth->execute(array($this->firstName, $this->middleName, $this->lastName, $this->dob, $this->gender, $this->comments, $this->hasStateAssistance, $this->isActive, $this->id))) {
+				return array("error" => "There was an error saving the record.");
+			}
+		}
 		
 		/*
 		 *

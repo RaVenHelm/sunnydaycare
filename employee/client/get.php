@@ -8,7 +8,7 @@ if(isset($_GET["search"])){
 		$id = $_GET["id"];
 
 		$alerts = Alert::getClient($id);
-
+		//var_dump($alerts);
     	$client = Client::find_one_id($id)->to_array();
 
     	$json = array('client' => $client, 'alerts' => $alerts);

@@ -7,12 +7,18 @@
 	
 	if(isset($_GET["submit"])){
 		$result = Child::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
-		if(!$result) {$msg = "<ul><li>No child found.</li></ul>";}
+		if(!$result) {$msg = "<ul><li>No child found.</li></ul>"; }
 	}
 
 	if(isset($_POST["update"])){
-		$child = Child($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["bday"], $_POST["gender"], isset($_POST["active"])? true :  false, null, isset($_POST["stateassistance"]) ? true : false, $_POST["comments"], null, null, null, null);
-		$msg = "Child Record Updated";
+		$child = new Child($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["bday"], $_POST["gender"], isset($_POST["isactive"]) ? true :  false, null, isset($_POST["stateassistance"]) ? true : false, $_POST["comments"], null, null, null, null);
+		
+		$child->setId($_POST["id"]);
+		// var_dump($_POST);
+		// var_dump($child);
+		$res = $child->save();
+		if(isset($res["error"])) $msg = $res["error"];
+		else $msg = "Child Saved: " . $child->getFullName();
 	}
 ?>
 
@@ -56,19 +62,21 @@
 						<?php } ?>
 				<?php } ?>
                 <div id="update" title="Child Data">
-                    <form id="registerForm" name="register" method="post" action="update.php" novalidate>
+                    <form id="updateForm" name="register" method="post" action="update.php" novalidate>
                         <label for="firstname">First Name: </label><br>
-						<input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+						<input type="text" name="firstname" id="form_firstname" placeholder="First Name" required><br>
                         <label for="middlename">Middle Name: </label><br>
-						<input type="text" name="middlename" id="middlename" placeholder="Middle Name"><br>
+						<input type="text" name="middlename" id="form_middlename" placeholder="Middle Name"><br>
                         <label for="lastname">Last Name: </label><br>
-						<input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
+						<input type="text" name="lastname" id="form_lastname" placeholder="Last Name" required><br>
 
                         <label for="bday">Birthday: (yyyy-mm-dd)</label><br>
-                        <input type="text" name="bday" id="bday" required><br><br>
+                        <input type="text" name="bday" id="bday" required><br>
+
+                        <div class="checkIn"></div><br>
 
                         <label for="isactive">Active?</label>
-            			<input type="checkbox" name="isactive" class="isactive"><br>
+            			<input type="checkbox" name="isactive" id="isactive"><br>
 
             			<label for="stateassistance">On state assistance?</label>
             			<input type="checkbox" name="stateassistance" id="assist"><br>
@@ -81,13 +89,16 @@
                             <option value="O">Other/Not disclosed</option>
                         </select><br>
 
-                        <label for="comments">Comments</label>
+                        <div class="pickupList">List of clients who can pickup child:<br></div><br>
+
+                        <label for="comments">Comments</label><br>
             			<textarea name="comments" class="comments" cols="30" rows="10"></textarea>
 
+						<input type="hidden" name="id" id="id">
 						<br><input type="submit" name="update" id="updateSubmit" value="Update" >
 					</form>
                 </div>
-				<div id="msg"><?php if(isset($msg)) echo $msg; ?></div>
+				<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 			</div>
 		</div>
 	</body>

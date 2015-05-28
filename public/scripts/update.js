@@ -60,19 +60,21 @@ $(document).ready(function () {
 			data: 'id=' + id,
 			success: function (data) {
 				var child = JSON.parse(data), childName = child.firstname + (child.middlename ? " " + child.middlename : "") +  " " + child.lastname, listName = "", isBillPayer = "", isPrimaryContact = "", i = 0;
-				$(".name").html(childName);
+				console.log(child);
+				$(".pickupList").html("");
+
+				$("#id").val(child.id);
+				$("#form_firstname").val(child.firstname);
+				$("#form_middlename").val(child.middlename);
+				$("#form_lastname").val(child.lastname);
 				$(".checkIn").html((child.checkedIn === "0" ? "<b>Checked Out</b>" : "<b>Checked In</b>"));
-				if (child.gender === "M") {
-					gender = "Male";
-				} else if (child.gender === "F") {
-					gender = "Female";
-				} else {
-					gender = "Other/Not given";
-				}
-				$(".gender").html(gender);
+				$("#bday").val(child.birthday);
+				$("#gender").val(child.gender);
 				$(".comments").html((child.comments ? child.comments : "No comments"));
+				$("#isactive").attr("checked", (child.isactive === "1" ? "checked" : ""));
+				$("#assist").attr("checked", (child.stateassistance === "1" ? "checked" : ""));
 				$(".pickupList").append("<ul>");
-				for (i = 0; i < child[0].length; i++) {
+				for (i; i < child[0].length; i++) {
 					listName = child[0][i].firstname + (child[0][i].middlename ? " " + child[0][i].middlename : "") + " " + child[0][i].lastname;
 					isBillPayer = (child[0][i].billpayer === "1") ? "<b>(Bill Payer)</b>" : "";
 					isPrimaryContact = (child[0][i].primarycontact === "1") ? "<b>(Primary Contact)</b>" : "";

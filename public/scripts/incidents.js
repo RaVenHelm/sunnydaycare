@@ -14,6 +14,7 @@ $(document).ready(function () {
 	clientAccordion.accordion(accordionOptions);
 	childAccordion.dialog(dialogOptions);
 	childAccordion.accordion(accordionOptions);
+	$("#result").css('height', '541.625px');
 	$("form").submit(function (event) {
 		var errors = [],
 			forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/\^&*!@#$%~]/),

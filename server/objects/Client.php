@@ -68,7 +68,6 @@ class Client {
 
     public function save(){
         global $database;
-        $msg = "";
 
         $sql = "UPDATE client SET firstname = :fname, middlename = :mname, lastname = :lname, gender = :gender, primarycontact = :primaryContact, billpayer = :bill, primaryphone = :primaryPhone, secondaryphone = :secondaryPhone, isactive = :active, relationship = :relation, stateassistance = :state, piclink = :link WHERE id = :id;";
         $sth = $database->prepare($sql);
@@ -301,15 +300,12 @@ class Client {
 
         $sth = $database->prepare($sql);
 
-
-
         if ($isBilling) {
             $params = array(':type' => 'Billing', ':address' => $this->billingAddr, ':id' => $this->id);
         } else {
             $params = array(':type' => 'Mailling', ':address' => $this->mailingAddr, ':id' => $this->id);
         }
 
-        //var_dump($this);
         return $sth->execute($params);
     }
 }
