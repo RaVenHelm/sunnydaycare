@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2015 at 10:49 AM
+-- Generation Time: May 28, 2015 at 03:09 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -85,25 +85,27 @@ CREATE TABLE IF NOT EXISTS `billing` (
   `datemade` date NOT NULL,
   `datedue` date NOT NULL,
   `total` float unsigned NOT NULL,
+  `amountPaid` float unsigned DEFAULT NULL,
   `Client_id` int(10) unsigned NOT NULL,
   `paymentdate` date DEFAULT NULL,
   `isFullyPaid` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`,`Client_id`),
   KEY `fk_Billing_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `billing`
 --
 
-INSERT INTO `billing` (`id`, `datemade`, `datedue`, `total`, `Client_id`, `paymentdate`, `isFullyPaid`) VALUES
-(1, '2015-02-01', '2015-03-01', 1280.24, 3, '2015-02-12', 1),
-(5, '2015-05-05', '2015-06-15', 1664, 3, NULL, 0),
-(7, '2015-05-15', '2015-06-15', 128, 7, NULL, 0),
-(8, '2015-05-15', '2015-06-15', 590, 4, NULL, 0),
-(9, '2015-05-15', '2015-06-15', 360, 20, NULL, 0),
-(10, '2015-05-15', '2015-06-15', 180, 8, NULL, 0),
-(11, '2015-05-22', '2015-06-22', 1324.8, 3, NULL, 0);
+INSERT INTO `billing` (`id`, `datemade`, `datedue`, `total`, `amountPaid`, `Client_id`, `paymentdate`, `isFullyPaid`) VALUES
+(1, '2015-02-01', '2015-03-01', 1280.24, 1280.24, 3, '2015-02-12', 1),
+(5, '2015-05-05', '2015-06-15', 1664, 1664, 3, '2015-05-28', 1),
+(7, '2015-05-15', '2015-06-15', 128, NULL, 7, NULL, 0),
+(8, '2015-05-15', '2015-06-15', 590, 90, 4, '2015-05-28', 1),
+(9, '2015-05-15', '2015-06-15', 360, 350, 20, '2015-05-28', 0),
+(10, '2015-05-15', '2015-06-15', 180, 180, 8, '2015-05-28', 1),
+(11, '2015-05-22', '2015-06-22', 1324.8, 1000, 3, '2015-05-28', 1),
+(16, '2015-05-28', '2015-06-28', 192, NULL, 32, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -131,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `charge` (
 
 CREATE TABLE IF NOT EXISTS `child` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `birthday` date NOT NULL DEFAULT '1970-01-01',
   `gender` varchar(10) DEFAULT NULL,
   `piclink` varchar(100) DEFAULT NULL,
   `checkedIn` tinyint(1) NOT NULL,
@@ -147,23 +150,23 @@ CREATE TABLE IF NOT EXISTS `child` (
 -- Dumping data for table `child`
 --
 
-INSERT INTO `child` (`id`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
-(2, 'F', '/pics/child/sally_smith042015.jpg', 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
-(3, 'F', NULL, 0, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
-(4, 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson'),
-(5, 'M', NULL, 0, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
-(6, 'F', NULL, 0, 'Yes, she''s named Bobina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
-(7, 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith'),
-(8, 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober'),
-(27, 'O', NULL, 0, NULL, 0, 1, 'Timmy', NULL, 'Turner'),
-(28, 'F', NULL, 0, NULL, 0, 1, 'Fresh', 'John', 'Prince'),
-(29, 'M', NULL, 0, NULL, 0, 1, 'Bobby', 'Hank', 'Hill'),
-(36, 'F', NULL, 0, NULL, 0, 1, 'Frankie', NULL, 'Fresh'),
-(38, 'M', NULL, 0, NULL, 0, 1, 'Firsty', NULL, 'Lasty'),
-(39, 'F', NULL, 0, NULL, 0, 1, 'Sammi', 'Bubbles', 'Smith'),
-(40, 'O', NULL, 0, NULL, 0, 1, 'Fraggle', NULL, 'Rock'),
-(41, 'O', NULL, 0, NULL, 0, 1, 'Harry', NULL, 'Solomon');
+INSERT INTO `child` (`id`, `birthday`, `gender`, `piclink`, `checkedIn`, `comments`, `stateassistance`, `isactive`, `firstname`, `middlename`, `lastname`) VALUES
+(1, '1970-01-01', 'M', NULL, 0, NULL, 0, 1, 'Jimmy', NULL, 'Smith'),
+(2, '1970-01-01', 'F', NULL, 0, NULL, 0, 1, 'Sally', 'Fields', 'Smith'),
+(3, '1970-01-01', 'F', NULL, 0, 'She''s my favorite!!! ', 1, 1, 'Anne', NULL, 'Hathaway'),
+(4, '1970-01-01', 'M', NULL, 0, 'He left because he was "Bad"...', 0, 0, 'Michael', NULL, 'Jackson'),
+(5, '1970-01-01', 'M', NULL, 0, 'This is Bob.', 0, 1, 'Bob', 'Macintyre', 'Schmeck'),
+(6, '1970-01-01', 'F', NULL, 0, 'Yes, she''s named Bobina.', 0, 1, 'Bobina', 'Francine', 'Goulae'),
+(7, '1970-01-01', 'F', NULL, 0, 'I am not the walrus', 0, 1, 'Lucy', NULL, 'Smith'),
+(8, '1970-01-01', 'M', NULL, 0, 'Here is a story, of a man named Brady...', 0, 1, 'Brady', 'Smith', 'Goober'),
+(27, '1970-01-01', 'O', NULL, 0, NULL, 0, 1, 'Timmy', NULL, 'Turner'),
+(28, '1970-01-01', 'F', NULL, 0, NULL, 0, 1, 'Fresh', 'John', 'Prince'),
+(29, '1970-01-01', 'M', NULL, 0, NULL, 0, 1, 'Bobby', 'Hank', 'Hill'),
+(36, '1970-01-01', 'F', NULL, 0, NULL, 0, 1, 'Frankie', NULL, 'Fresh'),
+(38, '1970-01-01', 'M', NULL, 0, NULL, 0, 1, 'Firsty', NULL, 'Lasty'),
+(39, '1970-01-01', 'F', NULL, 0, 'Here is a comment', 0, 1, 'Sammi', 'Bubbles', 'Smith'),
+(40, '1970-01-01', 'O', NULL, 0, NULL, 0, 1, 'Fraggle', NULL, 'Rock'),
+(41, '1970-01-01', 'O', NULL, 0, NULL, 0, 1, 'Harry', NULL, 'Solomon');
 
 -- --------------------------------------------------------
 
@@ -239,7 +242,7 @@ INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, 
 (5, 'M', NULL, 0, 1, '789-343-1000', '800-689-1022', 1, 'Father', 0, 'Mickey', NULL, 'Mouse'),
 (6, 'F', NULL, 0, 0, '789-343-1000', NULL, 1, 'Mother', 0, 'Minnie', NULL, 'Mouse'),
 (7, 'F', NULL, 1, 1, '5555550000', NULL, 1, 'Aunt', 1, 'Sue', NULL, 'Byron'),
-(8, 'M', NULL, 1, 1, '8880005555', '1011010000', 1, 'Uncle', 0, 'Casey', NULL, 'Jones'),
+(8, 'M', NULL, 1, 1, '8880005555', '1011010000', 1, 'Uncle', 1, 'Casey', NULL, 'Jones'),
 (9, 'F', NULL, 0, 0, '9008880606', '9008880707', 1, 'Mother', 0, 'Patricia', NULL, 'Goober'),
 (10, 'M', NULL, 0, 0, '1012023030', NULL, 0, 'Brother', 0, 'Tim', 'Toolman', 'Taylor'),
 (11, 'M', NULL, 1, 1, '1112223333', NULL, 1, 'Other', 1, 'Goofy', NULL, 'Dog'),
@@ -256,8 +259,7 @@ INSERT INTO `client` (`id`, `gender`, `piclink`, `primarycontact`, `billpayer`, 
 (32, 'M', NULL, 0, 1, '404-888-4343', NULL, 1, 'Grandfather', 0, 'Mister', NULL, 'MoneyBags'),
 (47, 'F', NULL, 1, 1, '867-090-0008', NULL, 1, 'Grandmother', 1, 'Melinda', NULL, 'Monroe'),
 (48, 'M', NULL, 1, 1, '(424)009-000', NULL, 1, 'Father', 0, 'Elton', 'Reginald', 'John'),
-(49, 'M', NULL, 1, 1, '(900)800-100', NULL, 1, 'Other', 1, 'Dick', NULL, 'Solomon'),
-(50, 'M', NULL, 1, 1, '(123)345-900', NULL, 1, 'Father', 1, '(badname)', NULL, 'Walker');
+(49, 'M', NULL, 1, 1, '(900)800-100', NULL, 1, 'Other', 1, 'Dick', NULL, 'Solomon');
 
 -- --------------------------------------------------------
 
@@ -272,7 +274,20 @@ CREATE TABLE IF NOT EXISTS `client alert` (
   `Client_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Client_id`),
   KEY `fk_Alert_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `client alert`
+--
+
+INSERT INTO `client alert` (`id`, `type`, `descrip`, `Client_id`) VALUES
+(15, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 3),
+(16, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 7),
+(17, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 4),
+(18, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 20),
+(19, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 8),
+(20, 'PaymentMissed', 'A payment has gone passed due! See Invoices for more information', 3),
+(21, 'Generic', 'Here is another alert', 8);
 
 -- --------------------------------------------------------
 
@@ -288,7 +303,14 @@ CREATE TABLE IF NOT EXISTS `client incident` (
   `Client_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`Client_id`),
   KEY `fk_Client Incident_Client1_idx` (`Client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `client incident`
+--
+
+INSERT INTO `client incident` (`id`, `type`, `descrip`, `date`, `Client_id`) VALUES
+(1, 'Scolding', 'He/she has been naughty\r\n~Santa', '2015-05-01', 22);
 
 -- --------------------------------------------------------
 
@@ -390,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `time` time NOT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `event`
@@ -404,7 +426,10 @@ INSERT INTO `event` (`id`, `title`, `date`, `time`, `description`) VALUES
 (6, 'Title', '2015-06-11', '15:00:00', 'Description'),
 (7, 'Holiday Dinner', '2015-12-09', '00:00:00', 'Come to the dinner party! Pot luck. See Cynthia for details'),
 (8, 'Halloween Jam', '2015-10-29', '12:00:00', 'Come in a costume '),
-(9, 'BBQ', '2015-05-30', '12:30:00', 'Here is a description');
+(9, 'BBQ', '2015-05-30', '12:30:00', 'Here is a description'),
+(10, 'Summer School Begins', '2015-06-10', '06:00:00', ''),
+(11, 'School Open House', '2015-06-10', '16:00:00', ''),
+(12, 'New School Term Luncheon', '2015-06-11', '12:00:00', 'Potluck. Bring Something!');
 
 -- --------------------------------------------------------
 
@@ -423,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   PRIMARY KEY (`id`,`Child_id`,`In_Client_id`),
   KEY `fk_Log_Child1_idx` (`Child_id`),
   KEY `fk_Log_Client1_idx` (`In_Client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `log`
@@ -443,7 +468,9 @@ INSERT INTO `log` (`id`, `Day`, `CheckIn`, `CheckOut`, `Child_id`, `In_Client_id
 (13, '2015-05-15', '08:11:26', '17:34:21', 29, 8, 8),
 (14, '2015-05-15', '08:11:53', '17:34:10', 28, 20, 20),
 (15, '2015-05-15', '08:12:25', '17:35:27', 36, 20, 17),
-(16, '2015-05-22', '18:44:48', '18:45:04', 1, 3, 3);
+(16, '2015-05-22', '18:44:48', '18:45:04', 1, 3, 3),
+(17, '2015-05-26', '11:34:38', '24:00:00', 8, 32, NULL),
+(18, '2015-05-26', '11:46:57', '24:00:00', 6, 8, NULL);
 
 -- --------------------------------------------------------
 
@@ -621,6 +648,12 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` EVENT `updateMidnight` ON SCHEDULE EVERY 1 DAY STARTS '2015-05-15 00:01:00' ON COMPLETION NOT PRESERVE ENABLE COMMENT 'Update log at mignight' DO BEGIN
 	UPDATE `log` SET CheckOut = '24:00:00' WHERE CheckOut IS NULL;
     UPDATE `child` SET checkedIn = FALSE WHERE 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `GetDelinquentPayments` ON SCHEDULE EVERY 1 WEEK STARTS '2015-05-19 13:15:00' ON COMPLETION NOT PRESERVE ENABLE COMMENT 'Every Week Add Delinquent Payments Alerts to Client Alerts' DO BEGIN
+	INSERT INTO `client alert` (Client_id)
+    SELECT `Client_id` FROM `billing` WHERE `isFullyPaid` = FALSE;
+    UPDATE `client alert` SET `type`='PaymentMissed', `descrip` = 'A payment has gone passed due! See Invoices for more information' WHERE `descrip` IS NULL AND `type` = "";
 END$$
 
 DELIMITER ;
