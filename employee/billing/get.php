@@ -7,9 +7,16 @@ if($_GET["search"]){
 	if (isset($_GET["id"])) {
 		$id = $_GET["id"];
 
-    	$invoices = Invoice::getAll($id);
+		if(isset($_GET["unpaid"])){
+			$invoices = Invoice::getAllUnpaid($id);
 
-    	echo json_encode($invoices, JSON_PRETTY_PRINT);
+			echo json_encode($invoices, JSON_PRETTY_PRINT);
+
+		} else {
+	    	$invoices = Invoice::getAll($id);
+
+	    	echo json_encode($invoices, JSON_PRETTY_PRINT);
+		}
 	}
 	else {
 		echo json_encode(false);

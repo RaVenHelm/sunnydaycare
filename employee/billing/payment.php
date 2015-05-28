@@ -5,28 +5,39 @@
 	include('../../server/objects/Invoice.php');
 	
 	if (!$session->is_logged_in()) { redirect_to('../login.php'); }
-	if ($_SESSION["permissions"] < 2) { redirect_to('../index.php'); }
 	if(isset($_GET["submit"])){
     	$result = Client::search(trim($_GET["firstname"]), (trim($_GET["middlename"]) == "" ? null : trim($_GET["middlename"])), trim($_GET["lastname"]));
 
     	if(!$result) $msg = "<ul><li>No client found.</li></ul>";
     }
-
-
-    if (isset($_POST["billing"])) {
-    	if($invoice = Invoice::create($_POST["id"], $_POST["startDate"], $_POST["endDate"])) {
-    		$msg = '<h4>Invoice Created:</h4><ul><li>Date Made: ' . $invoice["dateMade"] . '</li><li>Date Due: ' . $invoice["dueDate"] . '</li><li>Amount Due: $' . number_format($invoice["total"], 2, '.', '') . '</ul>';
-    	} else {
-    		$msg = '<p class="error">Could not create invoice</p>';
-    	}
-    }
+    if(isset($_POST["pay"]) && isset($_POST["payment"])){
+		$payments = $_POST["payment"];
+		foreach ($payments as $payment) {
+			foreach ($payment as $key => $value) {
+				$id = intval($key);
+				$due = floatval($value["due"]);
+				$pay = floatval($value["amount"]);
+				$paidOff = floatval($value["paidOff"]);
+				if($pay == 0.00){
+					continue;
+				} else {
+					$res = Invoice::pay($id, $due, $pay, $paidOff);
+					if (isset($res["error"])) {
+						$msg = $res["error"];
+					} else {
+						$msg = $res["success"];
+					}
+				}
+			}
+		}
+	}
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Sunny Day Care | Billing Page</title>
+	<title>Sunny Day Care | Payment Page</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
@@ -42,7 +53,7 @@
 		<div class="wrapper">
 			<?php include('../templates/userbar.php'); ?>
 			<div id="search">
-				<h2>Create Client Billing</h2>
+				<h2>Make a Payment</h2>
 		        <form id="lookup" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>" novalidate>
 		            <label for"firstname">First Name</label><br>
 		            <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
@@ -52,23 +63,19 @@
 		            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
 		            <input type="submit" name="submit" id="lookupSubmit" value="Search" >
 		        </form>
-		        <button><a href="view.php">View Billing Statements</a></button>
-		        <button><a href="payment.php">Make a Payment</a></button>
+		        <button id="back"><a href="index.php">Billing Home Page</a></button>
 			</div>
 			<div id="result">
 				<?php if(isset($result) && $result){ ?>
 		            <?php for($i = 0; $i < count($result); $i++) {?>
-		                <button class="clientSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
+		                <button class="paymentSingle" id="<?php echo $result[$i]["id"]; ?>" value="<?php echo $result[$i]["id"]; ?>"><?php echo $result[$i]["firstname"] . " " . $result[$i]["middlename"] . " " . $result[$i]["lastname"]; ?></button><br>
 		            <?php } ?>
 	        	<?php } ?>
 			</div>
-			<div id="accordion" title="Client Data">
-	            <form id="createBilling" method="post" name="billing" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	            	<label for="startEndDates"></label><br>
-	            	<input type="text" class="startEndDates" name="startDate" placeholder="Start Date" required><br>
-	            	<input type="text" class="startEndDates" name="endDate" placeholder="End Date" required><br>
-	            	<input type="hidden" name="id" id="id">
-	            	<input type="submit" name="billing" value="Submit">
+			<div id="accordion" title="Billing Data">
+	            <form id="paymentForm" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+	            	<h3 id="name"></h3>
+	            	<div id="invoices"></div>
 	            </form>
 	        </div>
 			<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>

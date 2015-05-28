@@ -23,6 +23,7 @@ class Invoice {
     	// For each Child id, search for logs, within start->end
     	for ($i=0; $i < count($childList); $i++) { 
 			$log = Invoice::getLog($childList[$i]["ChildId"], $start, $end);
+            //var_dump($log);
     		if($log !== []){
 	    		array_push($logs, Invoice::getLog($childList[$i]["ChildId"], $start, $end));
 			}
@@ -60,11 +61,12 @@ class Invoice {
 
     	$invoice['dueDate'] = $dueDate->format('Y-m-d');
 
+        var_dump($invoice);
     	if(!Invoice::add($invoice, $id)) {
     		return false;
     	}
 
-        $invoice['id'] = Invoice::getId($id, $dueDate);
+        $invoice['id'] = Invoice::getId($id, $invoice['dueDate']);
 
         return $invoice;
 
@@ -73,11 +75,43 @@ class Invoice {
     public static function add($invoice, $clientId) {
     	global $database;
 
-    	$sql = "INSERT INTO `billing` VALUES(NULL, :made, :due, :total, :id, NULL, FALSE);";
+    	$sql = "INSERT INTO `billing` VALUES(NULL, :made, :due, :total, NULL, :id, NULL, FALSE);";
 
     	$sth = $database->prepare($sql);
 
-    	return $sth->execute(array(':id' => $clientId, ':made' => $invoice["dateMade"], ':due' => $invoice["dueDate"], ':total' => $invoice["total"]));
+    	$result =  $sth->execute(array(':id' => $clientId, ':made' => $invoice["dateMade"], ':due' => $invoice["dueDate"], ':total' => $invoice["total"]));
+    
+        return $result;
+    }
+
+    public static function pay($invoiceId, $amtDue, $toPay, $paidOff)
+    {
+        global $database;
+
+        $amtDue = round($amtDue, 2);
+        $toPay = round($toPay, 2);
+        $paidOff = round($paidOff, 2);
+
+        if ($toPay < $amtDue) {
+            $sql = "UPDATE `billing` SET amountPaid = ?, paymentdate = CURDATE() WHERE id = ?;";
+
+            $sth = $database->prepare($sql);
+
+            $result = $sth->execute(array($paidOff + $toPay, $invoiceId));
+
+            return ($result) ? array("success" => "Payment Successful") : array("error" => "Could not update billing") ;
+        } else if ($toPay > $amtDue){
+            return array("error" => "Payment cannot be greater than amount due");
+        } else {
+            $sql = "UPDATE `billing` SET amountPaid = ?, paymentdate = CURDATE(), isFullyPaid = TRUE WHERE id = ?;";
+
+            $sth = $database->prepare($sql);
+
+            $result = $sth->execute(array($toPay, $invoiceId));
+
+            return ($result) ? array("success", "Payment Successful") : array("error", "Could not update billing") ;
+        }
+        
     }
 
     public static function getAll($clientId){
@@ -92,6 +126,21 @@ class Invoice {
     	} else {
     		return $sth->fetchAll(PDO::FETCH_ASSOC);
     	}
+    }
+
+    public static function getAllUnpaid($id)
+    {
+        global $database;
+
+        $sql = "SELECT * FROM `billing` WHERE Client_id = :id AND isFullyPaid = FALSE";
+
+        $sth = $database->prepare($sql);
+
+        if(!$sth->execute(array(':id' => $id))) {
+            return false;
+        } else {
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 
     public static function getId($clientId, $date) {
