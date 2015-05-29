@@ -4,10 +4,16 @@
 	require_once('../server/objects/Employee.php');
 	
 	if (!$session->is_logged_in()) { redirect_to('../login.php'); }
+	if($_SESSION["permissions"] != 4) { redirect_to('index.php'); }
 	if (isset($_POST["register"])) { //Form has been submitted
 		$middlename = $_POST["middlename"] == "" ? null : $_POST["middlename"];
 		$emp = new Employee(NULL, $_POST["firstname"], $middlename, $_POST["lastname"], $_POST["username"], $_POST["permissions"]);
-		echo $emp->add($_POST["password"]);
+		if($emp->add($_POST["password"])){
+			$name = $emp->getFullName();
+			$msg = "Success! Employee {$name} created!";
+		} else {
+			$msg = "Error: the employee was not created.";
+		}
 	}
 	else { //Form has not been submitted
 
@@ -21,7 +27,7 @@
 	<head>
 		<meta charset="utf-8">
 		
-
+		<title>Sunny Day Care | Register Employee</title>
 		<!-- Custom Styles-->
 		<link rel="Stylesheet" href="../public/styles/normalize.css" />
 		<link rel="Stylesheet" href="../public/styles/webpage.css" />

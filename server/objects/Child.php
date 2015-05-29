@@ -109,7 +109,7 @@
 						$return[$i] = $child;
 					}
 				}
-				return $return[0];
+				return $return;
 		}
 
 		public function setClientList($value){
@@ -181,13 +181,15 @@
 					}
 				} else {
 					//Check for log on that day
-					$sql = "SELECT id FROM log WHERE DATE(Day) = CURDATE() AND Child_id = :childId ;";
+					//Check if there is a checkout time
+					$sql = "SELECT id FROM log WHERE DATE(Day) = CURDATE() AND Child_id = :childId AND CheckOut IS NULL;";
 					$sth = $database->prepare($sql);
 					
 					if($sth->execute(array(':childId' => $childId))){
-						//Get the log id
-						$logId = $sth->fetch(PDO::FETCH_ASSOC);
-						$logId = $logId["id"];
+
+						//Check out is null, go ahead and checkout
+						$log = $sth->fetch(PDO::FETCH_ASSOC);
+						$logId = $log["id"];
 						
 						//Update the log file with checkout time
 						$sql = "UPDATE log SET CheckOut = :time, Out_Client_Id = :clientId WHERE id = :id";
@@ -207,8 +209,31 @@
 								return "Error updating child record, please contact webmaster";
 							}
 						}
-					} else { //No logs found for child on that day
-						return "There are no logs for the child today.";
+					} else { 
+						//No logs found for child on that day
+						//Create a new one
+						$sql = "INSERT INTO log (Day, CheckIn, Child_id, In_Client_id) VALUES (DATE(:date), :time, :childId, :clientId);";
+						$sth = $database->prepare($sql);
+						
+						//Bind params
+						$params = array(':date' => date('Y-m-d'), ':time' => date('H:i:s'), ':childId' => $childId, ':clientId' => $clientId);
+						
+						//Success on updating log
+						$result = $sth->execute($params);
+						
+						if($result){
+							//Set child record to checked in
+							$sql = "UPDATE child SET checkedIn = TRUE WHERE id = :id ;";
+							$sth = $database->prepare($sql);
+							//Success on checking in
+							if($sth->execute(array(':id' => $childId))){
+								return "Checked In on {$date} at {$time}";
+							} else {
+								return "Error updating child record, please contact webmaster";
+							}
+						} else { //Failure to update log
+							return "There was an error checking in, please try again.";
+						}
 					}
 				}
 			}

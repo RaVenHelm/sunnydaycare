@@ -51,9 +51,9 @@ $(document).ready(function () {
 	$(".checkInForm").submit(function (event) {
 		var id = 0, index = 0, errors = [];
 		errorElement.html("");
-		id = $("select option:selected").val();
+		id = $(this).children(".pickupSelect").val();
 		console.log(id);
-		if (!id) {
+		if (id === "") {
 			errors.push("Select the person on this list");
 		}
 		if (errors.length > 0) {
