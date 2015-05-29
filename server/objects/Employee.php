@@ -57,6 +57,33 @@
             }
         }
 
+        public static function search($firstname, $lastname) 
+        {
+        	global $database;
+
+        	$sql = "SELECT `id`, `firstname`, `middlename`, `lastname`, `username`,`permissions` FROM `employee` WHERE `firstname` LIKE ? AND `lastname` LIKE ?;";
+        	$stmt = $database->prepare($sql);
+
+        	if($stmt->execute(array(("%" . $firstname . "%"), ("%" . $lastname . "%")))){
+        		return $stmt->fetch(PDO::FETCH_ASSOC);
+        	} else {
+        		return array("error" => $stmt->errorInfo());
+        	}
+        }
+
+        public static function update($id, $user, $pass, $first, $middle, $last, $perm)
+        {
+        	global $database;
+
+        	$password = password_hash($pass, PASSWORD_BCRYPT);
+
+        	$sql = "UPDATE `employee` SET username = ?, password_hash = ?, firstname = ?, middlename = ?, lastname = ?, permissions = ? WHERE id = ?;";
+        	$sth = $database->prepare($sql);
+
+        	$params = array($user, $password, $first, $middle, $last, $perm, $id);
+        	return $sth->execute($params);
+        }
+
         public function add($pass)
         {
         	global $database;

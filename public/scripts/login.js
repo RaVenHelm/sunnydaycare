@@ -1,6 +1,6 @@
 $(document).ready(function () {
-	'use strict';
-	var errorElement = $("#error");
+    'use strict';
+    var errorElement = $("#error");
 	$("button, input[type=submit]").button();
 	errorElement.dialog({
 		modal: true,
@@ -18,7 +18,9 @@ $(document).ready(function () {
 		var errors = [],
 			max_length = 25,
 			min_length = 8,
-			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/\^@&$#*~]/),
+			forbidden = new RegExp(/[\[\(\);"'.,\\|\]\/\^]/),
+			username = new RegExp(/[a-zA-Z0-9]{8,25}/),
+			password = new RegExp(/[a-zA-Z0-9!@$#%_^&*\(\)~]{8,25}/),
 			index = 0;
 		//Clear out error div before reuse
 		errorElement.html("");

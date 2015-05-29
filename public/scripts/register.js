@@ -52,8 +52,11 @@ $(document).ready(function () {
 			}
 		}
 		if ($("#username") !== undefined && $("#password") !== undefined && $("#p_verify") !== undefined && $("#permissions") !== undefined) {
-			if (username.exec($("#username").val()) === null || password.exec($("#password").val()) === null || password.exec($("#p_verify").val()) !== null) {
-				errors.push
+			if (username.exec($("#username").val()) === null) {
+				errors.push("Username must be 8-25 letters and numbers");
+			}
+			if (password.exec($("#password").val()) === null || password.exec($("#p_verify").val()) !== null) {
+				errors.push("Password must be 8-25 characters long, at least one special character (!@#$%_^*)")
 			}
 		}
 		// $("input").each(function () {

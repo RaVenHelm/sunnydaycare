@@ -33,7 +33,7 @@
 					<li class="levelOne"><a href="events">Events</a></li>
 					<?php if($_SESSION["permissions"] >= 2){?>
 					<li class="levelTwo"><a href="incidents">Incidents</a></li>
-					<li class="levelTwo"><a href="alerts.php">Alerts</a></li>
+					<li class="levelTwo"><a href="alert/index.php">Alerts</a></li>
 					<li class="levelTwo"><a href="billing">Billing</a></li>
 					<?php } ?>
 					<?php if($_SESSION["permissions"] >= 3){ ?>
@@ -43,7 +43,7 @@
 					<?php } ?>
 					<?php if($_SESSION["permissions"] == 4){ ?>
 					<li class="levelFour"><a href="register.php">Create a new Employee</a></li>
-					<li class="levelFour"><a href="#">Edit Employee</a></li>
+					<li class="levelFour"><a href="update.php">Edit Employee</a></li>
 					<?php } ?>
 				</ul>
 			</div>

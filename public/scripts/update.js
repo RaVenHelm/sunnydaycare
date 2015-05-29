@@ -48,6 +48,44 @@ $(document).ready(function() {
             errorElement.dialog("open");
         }
     });
+    $("#updateForm").submit(function (event) {
+        var errors = [],
+            forbidden = new RegExp(/[\[\(\);:"'.,\\|\]\/@?<>\{\}\^`~\|%#!0-9]/),
+            phone = new RegExp(/^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/),
+            index = 0;
+        errorElement.html("");
+        if ($("#firstname").val().trim() === "" || $("#lastname").val().trim() === "") {
+            errors.push("First/Last name cannot be blank");
+        }
+        if (forbidden.exec($("#firstname").val().trim()) || forbidden.exec($("#middlename").val().trim()) || forbidden.exec($("#middlename").val().trim())) {
+            errors.push("Forbidden characters: " + ["[]", ",", "\\", ";", ":", ".", "|", "(", ")", "@", "?", "#"].join(" "));
+        }
+        if ($("#mailing").val() !== undefined || $("#billing").val() !== undefined) {
+            if ($("#mailing").val().trim() === "" || $("#billing").val().trim() === "") {
+                errors.push("Address cannot be blank");
+            }
+        }
+        if ($("#relationship").val() === "") {
+            errors.push("Relationship must be selected");
+        }
+        if ($(".phone").val() !== undefined) {
+            if (!phone.exec($(".phone").val().trim())) {
+                errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
+            }
+        }
+        if (phone.exec(!$("#primary").val().trim()) || !phone.exec($("#secondary").val().trim())) {
+            errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
+        }
+        if (errors.length > 0) {
+            event.preventDefault();
+            errorElement.append("<ul>");
+            for (index; index < errors.length; index++) {
+                errorElement.append("<li>" + errors[index] + "</li>");
+            }
+            errorElement.append("</ul>");
+            errorElement.dialog("open");
+        }
+    });
     $("#accordion").accordion({
         collapsible: true,
         active: false
