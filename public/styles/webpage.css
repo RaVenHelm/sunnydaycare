@@ -154,6 +154,16 @@ body
 {
     color: #000;
 }
+.alerts
+{
+    background-color: #53f5f5;
+}
+.alerts li
+{
+    padding: 10px;
+
+    list-style-type: none;
+}
 #loginForm
 {
     margin-top: 40px;

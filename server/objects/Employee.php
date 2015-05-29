@@ -1,5 +1,5 @@
 <?php 
-    require_once('../server/db/database.php');
+    require_once('..//server/db/database.php');
 	
     class Employee{
         
@@ -55,6 +55,19 @@
             } else {
                 return false;
             }
+        }
+
+        public function add($pass)
+        {
+        	global $database;
+	
+			$password = password_hash($pass, PASSWORD_BCRYPT);
+			
+			$sql = "INSERT INTO employee VALUES (NULL, :user, :pass, :first, :middle, :last, :perm)";
+			
+			$sth = $database->prepare($sql);
+			
+			return $sth->execute(array(':pass' => $password, ':user' => $this->userName, ':first' => $this->firstName, ':middle' =>  $this->middleName, ':last' => $this->lastName, ':perm' => $this->permissions));
         }
     }
 ?>

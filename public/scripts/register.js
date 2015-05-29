@@ -21,7 +21,9 @@ $(document).ready(function () {
 		//event.preventDefault();
 		var errors = [],
 			index = 0,
-			forbidden = new RegExp(/[\[;"'\\|\]\/@$%\^&!\(\)]/),
+			forbidden = new RegExp(/[\[;"'\\|\]\/@$%\^&!\(\)=]/),
+			username = new RegExp(/[a-zA-Z0-9]{8,25}/),
+			password = new RegExp(/[a-zA-Z0-9!@$#%_^&*\(\)~]{8,25}/),
 			birthday = new RegExp(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 			phone = new RegExp(/^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/);
 		//Clear previous errors
@@ -49,11 +51,16 @@ $(document).ready(function () {
 				errors.push("Phone number must be of the format: ###-###-#### or (###)###-####");
 			}
 		}
-		$("input").each(function () {
-			if (forbidden.exec($(this).val().trim())) {
-				errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
+		if ($("#username") !== undefined && $("#password") !== undefined && $("#p_verify") !== undefined && $("#permissions") !== undefined) {
+			if (username.exec($("#username").val()) === null || password.exec($("#password").val()) === null || password.exec($("#p_verify").val()) !== null) {
+				errors.push
 			}
-		});
+		}
+		// $("input").each(function () {
+		// 	if (forbidden.exec($(this).val().trim())) {
+		// 		errors.push("Forbidden characters: " + ["[]", ",", ";", "\"", "'", "\\", ".", "|", "(", ")"].join(" "));
+		// 	}
+		// });
 		if ($("#bday").val() !== undefined) {
 			if (!birthday.exec($("#bday").val().trim())) {
 				errors.push("Birthday must be in: yyyy-mm-dd format");
