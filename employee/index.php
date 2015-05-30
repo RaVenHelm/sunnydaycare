@@ -12,9 +12,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Sunny Day Care Employee</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+		<script src="../public/scripts/jquery-1.11.3.js"></script>
+		<link rel="stylesheet" href="../public/scripts/jquery-ui.min.css" />
+		<script src="../public/scripts/jquery-ui.min.js"></script>
 		<!-- Custom Styles-->
 		<link rel="Stylesheet" href="../public/styles/normalize.css" />
 		<link rel="Stylesheet" href="../public/styles/webpage.css" />

@@ -294,6 +294,7 @@
 
 	        // Get ID of the child
 	        $child = Child::find_one($this->firstName, $this->middleName, $this->lastName);
+	        $child = $child[0];
 	        $this->id = $child["child"]->getId();
 
 	        //Create Medical record

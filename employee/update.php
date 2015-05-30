@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8">
         <title>Sunny Day Care | Employee Edit</title>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="../public/scripts/jquery-ui.min.css" />
         <!-- Custom styles -->
         <link rel="Stylesheet" href="../public/styles/normalize.css" type="text/css"/>
         <link rel="Stylesheet" href="../public/styles/webpage.css" type="text/css" />
@@ -72,7 +72,7 @@
             </div>
         </div>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="../public/scripts/jquery-1.11.3.js"></script>
+    <script src="../public/scripts/jquery-ui.min.js"></script>
     <script src="../public/scripts/employee.js"></script>
 </html>

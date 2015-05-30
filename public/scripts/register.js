@@ -55,7 +55,7 @@ $(document).ready(function () {
 			if (username.exec($("#username").val()) === null) {
 				errors.push("Username must be 8-25 letters and numbers");
 			}
-			if (password.exec($("#password").val()) === null || password.exec($("#p_verify").val()) !== null) {
+			if (password.exec($("#password").val()) === null || password.exec($("#p_verify").val()) === null) {
 				errors.push("Password must be 8-25 characters long, at least one special character (!@#$%_^*)")
 			}
 		}

@@ -23,7 +23,6 @@ class Invoice {
     	// For each Child id, search for logs, within start->end
     	for ($i=0; $i < count($childList); $i++) { 
 			$log = Invoice::getLog($childList[$i]["ChildId"], $start, $end);
-            //var_dump($log);
     		if($log !== []){
 	    		array_push($logs, Invoice::getLog($childList[$i]["ChildId"], $start, $end));
 			}
@@ -61,7 +60,6 @@ class Invoice {
 
     	$invoice['dueDate'] = $dueDate->format('Y-m-d');
 
-        var_dump($invoice);
     	if(!Invoice::add($invoice, $id)) {
     		return false;
     	}

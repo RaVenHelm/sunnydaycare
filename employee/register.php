@@ -63,7 +63,7 @@
 					</form>
 				</div>
 			</div>
-		<div id="msg" title="Messge"><?php if(isset($msg)) echo $msg; ?></div>
+		<div id="msg" title="Message"><?php if(isset($msg)) echo $msg; ?></div>
 		<div id="error" title="Error"></div>
 	</body>
 
